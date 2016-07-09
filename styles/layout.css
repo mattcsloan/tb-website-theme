@@ -1,0 +1,155 @@
+body
+{
+  margin: 0;
+  padding: 0;
+  font-family: 'Lora', serif;
+}
+
+a
+{
+  color: #ec008c;
+  text-decoration: none;
+}
+
+a:hover
+{
+  color: #bd0070;
+  text-decoration: underline;
+}
+
+img
+{
+  max-width: 100% !important;
+}
+
+.wrapper
+{
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1600px;
+  padding: 12px 24px;
+  box-sizing: border-box;
+}
+
+.navigation
+{
+  background: #f5f5f5;
+  text-transform: uppercase;
+  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+}
+
+.navigation .wrapper
+{
+  max-width: 1150px;
+  padding: 0;
+}
+
+.navigation .wrapper:after
+{
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.navigation ul,
+.navigation li
+{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: 18px;
+}
+
+.navigation ul
+{
+  float: right;
+  font-size: 14px;
+}
+
+.navigation ul:first-child
+{
+  float: left;
+}
+
+.navigation ul:last-child
+{
+  font-size: 16px;
+  margin-right: 32px;
+  background: #fafafa;
+  border-right: 1px solid #eee;
+  border-left: 1px solid #eee;
+}
+
+.navigation ul:last-child li:first-child
+{
+  position: relative;
+}
+
+.navigation ul:last-child li:first-child:after
+{
+  content: '';
+  display: block;
+  width: 1px;
+  height: 24px;
+  background: #ef97bd;
+  position: absolute;
+  top: 50%;
+  margin-top: -12px;
+  right: 0; 
+}
+
+.navigation li
+{
+  display: block;
+  float: left;
+}
+
+.navigation a
+{
+  padding: 22px 13px;
+  display: block;
+}
+
+.navigation a:hover
+{
+  text-decoration: none;
+  background: #fefefe;
+  border-bottom: 2px solid #ec008c;
+  padding-bottom: 20px;
+}
+
+.header > .wrapper
+{
+  text-align: center;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.socials:after
+{
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.socials a
+{
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background: #f6b0ce url('../img/icons-social.png') no-repeat 0 0;
+  border-radius: 16px;
+  margin: 7px;
+}
+
+.socials a:hover
+{
+  background-color: #ec008c;
+}
+
+.socials a.social-fb { background-position: 0 0; }
+.socials a.social-pn { background-position: -32px 0; }
+.socials a.social-yt { background-position: -64px 0; }
+.socials a.social-tw { background-position: -96px 0; }
+.socials a.social-ig { background-position: -128px 0; }
+.socials a.social-vm { background-position: -160px 0; }
