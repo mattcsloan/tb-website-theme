@@ -599,3 +599,27 @@ input[type=submit]:hover, .btn:hover
   background: rgba(255,255,255,0.8);
   color: #ec008c;
 }
+
+/* =============================== VENDOR CATEGORY PAGE =============================== */
+
+.vendor-category .item
+{
+  float: left;
+  display: block;
+  width: 23%;
+  height: 444px;
+  margin: 0 1% 24px 1%;
+  background: #ccc; /* temp */
+}
+
+.vendor-category .item.signature
+{
+  width: 31.33%;
+}
+
+.vendor-category .item.classic,
+.vendor-category .item.basic
+{
+  height: 210px;
+}
+
