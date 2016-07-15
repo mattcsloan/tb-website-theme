@@ -607,9 +607,29 @@ input[type=submit]:hover, .btn:hover
   float: left;
   display: block;
   width: 23%;
-  height: 444px;
+  height: 384px;
   margin: 0 1% 24px 1%;
-  background: #ccc; /* temp */
+  background: #fff;
+  position: relative;
+  border: 1px solid #e2e2e2;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03)
+}
+
+.vendor-category .item:hover
+{
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05)
+}
+
+.vendor-category .item:hover img
+{
+  opacity: 0.8;
+}
+
+.vendor-category .item:hover strong
+{
+  color: #ec008c;
 }
 
 .vendor-category .item.signature
@@ -617,9 +637,86 @@ input[type=submit]:hover, .btn:hover
   width: 31.33%;
 }
 
+.vendor-category .item.signature:after
+{
+  content: 'Featured';
+  display: block;
+  position: absolute;
+  z-index: 10;
+  top: 16px;
+  right: 0;
+  padding: 6px 10px;
+  background: rgba(255,255,255,0.3);
+  text-shadow: 0 2px 2px rgba(0,0,0,0.1);
+  text-transform: uppercase;
+  color: #333;
+  font-weight: normal;
+}
+
 .vendor-category .item.classic,
 .vendor-category .item.basic
 {
-  height: 210px;
+  height: 180px;
+  box-shadow: none;
+  background: url('../img/vendor-heart-classic.png') no-repeat center 24px;
+}
+
+.vendor-category .item.basic
+{
+  background-image: url('../img/vendor-heart-basic.png');
+}
+
+.vendor-category .item.classic:hover,
+.vendor-category .item.basic:hover
+{
+  background-color: #fafafa;
+}
+
+.item-content
+{
+  position: absolute;
+  z-index: 10;
+  bottom: 0;
+  left: 0;
+  padding: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.item-content span,
+.item-content strong
+{
+  font-weight: bold;
+  display: block;
+  color: #000;
+  font-size: 18px;
+}
+
+.item-content span
+{
+  font-weight: normal;
+  color: #444;
+  font-size: 16px;
+}
+
+.item-content span.price-scale
+{
+  color: #ec008c;
+}
+
+.vendor-category .item img
+{
+  position: absolute;
+  top: 0;
+  left: 0; 
+  width: 150%;
+}
+
+.vendor-category .item.classic .item-content,
+.vendor-category .item.basic .item-content
+{
+  background-color: rgba(255,255,255,0.6);
+  text-align: center;
 }
 
