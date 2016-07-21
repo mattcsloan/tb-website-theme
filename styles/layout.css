@@ -121,9 +121,37 @@ input[type=submit]:hover, .btn:hover
   background: #fad5e5;
 }
 
+.btn.btn-light.strong
+{
+  border: 1px solid #ddd;
+  color: #111;
+}
+
+.btn.btn-light.strong:hover
+{
+  border-color: #ec008c;
+  color: #ec008c;
+  background: #fff;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.05);
+}
+
 .btn.btn-full
 {
   display: block;
+}
+
+.btn.btn-light.strong.btn-favorite
+{
+  background: transparent url('../img/icon-favorite.png') no-repeat right -37px;
+  padding-right: 52px;
+  padding-left: 16px;
+  min-width: auto;
+}
+
+.btn.btn-light.strong.btn-favorite:hover
+{
+  background-color: transparent;
+  background-position: right 0;
 }
 
 .wrapper
@@ -271,6 +299,20 @@ input[type=submit]:hover, .btn:hover
 .socials a.social-tw { background-position: -96px 0; }
 .socials a.social-ig { background-position: -128px 0; }
 .socials a.social-vm { background-position: -160px 0; }
+
+.socials.pink a
+{
+  background-color: transparent;
+  background-image: url('../img/icons-social-pink.png');
+  border: 1px solid transparent;
+  border-radius: 0;
+}
+
+.socials.pink a.social-fb:hover { background-position: 0 -32px; }
+.socials.pink a.social-pn:hover { background-position: -32px -32px; }
+.socials.pink a.social-yt:hover { background-position: -64px -32px; }
+.socials.pink a.social-tw:hover { background-position: -96px -32px; }
+.socials.pink a.social-ig:hover { background-position: -128px -32px; }
 
 .footer
 {
@@ -505,6 +547,23 @@ input[type=submit]:hover, .btn:hover
   margin-right: 0;
 }
 
+.columns .col
+{
+  float: left;
+  display: block;
+  box-sizing: border-box;
+}
+
+.columns .col.thirds
+{
+  width: 32%;
+  margin-right: 2%;
+}
+
+.columns .col.thirds:nth-child(3n)
+{
+  margin-right: 0;
+}
 /* =============================== HOME PAGE =============================== */
 
 .goodies .item
@@ -720,3 +779,157 @@ input[type=submit]:hover, .btn:hover
   text-align: center;
 }
 
+/* =============================== VENDOR INDIVIDUAL PAGE =============================== */
+
+.vendor-feature .main
+{
+  float: left;
+  width: 65%;
+  display: block;
+}
+
+.vendor-feature .secondary
+{
+  float: right;
+  width: 32%;
+  display: block;
+  text-align: center;
+}
+
+.vendor-feature h2
+{
+  font-size: 28px;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.feature-gallery img
+{
+  display: block;
+}
+
+.feature-gallery .feature-thumbs
+{
+  margin-top: 16px;
+}
+
+.feature-gallery .feature-thumbs:after
+{
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.feature-gallery .feature-thumbs a
+{
+  float: right;
+  margin-left: 16px;
+  width: 100px;
+}
+
+.feature-gallery .feature-thumbs a:hover img
+{
+  opacity: 0.8;
+  box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+}
+
+.vendor-details
+{
+  font-size: 20px;
+}
+
+.vendor-details div
+{
+  margin-bottom: 16px;
+}
+
+.vendor-contact a,
+.vendor-contact span
+{
+  padding-left: 28px;
+  background: url('../img/icons.png') no-repeat left top;
+  line-height: 32px;
+  display: inline-block;
+  float: left;
+}
+
+.vendor-contact a.vendor-web            { background-position: 0 0; }
+.vendor-contact a.vendor-web:hover      { background-position: -330px 0; }
+.vendor-contact span.vendor-phone       { background-position: 0 -32px; }
+.vendor-contact span.vendor-phone:hover { background-position: -330px -32px; }
+
+.vendor-contact span.vendor-phone
+{
+  float: right;
+}
+
+.vendor-contact:after
+{
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.action-bar.vendor-content
+{
+  text-align: left;
+}
+
+.action-bar.vendor-content .wrapper
+{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.vendor-content h3
+{
+  color: #ec008c;
+}
+
+ul.check-list
+{
+  margin: 10px 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.check-list li
+{
+  margin: 0 0 6px 0;
+  padding: 0 0 0 24px;
+  background: url('../img/icons.png') no-repeat -330px -64px;
+}
+
+ul.dotted-list
+{
+  margin: 10px 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.dotted-list li
+{
+  margin: 0 0 4px 0;
+  padding: 0 6px 0 16px;
+  display: inline;
+  position: relative;
+}
+
+ul.dotted-list li:before
+{
+  content: '•';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+ul.dotted-list li:first-child
+{
+  padding-left: 0;
+}
+
+ul.dotted-list li:first-child:before
+{
+  display: none;
+}
