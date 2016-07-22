@@ -1,3 +1,14 @@
+/*
+Theme Name: TB2017
+Theme URI: http://www.todaysbride.com/
+Description: Custom theme built for Today's Bride
+Author: Matt Sloan
+Author URI: http://sloaninteractive.com/
+Version: 1.0
+http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+*/
+
+@charset "utf-8";
 body
 {
   margin: 0;
@@ -81,7 +92,7 @@ input[type="text"]
   font-size: 16px;
 }
 
-input[type=submit], .btn
+input[type=submit], .btn, .footer-navigation a
 {
   background: #ec008c;
   color: #fff;
@@ -92,7 +103,7 @@ input[type=submit], .btn
   text-align: center;
 }
 
-input[type=submit]:hover, .btn:hover
+input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 {
   cursor: pointer;
   background: #f287b7;
@@ -100,7 +111,7 @@ input[type=submit]:hover, .btn:hover
   text-decoration: none;
 }
 
-.btn
+.btn, .footer-navigation a
 {
   display: inline-block;
   min-width: 150px;
@@ -149,7 +160,7 @@ input[type=submit]:hover, .btn:hover
 
 .btn.btn-light.strong.btn-favorite
 {
-  background: transparent url('../img/icon-favorite.png') no-repeat right -37px;
+  background: transparent url('img/icon-favorite.png') no-repeat right -37px;
   padding-right: 52px;
   padding-left: 16px;
   min-width: auto;
@@ -214,18 +225,18 @@ input[type=submit]:hover, .btn:hover
   line-height: 18px;
 }
 
-.navigation ul
+.navigation .wrapper > div
 {
   float: right;
   font-size: 13px;
 }
 
-.navigation ul:first-child
+.navigation .wrapper > div:first-child
 {
   float: left;
 }
 
-.navigation ul:last-child
+.navigation .wrapper > div:last-child
 {
   font-size: 15px;
   margin-right: 72px;
@@ -234,12 +245,12 @@ input[type=submit]:hover, .btn:hover
   border-left: 1px solid #eee;
 }
 
-.navigation ul:last-child li:first-child
+.navigation .wrapper > div:last-child li:first-child
 {
   position: relative;
 }
 
-.navigation ul:last-child li:first-child:after
+.navigation .wrapper > div:last-child li:first-child:after
 {
   content: '';
   display: block;
@@ -265,7 +276,9 @@ input[type=submit]:hover, .btn:hover
 }
 
 .navigation a:hover,
-.navigation a.active
+.navigation a.active,
+.navigation .current_page_item > a,
+.navigation .current_menu_item > a
 {
   text-decoration: none;
   background: #fff;
@@ -290,7 +303,7 @@ input[type=submit]:hover, .btn:hover
   display: inline-block;
   width: 32px;
   height: 32px;
-  background: #f6b0ce url('../img/icons-social.png') no-repeat 0 0;
+  background: #f6b0ce url('img/icons-social.png') no-repeat 0 0;
   border-radius: 16px;
   margin: 7px;
 }
@@ -310,7 +323,7 @@ input[type=submit]:hover, .btn:hover
 .socials.pink a
 {
   background-color: transparent;
-  background-image: url('../img/icons-social-pink.png');
+  background-image: url('img/icons-social-pink.png');
   border: 1px solid transparent;
   border-radius: 0;
 }
@@ -342,22 +355,30 @@ input[type=submit]:hover, .btn:hover
   background-color: #ec008c;
 }
 
-.footer-navigation
+.footer-navigation ul
 {
   display: flex;
-  margin-top: 12px;
+  margin: 12px 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-navigation li
+{
+  flex-grow: 1;
+  margin: 0 16px 0 0;
+  padding: 0;
+}
+
+.footer-navigation li:last-child
+{
+  margin-right: 0;
 }
 
 .footer-navigation .btn
 {
-  flex-grow: 1;
-  margin-right: 16px;
   min-width: auto;
-}
-
-.footer-navigation .btn:last-child
-{
-  margin-right: 0;
+  display: block;
 }
 
 .action-bar
@@ -739,12 +760,12 @@ input[type=submit]:hover, .btn:hover
 {
   height: 160px;
   box-shadow: none;
-  background: url('../img/vendor-heart-classic.png') no-repeat center 24px;
+  background: url('img/vendor-heart-classic.png') no-repeat center 24px;
 }
 
 .vendor-category .item.basic
 {
-  background-image: url('../img/vendor-heart-basic.png');
+  background-image: url('img/vendor-heart-basic.png');
 }
 
 .vendor-category .item.classic:hover,
@@ -877,7 +898,7 @@ input[type=submit]:hover, .btn:hover
 .vendor-contact span
 {
   padding-left: 28px;
-  background: url('../img/icons.png') no-repeat left top;
+  background: url('img/icons.png') no-repeat left top;
   line-height: 32px;
   display: inline-block;
   float: left;
@@ -926,7 +947,7 @@ ul.check-list li
 {
   margin: 0 0 6px 0;
   padding: 0 0 0 24px;
-  background: url('../img/icons.png') no-repeat -330px -64px;
+  background: url('img/icons.png') no-repeat -330px -64px;
 }
 
 ul.dotted-list
