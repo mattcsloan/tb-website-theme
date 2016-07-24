@@ -5,6 +5,31 @@ Version: 1.0
 License: GPLv2
 */
 
+function vendor_category_taxonomy() {
+  // set up labels
+  $labels = array(
+    'name'              => 'Vendor Categories',
+    'singular_name'     => 'Vendor Category',
+    'search_items'      => 'Search Vendor Categories',
+    'all_items'         => 'All Vendor Categories',
+    'edit_item'         => 'Edit Vendor Category',
+    'update_item'       => 'Update Vendor Category',
+    'add_new_item'      => 'Add New Vendor Category',
+    'new_item_name'     => 'New Vendor Category',
+    'menu_name'         => 'Vendor Categories'
+  );
+
+  // register taxonomy
+  register_taxonomy( 'vendorcat', 'vendor', array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'query_var' => true,
+    'show_admin_column' => true
+  ));
+}
+add_action( 'init', 'vendor_category_taxonomy' );
+
+
 function vendor_listings() {
   // set up labels
   $labels = array(
@@ -28,7 +53,7 @@ function vendor_listings() {
     'labels' => $labels,
     'public' => true,
     'supports' => array( 'title', 'editor', 'custom-fields', 'thumbnail','page-attributes' ),
-    'taxonomies' => array( 'post_tag', 'category' ), 
+    'taxonomies' => array( 'vendorcat' ), 
     'exclude_from_search' => false,
     'capability_type' => 'post',
     'hierarchical' => true,
