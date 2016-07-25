@@ -22,3 +22,12 @@
   display: block;
   line-height: 1.75em;
 }
+
+.vendor-form img
+{
+  display: block;
+  margin: 24px;
+  width: 140px;
+  padding: 4px;
+  border: 1px solid #ddd;
+}

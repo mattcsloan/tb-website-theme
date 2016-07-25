@@ -405,12 +405,12 @@ input[type=submit]:hover, .btn:hover
 
 .hero
 {
-  height: 515px;
+  height: 425px;
   border-top: 10px solid #ec008c;
   border-bottom: 10px solid #ec008c;
   text-align: center;
   color: #fff;
-  line-height: 515px;
+  line-height: 425px;
   background: #111;
 }
 

@@ -52,7 +52,7 @@ function vendor_listings() {
   register_post_type( 'vendor', array(
     'labels' => $labels,
     'public' => true,
-    'supports' => array( 'title', 'editor', 'custom-fields', 'thumbnail','page-attributes' ),
+    'supports' => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
     'taxonomies' => array( 'vendorcat' ), 
     'exclude_from_search' => false,
     'capability_type' => 'post',
@@ -85,67 +85,135 @@ add_action( 'init', 'vendor_listings' );
                 wp_nonce_field( basename( __FILE__ ), 'prfx_nonce' );
                 $prfx_stored_meta = get_post_meta( $post->ID );
                 ?>
+                <div class="vendor-form">
+                  <!-- Vendor Tier -->
+                  <p>
+                    <span class="prfx-row-title"><?php _e( 'Vendor Tier', 'prfx-textdomain' )?></span>
+                    <div class="prfx-row-content">
+                      <label for="vendor-tier-signature">
+                        <input type="radio" name="vendor-tier" id="vendor-tier-signature" value="vendor-tier-signature" <?php if ( isset ( $prfx_stored_meta['vendor-tier'] ) ) checked( $prfx_stored_meta['vendor-tier'][0], 'vendor-tier-signature' ); ?>>
+                        <?php _e( 'Signature', 'prfx-textdomain' )?>
+                      </label>
+                      <label for="vendor-tier-essentials">
+                        <input type="radio" name="vendor-tier" id="vendor-tier-essentials" value="vendor-tier-essentials" <?php if ( isset ( $prfx_stored_meta['vendor-tier'] ) ) checked( $prfx_stored_meta['vendor-tier'][0], 'vendor-tier-essentials' ); ?>>
+                        <?php _e( 'Essentials', 'prfx-textdomain' )?>
+                      </label>
+                      <label for="vendor-tier-classic">
+                        <input type="radio" name="vendor-tier" id="vendor-tier-classic" value="vendor-tier-classic" <?php if ( isset ( $prfx_stored_meta['vendor-tier'] ) ) checked( $prfx_stored_meta['vendor-tier'][0], 'vendor-tier-classic' ); ?>>
+                        <?php _e( 'Classic', 'prfx-textdomain' )?>
+                      </label>
+                      <label for="vendor-tier-basic">
+                        <input type="radio" name="vendor-tier" id="vendor-tier-basic" value="vendor-tier-basic" <?php if ( isset ( $prfx_stored_meta['vendor-tier'] ) ) checked( $prfx_stored_meta['vendor-tier'][0], 'vendor-tier-basic' ); ?>>
+                        <?php _e( 'Basic', 'prfx-textdomain' )?>
+                      </label>
+                    </div>
+                  </p>
 
-                <p>
-                  <label for="meta-text" class="prfx-row-title"><?php _e( 'Example Text Input', 'prfx-textdomain' )?></label>
-                  <input type="text" name="meta-text" id="meta-text" value="<?php if ( isset ( $prfx_stored_meta['meta-text'] ) ) echo $prfx_stored_meta['meta-text'][0]; ?>" />
-                </p>
+                  <!-- Vendor Logo -->
+                  <p>
+                    <label for="vendor-logo" class="prfx-row-title"><?php _e( 'Vendor Logo', 'prfx-textdomain' )?></label>
+                    <input type="button" id="vendor-logo-button" class="image-upload-button button" value="<?php _e( 'Choose or Upload an Image', 'prfx-textdomain' )?>" />
+                    <input id="vendor-logo" name="vendor-logo" type="text" value="<?php if ( isset ( $prfx_stored_meta['vendor-logo'] ) ) echo $prfx_stored_meta['vendor-logo'][0]; ?>" />
+                    <img id="vendorlogo" src="<?php if ( isset ( $prfx_stored_meta['vendor-logo'] ) ) echo $prfx_stored_meta['vendor-logo'][0]; ?>" alt="" />
+                  </p>
 
-                <p>
-                  <span class="prfx-row-title"><?php _e( 'Example Checkbox Input', 'prfx-textdomain' )?></span>
-                  <div class="prfx-row-content">
-                    <label for="meta-checkbox">
-                      <input type="checkbox" name="meta-checkbox" id="meta-checkbox" value="yes" <?php if ( isset ( $prfx_stored_meta['meta-checkbox'] ) ) checked( $prfx_stored_meta['meta-checkbox'][0], 'yes' ); ?> />
-                      <?php _e( 'Checkbox label', 'prfx-textdomain' )?>
+                  <!-- Vendor Locations -->
+                  <p>
+                    <label for="vendor-locations" class="prfx-row-title"><?php _e( 'Vendor Location', 'prfx-textdomain' )?></label>
+                    <input type="text" name="vendor-locations" id="vendor-locations" value="<?php if ( isset ( $prfx_stored_meta['vendor-locations'] ) ) echo $prfx_stored_meta['vendor-locations'][0]; ?>" />
+                  </p>
+
+                  <!-- Vendor Website Link -->
+                  <p>
+                    <label for="vendor-website-link" class="prfx-row-title">
+                      <?php _e( 'Vendor Website Link', 'prfx-textdomain' )?>
+                      <em class="description"> (Please include 'http://' or 'https://' in link)</em>
                     </label>
-                    <label for="meta-checkbox-two">
-                      <input type="checkbox" name="meta-checkbox-two" id="meta-checkbox-two" value="yes" <?php if ( isset ( $prfx_stored_meta['meta-checkbox-two'] ) ) checked( $prfx_stored_meta['meta-checkbox-two'][0], 'yes' ); ?> />
-                      <?php _e( 'Another checkbox', 'prfx-textdomain' )?>
-                    </label>
-                  </div>
-                </p>
+                    <input type="text" name="vendor-website-link" id="vendor-website-link" value="<?php if ( isset ( $prfx_stored_meta['vendor-website-link'] ) ) echo $prfx_stored_meta['vendor-website-link'][0]; ?>" />
+                  </p>
 
-                <p>
-                  <span class="prfx-row-title"><?php _e( 'Example Radio Buttons', 'prfx-textdomain' )?></span>
-                  <div class="prfx-row-content">
-                    <label for="meta-radio-one">
-                      <input type="radio" name="meta-radio" id="meta-radio-one" value="radio-one" <?php if ( isset ( $prfx_stored_meta['meta-radio'] ) ) checked( $prfx_stored_meta['meta-radio'][0], 'radio-one' ); ?>>
-                      <?php _e( 'Radio Option #1', 'prfx-textdomain' )?>
-                    </label>
-                    <label for="meta-radio-two">
-                      <input type="radio" name="meta-radio" id="meta-radio-two" value="radio-two" <?php if ( isset ( $prfx_stored_meta['meta-radio'] ) ) checked( $prfx_stored_meta['meta-radio'][0], 'radio-two' ); ?>>
-                      <?php _e( 'Radio Option #2', 'prfx-textdomain' )?>
-                    </label>
-                  </div>
-                </p>
+                  <!-- Vendor Phone Number -->
+                  <p>
+                    <label for="vendor-phone-number" class="prfx-row-title"><?php _e( 'Vendor Phone Number', 'prfx-textdomain' )?></label>
+                    <input type="text" name="vendor-phone-number" id="vendor-phone-number" value="<?php if ( isset ( $prfx_stored_meta['vendor-phone-number'] ) ) echo $prfx_stored_meta['vendor-phone-number'][0]; ?>" />
+                  </p>
 
-                <p>
-                  <label for="meta-select" class="prfx-row-title"><?php _e( 'Example Select Input', 'prfx-textdomain' )?></label>
-                  <select name="meta-select" id="meta-select">
-                    <option value="select-one" <?php if ( isset ( $prfx_stored_meta['meta-select'] ) ) selected( $prfx_stored_meta['meta-select'][0], 'select-one' ); ?>><?php _e( 'One', 'prfx-textdomain' )?></option>';
-                    <option value="select-two" <?php if ( isset ( $prfx_stored_meta['meta-select'] ) ) selected( $prfx_stored_meta['meta-select'][0], 'select-two' ); ?>><?php _e( 'Two', 'prfx-textdomain' )?></option>';
-                  </select>
-                </p>
+                  <!-- Vendor Testimonial -->
+                  <p>
+                    <label for="vendor-testimonial" class="prfx-row-title"><?php _e( 'Vendor Testimonial', 'prfx-textdomain' )?></label>
+                    <input type="text" name="vendor-testimonial" id="vendor-testimonial" value="<?php if ( isset ( $prfx_stored_meta['vendor-testimonial'] ) ) echo $prfx_stored_meta['vendor-testimonial'][0]; ?>" />
+                  </p>
 
-                <p>
-                  <label for="meta-textarea" class="prfx-row-title"><?php _e( 'Example Textarea Input', 'prfx-textdomain' )?></label>
-                  <textarea name="meta-textarea" id="meta-textarea"><?php if ( isset ( $prfx_stored_meta['meta-textarea'] ) ) echo $prfx_stored_meta['meta-textarea'][0]; ?></textarea>
-                </p>
+                  <h3>Vendor Social Links</h3>
 
-                <p>
-                  <label for="meta-color" class="prfx-row-title"><?php _e( 'Color Picker', 'prfx-textdomain' )?></label>
-                  <input name="meta-color" type="text" value="<?php if ( isset ( $prfx_stored_meta['meta-color'] ) ) echo $prfx_stored_meta['meta-color'][0]; ?>" class="meta-color" />
-                </p>
+                  <!-- Vendor Facebook -->
+                  <p>
+                    <label for="vendor-facebook" class="prfx-row-title"><?php _e( 'Vendor Facebook URL', 'prfx-textdomain' )?></label>
+                    <input type="text" name="vendor-facebook" id="vendor-facebook" value="<?php if ( isset ( $prfx_stored_meta['vendor-facebook'] ) ) echo $prfx_stored_meta['vendor-facebook'][0]; ?>" />
+                  </p>
+                  <!-- Vendor Pinterest -->
+                  <p>
+                    <label for="vendor-pinterest" class="prfx-row-title"><?php _e( 'Vendor Pinterest URL', 'prfx-textdomain' )?></label>
+                    <input type="text" name="vendor-pinterest" id="vendor-pinterest" value="<?php if ( isset ( $prfx_stored_meta['vendor-pinterest'] ) ) echo $prfx_stored_meta['vendor-pinterest'][0]; ?>" />
+                  </p>
+                  <!-- Vendor YouTube -->
+                  <p>
+                    <label for="vendor-youtube" class="prfx-row-title"><?php _e( 'Vendor YouTube URL', 'prfx-textdomain' )?></label>
+                    <input type="text" name="vendor-youtube" id="vendor-youtube" value="<?php if ( isset ( $prfx_stored_meta['vendor-youtube'] ) ) echo $prfx_stored_meta['vendor-youtube'][0]; ?>" />
+                  </p>
+                  <!-- Vendor Twitter -->
+                  <p>
+                    <label for="vendor-twitter" class="prfx-row-title"><?php _e( 'Vendor Twitter URL', 'prfx-textdomain' )?></label>
+                    <input type="text" name="vendor-twitter" id="vendor-twitter" value="<?php if ( isset ( $prfx_stored_meta['vendor-twitter'] ) ) echo $prfx_stored_meta['vendor-twitter'][0]; ?>" />
+                  </p>
+                  <!-- Vendor Facebook -->
+                  <p>
+                    <label for="vendor-instagram" class="prfx-row-title"><?php _e( 'Vendor Instagram URL', 'prfx-textdomain' )?></label>
+                    <input type="text" name="vendor-instagram" id="vendor-instagram" value="<?php if ( isset ( $prfx_stored_meta['vendor-instagram'] ) ) echo $prfx_stored_meta['vendor-instagram'][0]; ?>" />
+                  </p>
 
-                <p>
-                  <label for="meta-image" class="prfx-row-title"><?php _e( 'Example File Upload', 'prfx-textdomain' )?></label>
-                  <input type="button" id="meta-image-button" class="button" value="<?php _e( 'Choose or Upload an Image', 'prfx-textdomain' )?>" />
-                </p>
+                  <h3>Vendor Thumbnail Widgets</h3>
 
-                <p>
-                  <img name="meta-image" id="meta-image" src="<?php if ( isset ( $prfx_stored_meta['meta-image'] ) ) echo $prfx_stored_meta['meta-image'][0]; ?>" alt="" />
-                </p>
-               
+                  <!-- Thumbnail 1 Link URL -->
+                  <p>
+                    <label for="vendor-thumbnail-1-link" class="prfx-row-title"><?php _e( 'Thumbnail 1 Link URL', 'prfx-textdomain' )?></label>
+                    <input type="text" name="vendor-thumbnail-1-link" id="vendor-thumbnail-1-link" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-1-link'] ) ) echo $prfx_stored_meta['vendor-thumbnail-1-link'][0]; ?>" />
+                  </p>
+                  <!-- Thumbnail 1 Image Upload -->
+                  <p>
+                    <label for="vendor-thumbnail-1-image" class="prfx-row-title"><?php _e( 'Thumbnail 1 Image', 'prfx-textdomain' )?></label>
+                    <input type="button" id="vendor-thumbnail-1-image-button" class="image-upload-button button" value="<?php _e( 'Choose or Upload an Image', 'prfx-textdomain' )?>" />
+                    <input id="vendor-thumbnail-1-image" name="vendor-thumbnail-1-image" type="text" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-1-image'] ) ) echo $prfx_stored_meta['vendor-thumbnail-1-image'][0]; ?>" />
+                    <img id="image1" src="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-1-image'] ) ) echo $prfx_stored_meta['vendor-thumbnail-1-image'][0]; ?>" alt="" />
+                  </p>
+
+                  <!-- Thumbnail 2 Link URL -->
+                  <p>
+                    <label for="vendor-thumbnail-2-link" class="prfx-row-title"><?php _e( 'Thumbnail 2 Link URL', 'prfx-textdomain' )?></label>
+                    <input type="text" name="vendor-thumbnail-2-link" id="vendor-thumbnail-2-link" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-2-link'] ) ) echo $prfx_stored_meta['vendor-thumbnail-2-link'][0]; ?>" />
+                  </p>
+                  <!-- Thumbnail 2 Image Upload -->
+                  <p>
+                    <label for="vendor-thumbnail-2-image" class="prfx-row-title"><?php _e( 'Thumbnail 2 Image', 'prfx-textdomain' )?></label>
+                    <input type="button" id="vendor-thumbnail-2-image-button" class="image-upload-button button" value="<?php _e( 'Choose or Upload an Image', 'prfx-textdomain' )?>" />
+                    <input id="vendor-thumbnail-2-image" name="vendor-thumbnail-2-image" type="text" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-2-image'] ) ) echo $prfx_stored_meta['vendor-thumbnail-2-image'][0]; ?>" />
+                    <img id="image2" src="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-2-image'] ) ) echo $prfx_stored_meta['vendor-thumbnail-2-image'][0]; ?>" alt="" />
+                  </p>
+
+                  <!-- Thumbnail 3 Link URL -->
+                  <p>
+                    <label for="vendor-thumbnail-3-link" class="prfx-row-title"><?php _e( 'Thumbnail 3 Link URL', 'prfx-textdomain' )?></label>
+                    <input type="text" name="vendor-thumbnail-3-link" id="vendor-thumbnail-3-link" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-3-link'] ) ) echo $prfx_stored_meta['vendor-thumbnail-3-link'][0]; ?>" />
+                  </p>
+                  <!-- Thumbnail 3 Image Upload -->
+                  <p>
+                    <label for="vendor-thumbnail-3-image" class="prfx-row-title"><?php _e( 'Thumbnail 3 Image', 'prfx-textdomain' )?></label>
+                    <input type="button" id="vendor-thumbnail-3-image-button" class="image-upload-button button" value="<?php _e( 'Choose or Upload an Image', 'prfx-textdomain' )?>" />
+                    <input id="vendor-thumbnail-3-image" name="vendor-thumbnail-3-image" type="text" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-3-image'] ) ) echo $prfx_stored_meta['vendor-thumbnail-3-image'][0]; ?>" />
+                    <img id="image3" src="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-3-image'] ) ) echo $prfx_stored_meta['vendor-thumbnail-3-image'][0]; ?>" alt="" />
+                  </p>
+                </div>
+
 
                 <?php
               }
@@ -164,43 +232,96 @@ add_action( 'init', 'vendor_listings' );
                   return;
                 }
                
+                // Checks for input and saves if needed
+                if( isset( $_POST[ 'vendor-tier' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-tier', $_POST[ 'vendor-tier' ] );
+                }
+
+                // Checks for input and saves if needed
+                if( isset( $_POST[ 'vendor-logo' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-logo', $_POST[ 'vendor-logo' ] );
+                }
+
                 // Checks for input and sanitizes/saves if needed
-                if( isset( $_POST[ 'meta-text' ] ) ) {
-                  update_post_meta( $post_id, 'meta-text', sanitize_text_field( $_POST[ 'meta-text' ] ) );
+                if( isset( $_POST[ 'vendor-locations' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-locations', sanitize_text_field( $_POST[ 'vendor-locations' ] ) );
                 }
-                // Checks for input and saves
-                if( isset( $_POST[ 'meta-checkbox' ] ) ) {
-                  update_post_meta( $post_id, 'meta-checkbox', 'yes' );
-                } else {
-                  update_post_meta( $post_id, 'meta-checkbox', '' );
+
+                // Checks for input and sanitizes/saves if needed
+                if( isset( $_POST[ 'vendor-website-link' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-website-link', sanitize_text_field( $_POST[ 'vendor-website-link' ] ) );
                 }
-                 
-                // Checks for input and saves
-                if( isset( $_POST[ 'meta-checkbox-two' ] ) ) {
-                  update_post_meta( $post_id, 'meta-checkbox-two', 'yes' );
-                } else {
-                  update_post_meta( $post_id, 'meta-checkbox-two', '' );
+
+                // Checks for input and sanitizes/saves if needed
+                if( isset( $_POST[ 'vendor-phone-number' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-phone-number', sanitize_text_field( $_POST[ 'vendor-phone-number' ] ) );
                 }
+
+                // Checks for input and sanitizes/saves if needed
+                if( isset( $_POST[ 'vendor-testimonial' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-testimonial', sanitize_text_field( $_POST[ 'vendor-testimonial' ] ) );
+                }
+
+                // Checks for input and sanitizes/saves if needed
+                if( isset( $_POST[ 'vendor-facebook' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-facebook', sanitize_text_field( $_POST[ 'vendor-facebook' ] ) );
+                }
+
+                // Checks for input and sanitizes/saves if needed
+                if( isset( $_POST[ 'vendor-pinterest' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-pinterest', sanitize_text_field( $_POST[ 'vendor-pinterest' ] ) );
+                }
+
+                // Checks for input and sanitizes/saves if needed
+                if( isset( $_POST[ 'vendor-youtube' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-youtube', sanitize_text_field( $_POST[ 'vendor-youtube' ] ) );
+                }
+
+                // Checks for input and sanitizes/saves if needed
+                if( isset( $_POST[ 'vendor-twitter' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-twitter', sanitize_text_field( $_POST[ 'vendor-twitter' ] ) );
+                }
+
+                // Checks for input and sanitizes/saves if needed
+                if( isset( $_POST[ 'vendor-instagram' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-instagram', sanitize_text_field( $_POST[ 'vendor-instagram' ] ) );
+                }
+
+                // Checks for input and sanitizes/saves if needed
+                if( isset( $_POST[ 'vendor-thumbnail-1-link' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-thumbnail-1-link', sanitize_text_field( $_POST[ 'vendor-thumbnail-1-link' ] ) );
+                }
+
                 // Checks for input and saves if needed
-                if( isset( $_POST[ 'meta-radio' ] ) ) {
-                  update_post_meta( $post_id, 'meta-radio', $_POST[ 'meta-radio' ] );
+                if( isset( $_POST[ 'vendor-thumbnail-1-image' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-thumbnail-1-image', $_POST[ 'vendor-thumbnail-1-image' ] );
                 }
+
+                // Checks for input and sanitizes/saves if needed
+                if( isset( $_POST[ 'vendor-thumbnail-2-link' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-thumbnail-2-link', sanitize_text_field( $_POST[ 'vendor-thumbnail-2-link' ] ) );
+                }
+
                 // Checks for input and saves if needed
-                if( isset( $_POST[ 'meta-select' ] ) ) {
-                  update_post_meta( $post_id, 'meta-select', $_POST[ 'meta-select' ] );
+                if( isset( $_POST[ 'vendor-thumbnail-2-image' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-thumbnail-2-image', $_POST[ 'vendor-thumbnail-2-image' ] );
                 }
+
+                // Checks for input and sanitizes/saves if needed
+                if( isset( $_POST[ 'vendor-thumbnail-3-link' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-thumbnail-3-link', sanitize_text_field( $_POST[ 'vendor-thumbnail-3-link' ] ) );
+                }
+
                 // Checks for input and saves if needed
-                if( isset( $_POST[ 'meta-textarea' ] ) ) {
-                  update_post_meta( $post_id, 'meta-textarea', $_POST[ 'meta-textarea' ] );
+                if( isset( $_POST[ 'vendor-thumbnail-3-image' ] ) ) {
+                  update_post_meta( $post_id, 'vendor-thumbnail-3-image', $_POST[ 'vendor-thumbnail-3-image' ] );
                 }
-                // Checks for input and saves if needed
-                if( isset( $_POST[ 'meta-color' ] ) ) {
-                  update_post_meta( $post_id, 'meta-color', $_POST[ 'meta-color' ] );
-                }
+
                 // Checks for input and saves if needed
                 if( isset( $_POST[ 'meta-image' ] ) ) {
                   update_post_meta( $post_id, 'meta-image', $_POST[ 'meta-image' ] );
                 }
+
               }
               add_action( 'save_post', 'prfx_meta_save' );
               /**
@@ -213,17 +334,6 @@ add_action( 'init', 'vendor_listings' );
                 }
               }
               add_action( 'admin_print_styles', 'prfx_admin_styles' );
-              /**
-               * Loads the color picker javascript
-               */
-              function prfx_color_enqueue() {
-                global $typenow;
-                if( $typenow == 'vendor' ) {
-                  wp_enqueue_style( 'wp-color-picker' );
-                  wp_enqueue_script( 'meta-box-color-js', plugin_dir_url( __FILE__ ) . 'meta-box-color.js', array( 'wp-color-picker' ) );
-                }
-              }
-              add_action( 'admin_enqueue_scripts', 'prfx_color_enqueue' );
               /**
                * Loads the image management javascript
                */
