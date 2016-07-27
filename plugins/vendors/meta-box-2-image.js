@@ -7,7 +7,7 @@ jQuery(document).ready(function($){
   var meta_image_frame;
 
   // Runs when the image button is clicked.
-  $(document).on('click', '#vendor-logo-button', function(e){
+  $(document).on('click', '#vendor-thumbnail-2-image-button', function(e){
 
     // Prevents the default action from occuring.
     e.preventDefault();
@@ -34,8 +34,8 @@ jQuery(document).ready(function($){
       // Sends the attachment URL to our custom image input field.
 
 
-      $('#vendor-logo').val(media_attachment.url);
-      $('#vendor-logo-img').attr('src', media_attachment.url);
+      $('#vendor-thumbnail-2-image').val(media_attachment.url);
+      $('#vendor-thumbnail-2-img').attr('src', media_attachment.url);
 
     });
 

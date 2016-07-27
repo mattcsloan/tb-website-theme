@@ -3,19 +3,22 @@
   padding-bottom: 1em;
 }
 
-#prfx_meta p{
-  clear: both;
-}
-
 .prfx-row-title{
   display: block;
-  float: left;
-  width: 200px;
 }
 
 .prfx-row-content{
-  float: left;
   padding-bottom: 1em;
+  display: block;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #eee;
+}
+
+.prfx-row-content:after{
+  content: '';
+  display: block;
+  clear: both;
 }
 
 .prfx-row-content label{
@@ -26,8 +29,23 @@
 .vendor-form img
 {
   display: block;
-  margin: 24px;
-  width: 140px;
+  margin: 0 0 8px 24px;
+  width: 200px;
   padding: 4px;
   border: 1px solid #ddd;
+  float: right;
+}
+
+.vendor-form img[src=""] {
+   display: none;
+}
+
+.vendor-form input[type="text"],
+.vendor-form textarea {
+   width: 100%;
+   box-sizing: border-box;
+}
+
+.vendor-form textarea {
+   height: 80px;
 }
