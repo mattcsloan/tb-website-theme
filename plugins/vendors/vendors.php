@@ -137,7 +137,7 @@ function prfx_meta_callback( $post ) {
     <!-- Vendor Testimonial -->
     <p class="prfx-row-content">
       <label for="vendor-testimonial" class="prfx-row-title"><?php _e( 'Vendor Testimonial', 'prfx-textdomain' )?></label>
-      <textarea name="meta-vendor-testimonial" id="vendor-testimonial"><?php if ( isset ( $prfx_stored_meta['vendor-testimonial'] ) ) echo $prfx_stored_meta['vendor-testimonial'][0]; ?></textarea>
+      <textarea name="vendor-testimonial" id="vendor-testimonial"><?php if ( isset ( $prfx_stored_meta['vendor-testimonial'] ) ) echo $prfx_stored_meta['vendor-testimonial'][0]; ?></textarea>
     </p>
 
     <h3>Vendor Social Links</h3>
@@ -293,6 +293,10 @@ function vendor_thumbnail_1_meta_callback($post) {
   $prfx_stored_meta = get_post_meta( $post->ID );
   ?>
   <div class="vendor-form">
+    <p>
+      <label for="vendor-section-headline" class="prfx-row-title"><?php _e( 'Section Headline', 'prfx-textdomain' )?></label>
+      <input type="text" name="vendor-section-headline" id="vendor-section-headline" value="<?php if ( isset ( $prfx_stored_meta['vendor-section-headline'] ) ) { echo $prfx_stored_meta['vendor-section-headline'][0]; } else { echo 'Check Us Out'; } ?>" />
+    </p>
     <img id="vendor-thumbnail-1-img" src="<?php if(isset($prfx_stored_meta['vendor-thumbnail-1-image'])) echo $prfx_stored_meta['vendor-thumbnail-1-image'][0]; ?>" alt="" />
     <!-- Thumbnail 1 Link URL -->
     <p>
@@ -319,6 +323,11 @@ function vendor_thumbnail_1_meta_save( $post_id ) {
   // Exits script depending on save status
   if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
     return;
+  }
+ 
+  // Checks for input and sanitizes/saves if needed
+  if( isset( $_POST[ 'vendor-section-headline' ] ) ) {
+    update_post_meta( $post_id, 'vendor-section-headline', sanitize_text_field( $_POST[ 'vendor-section-headline' ] ) );
   }
  
   // Checks for input and sanitizes/saves if needed

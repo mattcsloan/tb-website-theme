@@ -16,6 +16,7 @@
     $vendor_youtube = get_post_meta( $postId, 'vendor-youtube', true );
     $vendor_twitter = get_post_meta( $postId, 'vendor-twitter', true );
     $vendor_instagram = get_post_meta( $postId, 'vendor-instagram', true );
+    $vendor_section_headline = get_post_meta( $postId, 'vendor-section-headline', true );
     $vendor_thumbnail_1_link = get_post_meta( $postId, 'vendor-thumbnail-1-link', true );
     $vendor_thumbnail_1_image = get_post_meta( $postId, 'vendor-thumbnail-1-image', true );
     $vendor_thumbnail_2_link = get_post_meta( $postId, 'vendor-thumbnail-2-link', true );
@@ -27,9 +28,7 @@
     $wysiwyg_meta_3 = get_post_meta( $postId, 'wysiwyg-meta-3', true );
 ?>
 
-<?php
-if( !empty($vendor_tier)) {
-?>
+<?php if( !empty($vendor_tier)) { ?>
     <div class="wrapper inner">
         <?php 
             $taxonomies = get_the_taxonomies();
@@ -47,7 +46,7 @@ if( !empty($vendor_tier)) {
               </div>
           <?php } ?> 
 
-          <div class="vendor-intro">
+          <div class="vendor-intro <?php if (!has_post_thumbnail()) { echo "no-media"; } ?>">
             <?php the_title('<h2>', '</h2>'); ?>
             <div class="vendor-details">
                 <?php if (!empty($vendor_locations)) { ?>
@@ -126,41 +125,70 @@ if( !empty($vendor_tier)) {
     <?php
         }
     ?>
-    <div class="wrapper inner">
-        <div class="vendor-testimonial">
-          <div class="columns">
-            <div class="col thirds">
-              <img class="vendor-logo" src="<?php echo $vendor_logo; ?>" alt="" />
-            </div>
-            <div class="col thirds two-thirds">
-              <?php echo $vendor_testimonial; ?>
-            </div>
-          </div>
-        </div>
-    </div>
-    <div class="action-bar vendor-screenshots">
+
+    <?php if (!empty($vendor_logo) || !empty($vendor_testimonial)) { ?>
         <div class="wrapper inner">
-          <h1>Check Us Out</h1>
-          <div class="columns">
-            <div class="col thirds">
-              <a href="<?php echo $vendor_thumbnail_1_link; ?>" target="_blank">
-                <img src="<?php echo $vendor_thumbnail_1_image; ?>" alt="" />
-              </a>
+            <div class="vendor-testimonial">
+              <div class="columns">
+                <?php if (!empty($vendor_logo)) { ?>
+                    <div class="col thirds">
+                      <img class="vendor-logo" src="<?php echo $vendor_logo; ?>" alt="" />
+                    </div>
+                <?php } ?>
+                <?php if (!empty($vendor_testimonial)) { ?>
+                    <div class="col thirds two-thirds">
+                      <?php echo $vendor_testimonial; ?>
+                    </div>
+                <?php } ?>
+              </div>
             </div>
-            <div class="col thirds">
-              <a href="<?php echo $vendor_thumbnail_2_link; ?>" target="_blank">
-                <img src="<?php echo $vendor_thumbnail_2_image; ?>" alt="" />
-              </a>
-            </div>
-            <div class="col thirds">
-              <a href="<?php echo $vendor_thumbnail_3_link; ?>" target="_blank">
-                <img src="<?php echo $vendor_thumbnail_3_image; ?>" alt="" />
-              </a>
-            </div>
-          </div>
         </div>
-    </div>
-<?php
-}
-?>
+    <?php } ?>
+
+    <?php if (!empty($vendor_thumbnail_1_link) || !empty($vendor_thumbnail_1_image) || !empty($vendor_thumbnail_2_link) || !empty($vendor_thumbnail_2_image) || !empty($vendor_thumbnail_3_link) || !empty($vendor_thumbnail_3_image)) { ?>
+        <div class="action-bar vendor-screenshots">
+            <div class="wrapper inner">
+              <?php if (!empty($vendor_section_headline)) { ?>
+                  <h1><?php echo $vendor_section_headline; ?></h1>
+              <?php } ?>
+              <div class="columns">
+                <?php if (!empty($vendor_thumbnail_1_link) || !empty($vendor_thumbnail_1_image)) { ?>
+                    <div class="col thirds">
+                        <a <?php if (!empty($vendor_thumbnail_1_link)) { echo 'href="' . $vendor_thumbnail_1_link . '"'; } ?> target="_blank">
+                            <?php if (!empty($vendor_thumbnail_1_image)) { ?>
+                                <img src="<?php echo $vendor_thumbnail_1_image; ?>" alt="" />
+                            <?php } else { ?>
+                                <span class="vendor-screenshot-link-only"><?php echo $vendor_thumbnail_1_link; ?></span>
+                            <?php } ?>
+                        </a>
+                    </div>
+                <?php } ?>
+                <?php if (!empty($vendor_thumbnail_2_link) || !empty($vendor_thumbnail_2_image)) { ?>
+                    <div class="col thirds">
+                        <a <?php if (!empty($vendor_thumbnail_2_link)) { echo 'href="' . $vendor_thumbnail_2_link . '"'; } ?> target="_blank">
+                            <?php if (!empty($vendor_thumbnail_2_image)) { ?>
+                                <img src="<?php echo $vendor_thumbnail_2_image; ?>" alt="" />
+                            <?php } else { ?>
+                                <span class="vendor-screenshot-link-only"><?php echo $vendor_thumbnail_2_link; ?></span>
+                            <?php } ?>
+                        </a>
+                    </div>
+                <?php } ?>
+                <?php if (!empty($vendor_thumbnail_3_link) || !empty($vendor_thumbnail_3_image)) { ?>
+                    <div class="col thirds">
+                        <a <?php if (!empty($vendor_thumbnail_3_link)) { echo 'href="' . $vendor_thumbnail_3_link . '"'; } ?> target="_blank">
+                            <?php if (!empty($vendor_thumbnail_3_image)) { ?>
+                                <img src="<?php echo $vendor_thumbnail_3_image; ?>" alt="" />
+                            <?php } else { ?>
+                                <span class="vendor-screenshot-link-only"><?php echo $vendor_thumbnail_3_link; ?></span>
+                            <?php } ?>
+                        </a>
+                    </div>
+                <?php } ?>
+              </div>
+            </div>
+        </div>
+    <?php } ?>
+
+<?php } ?>
 <?php get_footer(); ?>

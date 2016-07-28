@@ -839,6 +839,13 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   text-align: center;
 }
 
+.vendor-feature .vendor-intro.no-media
+{
+  float: none;
+  width: 66%;
+  margin: 0 auto;
+}
+
 .vendor-feature.vendor-basic .vendor-intro
 {
   float: left;
