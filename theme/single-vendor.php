@@ -22,156 +22,145 @@
     $vendor_thumbnail_2_image = get_post_meta( $postId, 'vendor-thumbnail-2-image', true );
     $vendor_thumbnail_3_link = get_post_meta( $postId, 'vendor-thumbnail-3-link', true );
     $vendor_thumbnail_3_image = get_post_meta( $postId, 'vendor-thumbnail-3-image', true );
-
-    // Checks and displays the retrieved value
-    if( !empty( $vendor_tier ) && $vendor_tier == 'signature' ) {
-        echo $vendor_tier;
-    }
+    $wysiwyg_meta_1 = get_post_meta( $postId, 'wysiwyg-meta-1', true );
+    $wysiwyg_meta_2 = get_post_meta( $postId, 'wysiwyg-meta-2', true );
+    $wysiwyg_meta_3 = get_post_meta( $postId, 'wysiwyg-meta-3', true );
 ?>
 
-<div class="wrapper inner">
-    <?php 
-        $taxonomies = get_the_taxonomies();
-        foreach ( $taxonomies as $taxonomy ) {
-            echo '<h1>' . $taxonomy . '</h1>';
+<?php
+if( !empty($vendor_tier)) {
+?>
+    <div class="wrapper inner">
+        <?php 
+            $taxonomies = get_the_taxonomies();
+            foreach ( $taxonomies as $taxonomy ) {
+                echo '<h1>' . $taxonomy . '</h1>';
+            }
+        ?>
+        <div class="vendor-feature vendor-<?php echo $vendor_tier; ?>">
+
+          <?php if (has_post_thumbnail() && $vendor_tier !== 'basic') { ?>
+              <div class="main">
+                <div class="feature-gallery">
+                  <?php the_post_thumbnail(); ?>
+                </div>
+              </div>
+          <?php } ?> 
+
+          <div class="vendor-intro">
+            <?php the_title('<h2>', '</h2>'); ?>
+            <div class="vendor-details">
+                <?php if (!empty($vendor_locations)) { ?>
+                    <div class="vendor-location"><?php echo $vendor_locations ?></div>
+                <?php } ?>
+                <?php if (!empty($vendor_website_link) || !empty($vendor_phone_number)) { ?>
+                    <div class="vendor-contact">
+                        <?php if (!empty($vendor_website_link)) { ?>
+                            <a class="vendor-web" href="<?php echo $vendor_website_link ?>" target="_blank">Website</a>
+                        <?php } ?>
+                        <?php if (!empty($vendor_phone_number)) { ?>
+                            <span class="vendor-phone"><?php echo $vendor_phone_number; ?></span>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
+            </div>
+            <!-- <p><a class="btn btn-light strong" href="#">Request A Quote</a></p> -->
+            <?php the_content(); ?>
+            <!-- <p><a class="btn btn-light strong btn-favorite" href="#">Favorite</a></p> -->
+            <?php if ($vendor_tier !== 'basic') { ?>
+                <div class="socials pink">
+                    <?php if (!empty($vendor_facebook)) { ?>
+                        <a class="social-fb" href="<?php echo $vendor_facebook; ?>" target="_blank"></a>
+                    <?php } ?>  
+                    <?php if (!empty($vendor_pinterest)) { ?>
+                        <a class="social-pn" href="<?php echo $vendor_pinterest; ?>" target="_blank"></a>
+                    <?php } ?>  
+                    <?php if (!empty($vendor_youtube)) { ?>
+                        <a class="social-yt" href="<?php echo $vendor_youtube; ?>" target="_blank"></a>
+                    <?php } ?>  
+                    <?php if (!empty($vendor_twitter)) { ?>
+                        <a class="social-tw" href="<?php echo $vendor_twitter; ?>" target="_blank"></a>
+                    <?php } ?>  
+                    <?php if (!empty($vendor_instagram)) { ?>
+                        <a class="social-ig" href="<?php echo $vendor_instagram; ?>" target="_blank"></a>
+                    <?php } ?>  
+                </div>
+            <?php } ?> 
+          </div>
+        </div>
+    </div>
+    <?php
+        if( (!empty($wysiwyg_meta_1) || !empty($wysiwyg_meta_2) || !empty($wysiwyg_meta_3)) && ($vendor_tier === 'signature' ||  $vendor_tier === 'essentials')) {
+    ?>
+            <div class="action-bar vendor-content">
+                <div class="wrapper inner columns">
+                    <?php 
+                        if(!empty($wysiwyg_meta_1)) {
+                    ?>
+                          <div class="col thirds">
+                            <?php echo $wysiwyg_meta_1; ?>
+                          </div>
+                    <?php
+                        }
+                    ?>
+                    <?php 
+                        if(!empty($wysiwyg_meta_2)) {
+                    ?>
+                          <div class="col thirds">
+                            <?php echo $wysiwyg_meta_2; ?>
+                          </div>
+                    <?php
+                        }
+                    ?>
+                    <?php 
+                        if(!empty($wysiwyg_meta_3)) {
+                    ?>
+                          <div class="col thirds">
+                            <?php echo $wysiwyg_meta_3; ?>
+                          </div>
+                    <?php
+                        }
+                    ?>
+                </div>
+            </div> 
+    <?php
         }
     ?>
-    <div class="vendor-feature">
-      <div class="main">
-        <div class="feature-gallery">
-
-          <?php 
-            if (has_post_thumbnail()) {
-                the_post_thumbnail();
-            }
-          ?>
-          <!-- 
-          <div class="feature-thumbs">
-            <a href="#">
-              <img src="content-img/vendor-feature.jpg" alt="" />
-            </a>
-            <a href="#">
-              <img src="content-img/vendor-feature.jpg" alt="" />
-            </a>
-            <a href="#">
-              <img src="content-img/vendor-feature.jpg" alt="" />
-            </a>
-            <a href="#">
-              <img src="content-img/vendor-feature.jpg" alt="" />
-            </a>
-          </div>
-           -->
-        </div>
-      </div>
-      <div class="secondary">
-        <?php the_title('<h2>', '</h2>'); ?>
-        <div class="vendor-details">
-          <div class="vendor-location"><?php echo $vendor_locations ?></div>
-          <div class="vendor-contact">
-            <a class="vendor-web" href="<?php echo $vendor_website_link ?>" target="_blank">Website</a>
-            <span class="vendor-phone"><?php echo $vendor_phone_number; ?></span>
-          </div>
-        </div>
-        <!-- <p><a class="btn btn-light strong" href="#">Request A Quote</a></p> -->
-        <?php the_content(); ?>
-        <!-- <p><a class="btn btn-light strong btn-favorite" href="#">Favorite</a></p> -->
-        <div class="socials pink">
-          <a class="social-fb" href="<?php echo $vendor_facebook; ?>" target="_blank"></a>
-          <a class="social-pn" href="<?php echo $vendor_pinterest; ?>" target="_blank"></a>
-          <a class="social-yt" href="<?php echo $vendor_youtube; ?>" target="_blank"></a>
-          <a class="social-tw" href="<?php echo $vendor_twitter; ?>" target="_blank"></a>
-          <a class="social-ig" href="<?php echo $vendor_instagram; ?>" target="_blank"></a>
-        </div>
-      </div>
-    </div>
-</div>
-<!-- 
-<div class="action-bar vendor-content">
-    <div class="wrapper inner columns">
-      <div class="col thirds">
-        <h3>Designers</h3>
-        <ul class="dotted-list">
-          <li>Wedding Gowns</li>
-          <li>Bridesmaid Dresses</li>
-          <li>Flower Girl Dresses</li>
-          <li>Mother of the Bride Dresses</li>
-          <li>Dry Cleaning</li>
-          <li>Dress Preservation</li>
-          <li>Group Discounts</li>
-          <li>QuinceaÑera Dresses</li>
-          <li>Mother of the Bride Dresses</li>
-          <li>Dry Cleaning</li>
-          <li>Dress Preservation</li>
-          <li>Group Discounts</li>
-          <li>Bridesmaid Dresses</li>
-          <li>Flower Girl Dresses</li>
-          <li>Mother of the Bride Dresses</li>
-          <li>Wedding Gowns</li>
-          <li>Bridesmaid Dresses</li>
-        </ul>
-      </div>
-      <div class="col thirds">
-        <h3>Highlights</h3>
-        <ul class="check-list">
-          <li>Wedding Gowns</li>
-          <li>Bridesmaid Dresses</li>
-          <li>Flower Girl Dresses</li>
-          <li>Mother of the Bride Dresses</li>
-          <li>Dry Cleaning</li>
-          <li>Dress Preservation</li>
-          <li>Group Discounts</li>
-          <li>QuinceaÑera Dresses</li>
-        </ul>
-      </div>
-      <div class="col thirds">
-        <h3>See Us</h3>
-        <ul class="check-list">
-          <li>Today’s Bride Magazine • Spring 2016</li>
-          <li>Today’s Bride Wedding Show • 07/08/16</li>
-          <li>Today’s Bride Wedding Show • 8/28/16</li>
-          <li>Today’s Bride Wedding Show • 10/16/16</li>
-          <li>Today’s Bride Wedding Show • 01/08/17</li>
-          <li>Today’s Bride Wedding Show • 01/14-15/17</li>
-        </ul>
-        <h3>Location</h3>
-        <p>Visit our <a href="#" target="_blank">website</a> for a location near you.</p>
-      </div>
-    </div>
-</div> 
--->
-<div class="wrapper inner">
-    <div class="vendor-testimonial">
-      <div class="columns">
-        <div class="col thirds">
-          <img class="vendor-logo" src="<?php echo $vendor_logo; ?>" alt="" />
-        </div>
-        <div class="col thirds two-thirds">
-          <?php echo $vendor_testimonial; ?>
-        </div>
-      </div>
-    </div>
-</div>
-<div class="action-bar vendor-screenshots">
     <div class="wrapper inner">
-      <h1>Check Us Out</h1>
-      <div class="columns">
-        <div class="col thirds">
-          <a href="<?php echo $vendor_thumbnail_1_link; ?>" target="_blank">
-            <img src="<?php echo $vendor_thumbnail_1_image; ?>" alt="" />
-          </a>
+        <div class="vendor-testimonial">
+          <div class="columns">
+            <div class="col thirds">
+              <img class="vendor-logo" src="<?php echo $vendor_logo; ?>" alt="" />
+            </div>
+            <div class="col thirds two-thirds">
+              <?php echo $vendor_testimonial; ?>
+            </div>
+          </div>
         </div>
-        <div class="col thirds">
-          <a href="<?php echo $vendor_thumbnail_2_link; ?>" target="_blank">
-            <img src="<?php echo $vendor_thumbnail_2_image; ?>" alt="" />
-          </a>
-        </div>
-        <div class="col thirds">
-          <a href="<?php echo $vendor_thumbnail_3_link; ?>" target="_blank">
-            <img src="<?php echo $vendor_thumbnail_3_image; ?>" alt="" />
-          </a>
-        </div>
-      </div>
     </div>
-</div>
-
+    <div class="action-bar vendor-screenshots">
+        <div class="wrapper inner">
+          <h1>Check Us Out</h1>
+          <div class="columns">
+            <div class="col thirds">
+              <a href="<?php echo $vendor_thumbnail_1_link; ?>" target="_blank">
+                <img src="<?php echo $vendor_thumbnail_1_image; ?>" alt="" />
+              </a>
+            </div>
+            <div class="col thirds">
+              <a href="<?php echo $vendor_thumbnail_2_link; ?>" target="_blank">
+                <img src="<?php echo $vendor_thumbnail_2_image; ?>" alt="" />
+              </a>
+            </div>
+            <div class="col thirds">
+              <a href="<?php echo $vendor_thumbnail_3_link; ?>" target="_blank">
+                <img src="<?php echo $vendor_thumbnail_3_image; ?>" alt="" />
+              </a>
+            </div>
+          </div>
+        </div>
+    </div>
+<?php
+}
+?>
 <?php get_footer(); ?>

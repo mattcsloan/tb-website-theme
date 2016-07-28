@@ -831,20 +831,20 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   display: block;
 }
 
-.vendor-feature .primary
-{
-  float: left;
-  width: 66%;
-  display: block;
-  text-align: left;
-}
-
-.vendor-feature .secondary
+.vendor-feature .vendor-intro
 {
   float: right;
   width: 32%;
   display: block;
   text-align: center;
+}
+
+.vendor-feature.vendor-basic .vendor-intro
+{
+  float: left;
+  width: 66%;
+  display: block;
+  text-align: left;
 }
 
 .vendor-feature h2

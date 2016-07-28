@@ -87,19 +87,19 @@ function prfx_meta_callback( $post ) {
       <span class="prfx-row-title"><?php _e( 'Vendor Tier', 'prfx-textdomain' )?></span>
       <div class="prfx-row-content">
         <label for="vendor-tier-signature">
-          <input type="radio" name="vendor-tier" id="vendor-tier-signature" value="signature" <?php if ( isset ( $prfx_stored_meta['vendor-tier'] ) ) checked( $prfx_stored_meta['vendor-tier'][0], 'vendor-tier-signature' ); ?>>
+          <input type="radio" name="vendor-tier" id="vendor-tier-signature" value="signature" <?php if ( isset ( $prfx_stored_meta['vendor-tier'] ) ) checked( $prfx_stored_meta['vendor-tier'][0], 'signature' ); ?>>
           <?php _e( 'Signature', 'prfx-textdomain' )?>
         </label>
         <label for="vendor-tier-essentials">
-          <input type="radio" name="vendor-tier" id="vendor-tier-essentials" value="essentials" <?php if ( isset ( $prfx_stored_meta['vendor-tier'] ) ) checked( $prfx_stored_meta['vendor-tier'][0], 'vendor-tier-essentials' ); ?>>
+          <input type="radio" name="vendor-tier" id="vendor-tier-essentials" value="essentials" <?php if ( isset ( $prfx_stored_meta['vendor-tier'] ) ) checked( $prfx_stored_meta['vendor-tier'][0], 'essentials' ); ?>>
           <?php _e( 'Essentials', 'prfx-textdomain' )?>
         </label>
         <label for="vendor-tier-classic">
-          <input type="radio" name="vendor-tier" id="vendor-tier-classic" value="classic" <?php if ( isset ( $prfx_stored_meta['vendor-tier'] ) ) checked( $prfx_stored_meta['vendor-tier'][0], 'vendor-tier-classic' ); ?>>
+          <input type="radio" name="vendor-tier" id="vendor-tier-classic" value="classic" <?php if ( isset ( $prfx_stored_meta['vendor-tier'] ) ) checked( $prfx_stored_meta['vendor-tier'][0], 'classic' ); ?>>
           <?php _e( 'Classic', 'prfx-textdomain' )?>
         </label>
         <label for="vendor-tier-basic">
-          <input type="radio" name="vendor-tier" id="vendor-tier-basic" value="basic" <?php if ( isset ( $prfx_stored_meta['vendor-tier'] ) ) checked( $prfx_stored_meta['vendor-tier'][0], 'vendor-tier-basic' ); ?>>
+          <input type="radio" name="vendor-tier" id="vendor-tier-basic" value="basic" <?php if ( isset ( $prfx_stored_meta['vendor-tier'] ) ) checked( $prfx_stored_meta['vendor-tier'][0], 'basic' ); ?>>
           <?php _e( 'Basic', 'prfx-textdomain' )?>
         </label>
       </div>
@@ -519,4 +519,145 @@ function vendor_thumbnail_3_enqueue() {
   }
 }
 add_action( 'admin_enqueue_scripts', 'vendor_thumbnail_3_enqueue' );
+
+
+
+
+
+
+// ======================================================== //
+// ======================================================== //
+// ========== Vendor Content Section 1 Meta Box =========== //
+// ======================================================== //
+// ======================================================== //
+
+function wysiwyg_meta_1() {
+  add_meta_box( 'wysiwyg_meta_1', __( 'Text Editor', 'prfx-textdomain' ), 'wysiwyg_meta_1_callback', 'vendor' );
+}
+add_action( 'add_meta_boxes', 'wysiwyg_meta_1' );
+
+function wysiwyg_meta_1_callback($post) {
+  wp_nonce_field( basename( __FILE__ ), 'prfx_nonce' );
+  $prfx_stored_meta = get_post_meta( $post->ID );
+
+  if ( isset ( $prfx_stored_meta['wysiwyg-meta-1'] ) ) {
+    $content = $prfx_stored_meta['wysiwyg-meta-1'][0];
+  } else {
+    $content = '';
+  }
+  $editor_id = 'wysiwyg-meta-1';
+  wp_editor( $content, $editor_id );
+}
+
+function wysiwyg_meta_1_save( $post_id ) {
+  // Checks save status
+  $is_autosave = wp_is_post_autosave( $post_id );
+  $is_revision = wp_is_post_revision( $post_id );
+  $is_valid_nonce = ( isset( $_POST[ 'prfx_nonce' ] ) && wp_verify_nonce( $_POST[ 'prfx_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+ 
+  // Exits script depending on save status
+  if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
+    return;
+  }
+ 
+  // Checks for input and saves if needed
+  if( isset( $_POST[ 'wysiwyg-meta-1' ] ) ) {
+    update_post_meta( $post_id, 'wysiwyg-meta-1', $_POST[ 'wysiwyg-meta-1' ] );
+  }
+}
+add_action( 'save_post', 'wysiwyg_meta_1_save' );
+
+
+
+
+
+
+// ======================================================== //
+// ======================================================== //
+// ========== Vendor Content Section 2 Meta Box =========== //
+// ======================================================== //
+// ======================================================== //
+
+function wysiwyg_meta_2() {
+  add_meta_box( 'wysiwyg_meta_2', __( 'Text Editor', 'prfx-textdomain' ), 'wysiwyg_meta_2_callback', 'vendor' );
+}
+add_action( 'add_meta_boxes', 'wysiwyg_meta_2' );
+
+function wysiwyg_meta_2_callback($post) {
+  wp_nonce_field( basename( __FILE__ ), 'prfx_nonce' );
+  $prfx_stored_meta = get_post_meta( $post->ID );
+
+  if ( isset ( $prfx_stored_meta['wysiwyg-meta-2'] ) ) {
+    $content = $prfx_stored_meta['wysiwyg-meta-2'][0];
+  } else {
+    $content = '';
+  }
+  $editor_id = 'wysiwyg-meta-2';
+  wp_editor( $content, $editor_id );
+}
+
+function wysiwyg_meta_2_save( $post_id ) {
+  // Checks save status
+  $is_autosave = wp_is_post_autosave( $post_id );
+  $is_revision = wp_is_post_revision( $post_id );
+  $is_valid_nonce = ( isset( $_POST[ 'prfx_nonce' ] ) && wp_verify_nonce( $_POST[ 'prfx_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+ 
+  // Exits script depending on save status
+  if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
+    return;
+  }
+ 
+  // Checks for input and saves if needed
+  if( isset( $_POST[ 'wysiwyg-meta-2' ] ) ) {
+    update_post_meta( $post_id, 'wysiwyg-meta-2', $_POST[ 'wysiwyg-meta-2' ] );
+  }
+}
+add_action( 'save_post', 'wysiwyg_meta_2_save' );
+
+
+
+
+
+// ======================================================== //
+// ======================================================== //
+// ========== Vendor Content Section 3 Meta Box =========== //
+// ======================================================== //
+// ======================================================== //
+
+function wysiwyg_meta_3() {
+  add_meta_box( 'wysiwyg_meta_3', __( 'Text Editor', 'prfx-textdomain' ), 'wysiwyg_meta_3_callback', 'vendor' );
+}
+add_action( 'add_meta_boxes', 'wysiwyg_meta_3' );
+
+function wysiwyg_meta_3_callback($post) {
+  wp_nonce_field( basename( __FILE__ ), 'prfx_nonce' );
+  $prfx_stored_meta = get_post_meta( $post->ID );
+
+  if ( isset ( $prfx_stored_meta['wysiwyg-meta-3'] ) ) {
+    $content = $prfx_stored_meta['wysiwyg-meta-3'][0];
+  } else {
+    $content = '';
+  }
+  $editor_id = 'wysiwyg-meta-3';
+  wp_editor( $content, $editor_id );
+}
+
+function wysiwyg_meta_3_save( $post_id ) {
+  // Checks save status
+  $is_autosave = wp_is_post_autosave( $post_id );
+  $is_revision = wp_is_post_revision( $post_id );
+  $is_valid_nonce = ( isset( $_POST[ 'prfx_nonce' ] ) && wp_verify_nonce( $_POST[ 'prfx_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+ 
+  // Exits script depending on save status
+  if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
+    return;
+  }
+ 
+  // Checks for input and saves if needed
+  if( isset( $_POST[ 'wysiwyg-meta-3' ] ) ) {
+    update_post_meta( $post_id, 'wysiwyg-meta-3', $_POST[ 'wysiwyg-meta-3' ] );
+  }
+}
+add_action( 'save_post', 'wysiwyg_meta_3_save' );
+
 ?>
