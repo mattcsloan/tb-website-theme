@@ -1,13 +1,13 @@
-#prfx_meta{
+#tb_meta{
   overflow: hidden;
   padding-bottom: 1em;
 }
 
-.prfx-row-title{
+.tb-row-title{
   display: block;
 }
 
-.prfx-row-content{
+.tb-row-content{
   padding-bottom: 1em;
   display: block;
   margin-bottom: 24px;
@@ -15,13 +15,13 @@
   border-bottom: 1px solid #eee;
 }
 
-.prfx-row-content:after{
+.tb-row-content:after{
   content: '';
   display: block;
   clear: both;
 }
 
-.prfx-row-content label{
+.tb-row-content label{
   display: block;
   line-height: 1.75em;
 }
