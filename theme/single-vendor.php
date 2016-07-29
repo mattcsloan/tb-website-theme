@@ -30,12 +30,7 @@
 
 <?php if( !empty($vendor_tier)) { ?>
     <div class="wrapper inner">
-        <?php 
-            $taxonomies = get_the_taxonomies();
-            foreach ( $taxonomies as $taxonomy ) {
-                echo '<h1>' . $taxonomy . '</h1>';
-            }
-        ?>
+        <h1><?php echo the_taxonomies(array('template' => '% %l')); ?></h1>
         <div class="vendor-feature vendor-<?php echo $vendor_tier; ?>">
 
           <?php if (has_post_thumbnail() && $vendor_tier !== 'basic') { ?>
@@ -129,18 +124,16 @@
     <?php if ((!empty($vendor_logo) || !empty($vendor_testimonial)) && ($vendor_tier === 'signature' ||  $vendor_tier === 'essentials')) { ?>
         <div class="wrapper inner">
             <div class="vendor-testimonial">
-              <div class="columns">
                 <?php if (!empty($vendor_logo)) { ?>
-                    <div class="col thirds">
-                      <img class="vendor-logo" src="<?php echo $vendor_logo; ?>" alt="" />
+                    <div class="vendor-logo">
+                        <img src="<?php echo $vendor_logo; ?>" alt="" />
                     </div>
                 <?php } ?>
                 <?php if (!empty($vendor_testimonial)) { ?>
-                    <div class="col thirds two-thirds">
+                    <div class="vendor-testimonial-content">
                       <?php echo $vendor_testimonial; ?>
                     </div>
                 <?php } ?>
-              </div>
             </div>
         </div>
     <?php } ?>

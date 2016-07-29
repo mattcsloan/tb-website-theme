@@ -951,6 +951,7 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 .vendor-content h3
 {
   color: #ec008c;
+  display: block;
 }
 
 ul.check-list
@@ -1005,6 +1006,47 @@ ul.dotted-list li:first-child:before
 {
   border: 1px solid #e2e2e2;
   padding: 24px;
+  display: flex;
+}
+
+.vendor-testimonial .vendor-logo
+{
+  width: 32%;
+}
+
+.vendor-testimonial .vendor-logo img
+{
+  display: block;
+  margin: 0 auto;
+}
+
+.vendor-testimonial .vendor-testimonial-content
+{
+  width: 68%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  font-size: 18px;
+  color: #888;
+  font-style: oblique;
+}
+
+.vendor-testimonial .vendor-testimonial-content:before,
+.vendor-testimonial .vendor-testimonial-content:after
+{
+  content: open-quote;
+  font-size: 48px;
+  padding: 0 10px 0 0;
+  color: #ccc;
+}
+
+.vendor-testimonial .vendor-testimonial-content:after
+{
+  content: close-quote;
+  padding: 0 0 0 4px;
 }
 
 .vendor-screenshots a img
