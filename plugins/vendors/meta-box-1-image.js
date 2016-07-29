@@ -1,7 +1,9 @@
 /*
  * Attaches the image uploader to the input field
  */
-jQuery(document).ready(function($){
+
+ var $ = jQuery;
+$(document).ready(function($){
 
   // Instantiates the variable that holds the media library frame.
   var meta_image_frame;
@@ -32,14 +34,29 @@ jQuery(document).ready(function($){
       var media_attachment = meta_image_frame.state().get('selection').first().toJSON();
 
       // Sends the attachment URL to our custom image input field.
-
-
       $('#vendor-thumbnail-1-image').val(media_attachment.url);
       $('#vendor-thumbnail-1-img').attr('src', media_attachment.url);
-
+      // displayDeleteButton();
     });
 
     // Opens the media library frame.
     meta_image_frame.open();
   });
+
+  // displayDeleteButton();
+
+  $(document).on('click', '#vendor-thumbnail-1-image-delete', function() {
+      $('#vendor-thumbnail-1-image').val('');
+      $('#vendor-thumbnail-1-img').attr('src', '');
+      // displayDeleteButton();
+  });
 });
+
+function displayDeleteButton() {
+  var imgLink = $('#vendor-thumbnail-1-image').val();
+  if(!imgLink || imgLink === '') {
+    $('#media-delete-btn-1').hide();
+  } else {
+    $('#media-delete-btn-1').show();
+  }
+}

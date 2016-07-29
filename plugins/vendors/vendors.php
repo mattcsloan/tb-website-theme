@@ -106,12 +106,17 @@ function prfx_meta_callback( $post ) {
     </p>
 
     <!-- Vendor Logo -->
-    <p class="prfx-row-content">
+    <div class="vendor-media-preview">
       <img id="vendor-logo-img" src="<?php if ( isset ( $prfx_stored_meta['vendor-logo'] ) ) echo $prfx_stored_meta['vendor-logo'][0]; ?>" alt="" />
-      <label for="vendor-logo" class="prfx-row-title"><?php _e( 'Vendor Logo', 'prfx-textdomain' )?></label>
-      <input type="button" id="vendor-logo-button" class="image-upload-button button" value="<?php _e( 'Choose or Upload an Image', 'prfx-textdomain' )?>" />
-      <input id="vendor-logo" name="vendor-logo" type="hidden" value="<?php if ( isset ( $prfx_stored_meta['vendor-logo'] ) ) echo $prfx_stored_meta['vendor-logo'][0]; ?>" />
-    </p>
+      <p class="prfx-row-content">
+        <label for="vendor-logo" class="prfx-row-title"><?php _e( 'Vendor Logo', 'prfx-textdomain' )?></label>
+        <input type="button" id="vendor-logo-button" class="image-upload-button button" value="<?php _e( 'Choose or Upload an Image', 'prfx-textdomain' )?>" />
+        <input id="vendor-logo" name="vendor-logo" type="hidden" value="<?php if ( isset ( $prfx_stored_meta['vendor-logo'] ) ) echo $prfx_stored_meta['vendor-logo'][0]; ?>" />
+        <span class="media-delete-btn" id="media-delete-btn-logo">
+          <input id="vendor-logo-image-delete" type="button" class="button" value="<?php _e( 'Remove Image', 'prfx-textdomain' )?>" />
+        </span>
+      </p>
+    </div>
 
     <!-- Vendor Locations -->
     <p class="prfx-row-content">
@@ -261,7 +266,7 @@ function prfx_image_enqueue() {
     wp_enqueue_media();
  
     // Registers and enqueues the required javascript.
-    wp_register_script( 'meta-box-image', plugin_dir_url( __FILE__ ) . 'meta-box-image.js', array( 'jquery' ) );
+    wp_register_script( 'meta-box-image', plugin_dir_url( __FILE__ ) . 'meta-box-vendor-logo.js', array( 'jquery' ) );
     wp_localize_script( 'meta-box-image', 'meta_image',
       array(
         'title' => __( 'Choose or Upload an Image', 'prfx-textdomain' ),
@@ -293,22 +298,27 @@ function vendor_thumbnail_1_meta_callback($post) {
   $prfx_stored_meta = get_post_meta( $post->ID );
   ?>
   <div class="vendor-form">
-    <p>
-      <label for="vendor-section-headline" class="prfx-row-title"><?php _e( 'Section Headline', 'prfx-textdomain' )?></label>
-      <input type="text" name="vendor-section-headline" id="vendor-section-headline" value="<?php if ( isset ( $prfx_stored_meta['vendor-section-headline'] ) ) { echo $prfx_stored_meta['vendor-section-headline'][0]; } else { echo 'Check Us Out'; } ?>" />
-    </p>
-    <img id="vendor-thumbnail-1-img" src="<?php if(isset($prfx_stored_meta['vendor-thumbnail-1-image'])) echo $prfx_stored_meta['vendor-thumbnail-1-image'][0]; ?>" alt="" />
-    <!-- Thumbnail 1 Link URL -->
-    <p>
-      <label for="vendor-thumbnail-1-link" class="prfx-row-title"><?php _e( 'Thumbnail 1 Link URL', 'prfx-textdomain' )?></label>
-      <input type="text" name="vendor-thumbnail-1-link" id="vendor-thumbnail-1-link" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-1-link'] ) ) echo $prfx_stored_meta['vendor-thumbnail-1-link'][0]; ?>" />
-    </p>
-    <!-- Thumbnail 1 Image Upload -->
-    <p>
-      <label for="vendor-thumbnail-1-image" class="prfx-row-title"><?php _e( 'Thumbnail 1 Image', 'prfx-textdomain' )?></label>
-      <input type="button" id="vendor-thumbnail-1-image-button" class="button" value="<?php _e( 'Choose or Upload an Image', 'prfx-textdomain' )?>" />
-      <input id="vendor-thumbnail-1-image" name="vendor-thumbnail-1-image" type="hidden" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-1-image'] ) ) echo $prfx_stored_meta['vendor-thumbnail-1-image'][0]; ?>" />
-    </p>
+    <div class="vendor-media-preview">
+      <p>
+        <label for="vendor-section-headline" class="prfx-row-title"><?php _e( 'Section Headline', 'prfx-textdomain' )?></label>
+        <input type="text" name="vendor-section-headline" id="vendor-section-headline" value="<?php if ( isset ( $prfx_stored_meta['vendor-section-headline'] ) ) { echo $prfx_stored_meta['vendor-section-headline'][0]; } else { echo 'Check Us Out'; } ?>" />
+      </p>
+      <img id="vendor-thumbnail-1-img" src="<?php if(isset($prfx_stored_meta['vendor-thumbnail-1-image'])) echo $prfx_stored_meta['vendor-thumbnail-1-image'][0]; ?>" alt="" />
+      <!-- Thumbnail 1 Link URL -->
+      <p>
+        <label for="vendor-thumbnail-1-link" class="prfx-row-title"><?php _e( 'Thumbnail 1 Link URL', 'prfx-textdomain' )?></label>
+        <input type="text" name="vendor-thumbnail-1-link" id="vendor-thumbnail-1-link" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-1-link'] ) ) echo $prfx_stored_meta['vendor-thumbnail-1-link'][0]; ?>" />
+      </p>
+      <!-- Thumbnail 1 Image Upload -->
+      <p>
+        <label for="vendor-thumbnail-1-image" class="prfx-row-title"><?php _e( 'Thumbnail 1 Image', 'prfx-textdomain' )?></label>
+        <input type="button" id="vendor-thumbnail-1-image-button" class="button" value="<?php _e( 'Choose or Upload an Image', 'prfx-textdomain' )?>" />
+        <input id="vendor-thumbnail-1-image" name="vendor-thumbnail-1-image" type="hidden" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-1-image'] ) ) echo $prfx_stored_meta['vendor-thumbnail-1-image'][0]; ?>" />
+      </p>
+      <p class="media-delete-btn" id="media-delete-btn-1">
+        <input id="vendor-thumbnail-1-image-delete" type="button" class="button" value="<?php _e( 'Remove Image', 'prfx-textdomain' )?>" />
+      </p>
+    </div>
   </div>
   <?php
 }
@@ -386,18 +396,23 @@ function vendor_thumbnail_2_meta_callback($post) {
   $prfx_stored_meta = get_post_meta( $post->ID );
   ?>
   <div class="vendor-form">
-    <img id="vendor-thumbnail-2-img" src="<?php if(isset($prfx_stored_meta['vendor-thumbnail-2-image'])) echo $prfx_stored_meta['vendor-thumbnail-2-image'][0]; ?>" alt="" />
-    <!-- Thumbnail 2 Link URL -->
-    <p>
-      <label for="vendor-thumbnail-2-link" class="prfx-row-title"><?php _e( 'Thumbnail 2 Link URL', 'prfx-textdomain' )?></label>
-      <input type="text" name="vendor-thumbnail-2-link" id="vendor-thumbnail-2-link" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-2-link'] ) ) echo $prfx_stored_meta['vendor-thumbnail-2-link'][0]; ?>" />
-    </p>
-    <!-- Thumbnail 2 Image Upload -->
-    <p>
-      <label for="vendor-thumbnail-2-image" class="prfx-row-title"><?php _e( 'Thumbnail 2 Image', 'prfx-textdomain' )?></label>
-      <input type="button" id="vendor-thumbnail-2-image-button" class="button" value="<?php _e( 'Choose or Upload an Image', 'prfx-textdomain' )?>" />
-      <input id="vendor-thumbnail-2-image" name="vendor-thumbnail-2-image" type="hidden" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-2-image'] ) ) echo $prfx_stored_meta['vendor-thumbnail-2-image'][0]; ?>" />
-    </p>
+    <div class="vendor-media-preview">
+      <img id="vendor-thumbnail-2-img" src="<?php if(isset($prfx_stored_meta['vendor-thumbnail-2-image'])) echo $prfx_stored_meta['vendor-thumbnail-2-image'][0]; ?>" alt="" />
+      <!-- Thumbnail 2 Link URL -->
+      <p>
+        <label for="vendor-thumbnail-2-link" class="prfx-row-title"><?php _e( 'Thumbnail 2 Link URL', 'prfx-textdomain' )?></label>
+        <input type="text" name="vendor-thumbnail-2-link" id="vendor-thumbnail-2-link" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-2-link'] ) ) echo $prfx_stored_meta['vendor-thumbnail-2-link'][0]; ?>" />
+      </p>
+      <!-- Thumbnail 2 Image Upload -->
+      <p>
+        <label for="vendor-thumbnail-2-image" class="prfx-row-title"><?php _e( 'Thumbnail 2 Image', 'prfx-textdomain' )?></label>
+        <input type="button" id="vendor-thumbnail-2-image-button" class="button" value="<?php _e( 'Choose or Upload an Image', 'prfx-textdomain' )?>" />
+        <input id="vendor-thumbnail-2-image" name="vendor-thumbnail-2-image" type="hidden" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-2-image'] ) ) echo $prfx_stored_meta['vendor-thumbnail-2-image'][0]; ?>" />
+      </p>
+      <p class="media-delete-btn" id="media-delete-btn-2">
+        <input id="vendor-thumbnail-2-image-delete" type="button" class="button" value="<?php _e( 'Remove Image', 'prfx-textdomain' )?>" />
+      </p>
+    </div>
   </div>
   <?php
 }
@@ -467,18 +482,23 @@ function vendor_thumbnail_3_meta_callback($post) {
   $prfx_stored_meta = get_post_meta( $post->ID );
   ?>
   <div class="vendor-form">
-    <img id="vendor-thumbnail-3-img" src="<?php if(isset($prfx_stored_meta['vendor-thumbnail-3-image'])) echo $prfx_stored_meta['vendor-thumbnail-3-image'][0]; ?>" alt="" />
-    <!-- Thumbnail 3 Link URL -->
-    <p>
-      <label for="vendor-thumbnail-3-link" class="prfx-row-title"><?php _e( 'Thumbnail 3 Link URL', 'prfx-textdomain' )?></label>
-      <input type="text" name="vendor-thumbnail-3-link" id="vendor-thumbnail-3-link" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-3-link'] ) ) echo $prfx_stored_meta['vendor-thumbnail-3-link'][0]; ?>" />
-    </p>
-    <!-- Thumbnail 3 Image Upload -->
-    <p>
-      <label for="vendor-thumbnail-3-image" class="prfx-row-title"><?php _e( 'Thumbnail 3 Image', 'prfx-textdomain' )?></label>
-      <input type="button" id="vendor-thumbnail-3-image-button" class="button" value="<?php _e( 'Choose or Upload an Image', 'prfx-textdomain' )?>" />
-      <input id="vendor-thumbnail-3-image" name="vendor-thumbnail-3-image" type="hidden" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-3-image'] ) ) echo $prfx_stored_meta['vendor-thumbnail-3-image'][0]; ?>" />
-    </p>
+    <div class="vendor-media-preview">
+      <img id="vendor-thumbnail-3-img" src="<?php if(isset($prfx_stored_meta['vendor-thumbnail-3-image'])) echo $prfx_stored_meta['vendor-thumbnail-3-image'][0]; ?>" alt="" />
+      <!-- Thumbnail 3 Link URL -->
+      <p>
+        <label for="vendor-thumbnail-3-link" class="prfx-row-title"><?php _e( 'Thumbnail 3 Link URL', 'prfx-textdomain' )?></label>
+        <input type="text" name="vendor-thumbnail-3-link" id="vendor-thumbnail-3-link" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-3-link'] ) ) echo $prfx_stored_meta['vendor-thumbnail-3-link'][0]; ?>" />
+      </p>
+      <!-- Thumbnail 3 Image Upload -->
+      <p>
+        <label for="vendor-thumbnail-3-image" class="prfx-row-title"><?php _e( 'Thumbnail 3 Image', 'prfx-textdomain' )?></label>
+        <input type="button" id="vendor-thumbnail-3-image-button" class="button" value="<?php _e( 'Choose or Upload an Image', 'prfx-textdomain' )?>" />
+        <input id="vendor-thumbnail-3-image" name="vendor-thumbnail-3-image" type="hidden" value="<?php if ( isset ( $prfx_stored_meta['vendor-thumbnail-3-image'] ) ) echo $prfx_stored_meta['vendor-thumbnail-3-image'][0]; ?>" />
+      </p>
+      <p class="media-delete-btn" id="media-delete-btn-3">
+        <input id="vendor-thumbnail-3-image-delete" type="button" class="button" value="<?php _e( 'Remove Image', 'prfx-textdomain' )?>" />
+      </p>
+    </div>
   </div>
   <?php
 }
@@ -541,7 +561,7 @@ add_action( 'admin_enqueue_scripts', 'vendor_thumbnail_3_enqueue' );
 // ======================================================== //
 
 function wysiwyg_meta_1() {
-  add_meta_box( 'wysiwyg_meta_1', __( 'Text Editor', 'prfx-textdomain' ), 'wysiwyg_meta_1_callback', 'vendor' );
+  add_meta_box( 'wysiwyg_meta_1', __( 'Content Section 1', 'prfx-textdomain' ), 'wysiwyg_meta_1_callback', 'vendor' );
 }
 add_action( 'add_meta_boxes', 'wysiwyg_meta_1' );
 
@@ -588,7 +608,7 @@ add_action( 'save_post', 'wysiwyg_meta_1_save' );
 // ======================================================== //
 
 function wysiwyg_meta_2() {
-  add_meta_box( 'wysiwyg_meta_2', __( 'Text Editor', 'prfx-textdomain' ), 'wysiwyg_meta_2_callback', 'vendor' );
+  add_meta_box( 'wysiwyg_meta_2', __( 'Content Section 2', 'prfx-textdomain' ), 'wysiwyg_meta_2_callback', 'vendor' );
 }
 add_action( 'add_meta_boxes', 'wysiwyg_meta_2' );
 
@@ -634,7 +654,7 @@ add_action( 'save_post', 'wysiwyg_meta_2_save' );
 // ======================================================== //
 
 function wysiwyg_meta_3() {
-  add_meta_box( 'wysiwyg_meta_3', __( 'Text Editor', 'prfx-textdomain' ), 'wysiwyg_meta_3_callback', 'vendor' );
+  add_meta_box( 'wysiwyg_meta_3', __( 'Content Section 3', 'prfx-textdomain' ), 'wysiwyg_meta_3_callback', 'vendor' );
 }
 add_action( 'add_meta_boxes', 'wysiwyg_meta_3' );
 

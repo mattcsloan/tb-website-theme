@@ -29,15 +29,30 @@
 .vendor-form img
 {
   display: block;
-  margin: 0 0 8px 24px;
-  width: 200px;
+  margin: 0 0 8px 0;
+  width: 30%;
   padding: 4px;
   border: 1px solid #ddd;
   float: right;
+  box-sizing: border-box;
 }
 
 .vendor-form img[src=""] {
    display: none;
+}
+
+.vendor-form .vendor-media-preview:after
+{
+  content: '';
+  clear: both;
+  display: block;
+}
+
+.vendor-form .vendor-media-preview p
+{
+  float: left;
+  width: 68%;
+  display: block;
 }
 
 .vendor-form input[type="text"],
@@ -49,3 +64,8 @@
 .vendor-form textarea {
    height: 80px;
 }
+
+/*.vendor-form .vendor-media-preview .media-delete-btn
+{
+  display: none;
+}*/

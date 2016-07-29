@@ -920,6 +920,16 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   float: right;
 }
 
+.vendor-contact a.vendor-web.single-link,
+.vendor-contact span.vendor-phone.single-link
+{
+  margin: 0 auto;
+  text-align: center;
+  float: none;
+}
+
+
+
 .vendor-contact:after
 {
   content: '';

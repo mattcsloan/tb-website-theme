@@ -55,10 +55,10 @@
                 <?php if (!empty($vendor_website_link) || !empty($vendor_phone_number)) { ?>
                     <div class="vendor-contact">
                         <?php if (!empty($vendor_website_link)) { ?>
-                            <a class="vendor-web" href="<?php echo $vendor_website_link ?>" target="_blank">Website</a>
+                            <a class="vendor-web <?php if (empty($vendor_phone_number)) { echo "single-link"; } ?>" href="<?php echo $vendor_website_link ?>" target="_blank">Website</a>
                         <?php } ?>
                         <?php if (!empty($vendor_phone_number)) { ?>
-                            <span class="vendor-phone"><?php echo $vendor_phone_number; ?></span>
+                            <span class="vendor-phone <?php if (empty($vendor_website_link)) { echo "single-link"; } ?>"><?php echo $vendor_phone_number; ?></span>
                         <?php } ?>
                     </div>
                 <?php } ?>
@@ -126,7 +126,7 @@
         }
     ?>
 
-    <?php if (!empty($vendor_logo) || !empty($vendor_testimonial)) { ?>
+    <?php if ((!empty($vendor_logo) || !empty($vendor_testimonial)) && ($vendor_tier === 'signature' ||  $vendor_tier === 'essentials')) { ?>
         <div class="wrapper inner">
             <div class="vendor-testimonial">
               <div class="columns">
@@ -145,7 +145,7 @@
         </div>
     <?php } ?>
 
-    <?php if (!empty($vendor_thumbnail_1_link) || !empty($vendor_thumbnail_1_image) || !empty($vendor_thumbnail_2_link) || !empty($vendor_thumbnail_2_image) || !empty($vendor_thumbnail_3_link) || !empty($vendor_thumbnail_3_image)) { ?>
+    <?php if ((!empty($vendor_thumbnail_1_link) || !empty($vendor_thumbnail_1_image) || !empty($vendor_thumbnail_2_link) || !empty($vendor_thumbnail_2_image) || !empty($vendor_thumbnail_3_link) || !empty($vendor_thumbnail_3_image)) && ($vendor_tier === 'signature' ||  $vendor_tier === 'essentials')) { ?>
         <div class="action-bar vendor-screenshots">
             <div class="wrapper inner">
               <?php if (!empty($vendor_section_headline)) { ?>
