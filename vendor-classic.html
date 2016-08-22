@@ -6,28 +6,34 @@
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <title>Today's Bride | Staging</title>
-  <link href="styles/layout.css" rel="stylesheet" type="text/css" />
+  <link href="style.css" rel="stylesheet" type="text/css" />
   <link href='https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
   <div class="header">
     <div class="navigation">
       <div class="wrapper">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a class="active" href="local-vendors.html">Local Vendors</a></li>
-          <li><a href="#">Inspiration</a></li>
-          <li><a href="#">Planning Tips</a></li>
-          <li><a href="#">Deals</a></li>
-          <li><a href="#">Printables</a></li>
-        </ul>
-        <ul>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <ul>
-          <li><a href="#">Our Shows</a></li>
-          <li><a href="#">Our Magazine</a></li>
-        </ul>
+        <div class="menu-main-navigation-container">
+          <ul id="menu-main-navigation" class="menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a class="active" href="local-vendors.html">Local Vendors</a></li>
+            <li><a href="#">Inspiration</a></li>
+            <li><a href="#">Planning Tips</a></li>
+            <li><a href="#">Deals</a></li>
+            <li><a href="#">Printables</a></li>
+          </ul>
+        </div>
+        <div class="menu-secondary-navigation-container">
+          <ul id="menu-secondary-navigation" class="menu">
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="menu-tertiary-navigation-container">
+          <ul id="menu-tertiary-navigation" class="menu">
+            <li><a href="#">Our Shows</a></li>
+            <li><a href="#">Our Magazine</a></li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="wrapper">
@@ -73,7 +79,7 @@
           </div>
         </div>
       </div>
-      <div class="secondary">
+      <div class="vendor-intro">
         <h2>American Commodore Dress Shoppe</h2>
         <div class="vendor-details">
           <div class="vendor-location">Multiple Locations</div>
@@ -150,12 +156,16 @@
   <div class="footer">
     <div class="wrapper inner">
       <div class="footer-navigation">
-        <a class="btn" href="#">About</a>
-        <a class="btn" href="#">Contact</a>
-        <a class="btn" href="#">Press</a>
-        <a class="btn" href="#">Advertise</a>
-        <a class="btn" href="#">Privacy</a>
-        <a class="btn" href="#">Terms</a>
+        <div class="menu-footer-navigation-container">
+          <ul class="menu" id="menu-footer-navigation">
+            <li class="menu-item"><a href="#">About</a></li>
+            <li class="menu-item"><a href="#">Contact</a></li>
+            <li class="menu-item"><a href="#">Press</a></li>
+            <li class="menu-item"><a href="#">Advertise</a></li>
+            <li class="menu-item"><a href="#">Privacy</a></li>
+            <li class="menu-item"><a href="#">Terms</a></li>
+          </ul>
+        </div>
       </div>
       <div class="socials">
         <a class="social-fb" href="#"></a>
