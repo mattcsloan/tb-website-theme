@@ -60,6 +60,11 @@ h2
   margin-bottom: 20px;
 }
 
+h2.mono
+{
+  color: #000;
+}
+
 h4
 {
   font-size: 18px;
@@ -83,7 +88,7 @@ p
   margin-top: 0;
 }
 
-input[type="text"]
+input[type="text"], textarea
 {
   background: #fff;
   border: 1px solid #ddd;
@@ -92,7 +97,12 @@ input[type="text"]
   font-size: 16px;
 }
 
-input[type="text"]:focus
+textarea
+{
+  max-width: 100%;
+}
+
+input[type="text"]:focus, textarea:focus
 {
   border-color: #999;
 }
@@ -114,6 +124,17 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   background: #f287b7;
   color: #fff;
   text-decoration: none;
+}
+
+.required
+{
+  color: #cc0000;
+}
+
+.description
+{
+  font-size: 12px;
+  font-style: oblique;
 }
 
 .btn, .footer-navigation a
@@ -414,6 +435,31 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   display: block;
   margin: 24px 0 0 0;
   font-size: 18px;
+}
+
+.action-bar.breadcrumbs .wrapper
+{
+  text-align: left;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.breadcrumbs a
+{
+  float: left;
+  position: relative;
+  padding: 3px 14px 3px 0;
+  margin-right: 6px;
+  font-size: 16px;
+}
+
+.breadcrumbs a:after
+{
+  content: '\00BB'; /*&raquo;*/
+  position: absolute;
+  top: 2px;
+  right: 0;
+  color: #aaa;
 }
 
 .search-bar,
@@ -1406,6 +1452,74 @@ option
   padding: 84px 16px;
   margin-bottom: 32px;
 }
+
+/* =============================== BLOG ARTICLE PAGES =============================== */
+
+.comment-form
+{
+  margin: 64px 0 32px 0;
+}
+
+.comment-form label
+{
+  margin-bottom: 6px;
+  display: block;
+}
+
+.comment-form input[type="text"], .comment-form textarea
+{
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+}
+
+.entry-tags
+{
+  margin: 48px 0 0 0;
+}
+
+.entry-tags + .entry-tags, .entry-tags + .entry-tags .pills
+{
+  margin-top: 24px;
+}
+
+.entry-tags h2
+{
+  float: left;
+  margin-right: 16px;
+  font-size: 16px;
+  color: #999;
+  min-width: 140px;
+}
+
+.pills
+{
+  list-style: none;
+  margin: 24px 0 0 0;
+  padding: 0;
+}
+
+.pills:after, .entry-tags:after
+{
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.pills li
+{
+  float: left;
+  margin: 0 12px 8px 0;
+
+}
+
+.pills a.btn
+{
+  border-radius: 4px;
+  min-width: 0;
+}
+
+/* ================================= IMAGE STYLING ================================== */
 
 .pin-it
 {
