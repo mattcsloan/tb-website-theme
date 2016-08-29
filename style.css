@@ -92,6 +92,11 @@ input[type="text"]
   font-size: 16px;
 }
 
+input[type="text"]:focus
+{
+  border-color: #999;
+}
+
 input[type=submit], .btn, .footer-navigation a
 {
   background: #ec008c;
@@ -1105,15 +1110,17 @@ ul.dotted-list li:first-child:before
   color: #777;
 }
 
-.blog .entry:last-child
+.pagination:before
 {
-  padding-bottom: 0;
-  border-bottom: none;
+  content: '';
+  display: block;
+  clear: both;
 }
+
 .entry h1
 {
   font-size: 26px;
-  margin-bottom: 6px;
+  margin: 0 0 6px 0;
   text-align: left;
   text-transform: none;
 }
@@ -1136,12 +1143,18 @@ ul.dotted-list li:first-child:before
   color: #ec008c;
 }
 
-.entry img.feature
+.entry img.feature,
+.entry a.feature img
 {
   display: block;
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 16px;
+}
+
+.entry a.feature img
+{
+  margin-bottom: 0;
 }
 
 .entry-preview p a
@@ -1154,16 +1167,282 @@ ul.dotted-list li:first-child:before
   margin: 16px 0 0 0;
 }
 
-.entry a img.feature
+.entry a img.feature,
+.entry a.feature
 {
   opacity: 0.9;
   padding: 3px;
   border: 1px solid #eee;
 }
 
-.entry a:hover img.feature
+.entry a.feature
+{
+  opacity: 0.9;
+  padding: 3px;
+  border: 1px solid #eee;
+}
+
+.entry a:hover img.feature,
+.entry a.feature:hover
 {
   opacity: 1;
   border-color: #ec008c;
   box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.entry .feature-description
+{
+  font-size: 12px;
+  font-style: oblique;
+  display: block;
+  color: #999;
+  margin-left: 6px;
+}
+
+.entry .captioned img.feature,
+.entry .captioned a.feature
+{
+  margin-bottom: 8px;
+}
+
+.entry .captioned
+{
+  margin-bottom: 16px;
+}
+
+.two-up > *
+{
+  float: left;
+  display: block;
+  width: 48%;
+  margin-right: 2%;
+  box-sizing: border-box;
+}
+
+.two-up > *:nth-child(even)
+{
+  float: right;
+  margin-right: 0%;
+}
+
+.two-up:after
+{
+  content: '';
+  display: block;
+  clear: both;
+  margin-bottom: 24px;
+}
+
+.pagination
+{
+  display: block;
+  clear: both;
+  background: #f3f3f3;
+  padding: 12px;
+  text-align: center;
+  font-size: 14px;
+  color: #444;
+  margin-top: 24px;
+}
+
+.pagination:after
+{
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.pagination p
+{
+  display: inline-block;
+  line-height: 36px;
+  margin: 0;
+}
+
+.pagination .btn:first-child
+{
+  float: left;
+  display: block;
+}
+
+.pagination .btn:last-child
+{
+  float: right;
+  display: block;
+}
+
+.mod
+{
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 2px rgba(0,0,0,0.05);
+  box-sizing: border-box;
+  padding: 16px;
+  margin-bottom: 32px;
+  color: #555;
+}
+
+.mod.pink
+{
+  background: #ffebf7;
+  box-shadow: none;
+  border-color: transparent;
+}
+
+.mod-title
+{
+  margin: 0 0 16px 0;
+  padding: 0 0 4px 0;
+  border-bottom: 1px solid #eee;
+  line-height: 1.1em;
+  text-align: center;
+}
+
+.mod.pink .mod-title
+{
+  border-color: #fdddf0;
+}
+
+select
+{
+  background: #fff url('img/icons.png') no-repeat right -90px;
+  border: 1px solid #ddd;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 4px;
+  font-size: 14px;
+  color: #444;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+select:focus
+{
+  border-color: #999;
+}
+
+option
+{
+  padding: 4px;
+  border: none;
+}
+
+.mod label
+{
+  margin-bottom: 4px;
+  display: block;
+}
+
+.mod select,
+.mod input
+{
+  margin-bottom: 16px;
+}
+
+.mod input
+{
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mod *:last-child
+{
+  margin-bottom: 0;
+}
+
+.recent-article
+{
+  position: relative;
+  display: block;
+  margin-bottom: 24px;
+}
+
+.recent-article:last-child
+{
+  margin-bottom: 0;
+}
+
+.recent-article img
+{
+  display: block;
+  opacity: 0.8;
+}
+
+.recent-article span
+{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(236,0,140,0.4);
+  color: #fff;
+  text-shadow: 0 2px 2px rgba(0,0,0,0.8);
+  padding: 12px 8px;
+  font-size: 16px;
+  line-height: 1.1em;
+  box-sizing: border-box;
+}
+
+.recent-article:hover img
+{
+  opacity: 1;
+}
+
+.recent-article:hover span
+{
+  background: rgba(255,255,255,0.9);
+  color: #ec008c;
+  text-shadow: none;
+}
+
+.ad-placeholder
+{
+  background: #f7f7f7;
+  border: 1px solid #ededed;
+  text-align: center;
+  padding: 84px 16px;
+  margin-bottom: 32px;
+}
+
+.pin-it
+{
+  position: relative;
+  display: block;
+}
+
+.pin-it:before
+{
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 23px;
+  right: 71px;
+  background: url('img/icons-social.png') no-repeat -32px 0;
+  width: 32px;
+  height: 32px;
+  z-index: 2;
+}
+
+.pin-it:after
+{
+  content: 'Pin It';
+  display: block;
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  background: rgba(0,0,0,0.2);
+  color: #fff;
+  font-size: 14px;
+  padding: 6px 12px 6px 30px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.pin-it:hover:after
+{
+  content: 'Pin It';
+  background: #ec008c;
 }
