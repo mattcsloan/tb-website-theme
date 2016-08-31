@@ -221,7 +221,7 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 
 .wrapper.inner
 {
-  max-width: 1218px;
+  max-width: 1090px;
 }
 
 .section.muted
@@ -238,8 +238,9 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 
 .navigation .wrapper
 {
-  max-width: 1150px;
+  /*  max-width: 1150px; */
   padding: 0;
+  text-align: center;
 }
 
 .navigation ul,
@@ -251,17 +252,18 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   line-height: 18px;
 }
 
-.navigation .wrapper > div
+/*.navigation .wrapper > div
 {
   float: right;
   font-size: 13px;
 }
-
-.navigation .wrapper > div:first-child
+*/
+/*.navigation .wrapper > div:first-child
 {
   float: left;
 }
-
+*/
+/*
 .navigation .wrapper > div:last-child
 {
   font-size: 15px;
@@ -288,17 +290,95 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   margin-top: -12px;
   right: 0; 
 }
+*/
 
 .navigation li
 {
+  display: inline-block;
+}
+
+.navigation li.with-children
+{
+  position: relative;
+}
+
+.navigation li.with-children ul
+{
+  display: none;
+  position: absolute;
+  top: 62px;
+  left: 0;
+  transition: all 0.2 ease-in;
+  text-align: left;
+  width: 230px;
+  background: #fff;
+  box-shadow: 0 4px 2px rgba(0,0,0,0.1);
+}
+
+.navigation li.with-children ul:after
+{
+  content: '';
   display: block;
+  clear: both;
+}
+
+.navigation li.with-children ul li
+{
+  display: block;
+}
+
+.navigation li.with-children.two-column ul
+{
+  width: 460px;
+}
+
+.navigation li.with-children.two-column ul li
+{
+  width: 50%;
   float: left;
+}
+
+.navigation li.with-children.two-column ul li:nth-child(odd)
+{
+  clear: left;
+}
+
+.navigation li.with-children:hover ul
+{
+  display: block;
+  top: 58px;
+}
+
+.navigation li.with-children ul li a
+{
+  padding: 8px 13px;
+  color: #777;
+}
+
+.navigation li.with-children ul li a:hover
+{
+  border: none;
+  background: #fcfcfc;
+  color: #ec008c;
+}
+
+.navigation li.with-children > a:after
+{
+  content: '';
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-top-color: #ccc;
+  margin-left: 6px;
+  display: inline-block;
+  vertical-align: text-bottom;
 }
 
 .navigation a
 {
   padding: 20px 13px;
   display: block;
+  font-size: 13px;
 }
 
 .navigation a:hover,
@@ -381,6 +461,12 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   background-color: #ec008c;
 }
 
+.footer-navigation a
+{
+  min-width: auto;
+  display: block;
+}
+
 .footer-navigation ul
 {
   display: flex;
@@ -451,6 +537,12 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   padding: 3px 14px 3px 0;
   margin-right: 6px;
   font-size: 16px;
+  color: #333;
+}
+
+.breadcrumbs a:hover
+{
+  color: #ec008c;
 }
 
 .breadcrumbs a:after
@@ -1142,6 +1234,11 @@ ul.dotted-list li:first-child:before
 
 /* =============================== BLOG PAGE LISTINGS =============================== */
 
+.blog .secondary
+{
+  margin-top: 8px;
+}
+
 .blog p
 {
   line-height: 1.6em;
@@ -1149,7 +1246,7 @@ ul.dotted-list li:first-child:before
 
 .entry
 {
-  font-size: 16px;
+  font-size: 14px;
   padding-bottom: 48px;
   border-bottom: 1px solid #ddd;
   margin-bottom: 48px;
@@ -1217,23 +1314,13 @@ ul.dotted-list li:first-child:before
 .entry a.feature
 {
   opacity: 0.9;
-  padding: 3px;
-  border: 1px solid #eee;
-}
-
-.entry a.feature
-{
-  opacity: 0.9;
-  padding: 3px;
-  border: 1px solid #eee;
 }
 
 .entry a:hover img.feature,
 .entry a.feature:hover
 {
   opacity: 1;
-  border-color: #ec008c;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.1);
 }
 
 .entry .feature-description
@@ -1242,7 +1329,6 @@ ul.dotted-list li:first-child:before
   font-style: oblique;
   display: block;
   color: #999;
-  margin-left: 6px;
 }
 
 .entry .captioned img.feature,
@@ -1449,7 +1535,7 @@ option
   background: #f7f7f7;
   border: 1px solid #ededed;
   text-align: center;
-  padding: 84px 16px;
+  padding: 156px 16px;
   margin-bottom: 32px;
 }
 
@@ -1476,20 +1562,27 @@ option
 .entry-tags
 {
   margin: 48px 0 0 0;
+  position: relative;
 }
 
-.entry-tags + .entry-tags, .entry-tags + .entry-tags .pills
+.entry-tags + .entry-tags
 {
   margin-top: 24px;
 }
 
 .entry-tags h2
 {
-  float: left;
-  margin-right: 16px;
-  font-size: 16px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 14px;
   color: #999;
-  min-width: 140px;
+}
+
+.entry-tags p
+{
+  line-height: 35px;
+  padding-left: 120px;
 }
 
 .pills
