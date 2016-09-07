@@ -8,15 +8,17 @@
   <title>Today's Bride | Staging</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
   <link href='https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="scripts/interaction.js"></script>
 </head>
 <body>
   <div class="header">
     <div class="navigation">
-      <div class="wrapper">
+      <div class="wrapper inner">
         <div class="menu-main-navigation-container">
           <ul id="menu-main-navigation" class="menu">
             <li><a href="index.html">Home</a></li>
-            <li class="with-children two-column"><a class="active" href="local-vendors.html">Local Vendors</a>
+            <li class="with-children two-column"><a href="local-vendors.html">Local Vendors</a>
               <ul>
                 <li><a href="vendor-category.html">Alterations</a></li>
                 <li><a href="vendor-category.html">Beauty &amp; Health</a></li>
@@ -56,10 +58,10 @@
                 <li><a href="#">Deals</a></li>
               </ul>
             </li>
-            <li class="with-children"><a href="bridal-shows.html">Shows</a>
+            <li class="with-children"><a class="active" href="bridal-shows.html">Shows</a>
               <ul>
                 <li><a href="bridal-show-sample.html">October 16, 2016</a></li>
-                <li><a href="bridal-show-sample.html">January 8, 2017</a></li>
+                <li><a class="active" href="bridal-show-sample.html">January 8, 2017</a></li>
                 <li><a href="bridal-show-sample.html">February 4, 2017</a></li>
               </ul>
             </li>
@@ -67,6 +69,19 @@
             <li><a href="#">Contact</a></li>
           </ul>
         </div>
+        <!-- 
+        <div class="menu-secondary-navigation-container">
+          <ul id="menu-secondary-navigation" class="menu">
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="menu-tertiary-navigation-container">
+          <ul id="menu-tertiary-navigation" class="menu">
+            <li><a href="#">Our Shows</a></li>
+            <li><a href="#">Our Magazine</a></li>
+          </ul>
+        </div>
+        -->
       </div>
     </div>
     <div class="wrapper">
@@ -83,106 +98,115 @@
   </div>
   <div class="action-bar">
     <div class="wrapper">
-      <h3>Find a Local Vendor</h3>
-      <div class="search-bar">
-        <input type="text" placeholder="Search Vendors" />
-        <input type="submit" value="Go" />
+      <h3>Plan your dream wedding at a Today's Bride Wedding Show!</h3>
+    </div>
+  </div>
+  <div class="hero">
+    <div class="wrapper inner">
+      <img src="content-img/shows-hero-2.jpg" alt="" />
+      <div class="hero-title">
+        August 28th
+        <span class="hero-subtitle">John S. Knight Center - Akron</span>
       </div>
     </div>
   </div>
-  <div class="wrapper inner">
-    <h1><a href="vendor-category.html">Bridal Attire &amp; Accessories</a></h1>
-    <div class="vendor-feature">
-      <div class="main">
-        <div class="feature-gallery">
-          <img class="featured" src="content-img/vendor-feature.jpg" alt="" />
-          <div class="feature-thumbs">
-            <a href="#">
-              <img src="content-img/vendor-feature.jpg" alt="" />
-            </a>
-            <a href="#">
-              <img src="content-img/vendor-feature.jpg" alt="" />
-            </a>
-            <a href="#">
-              <img src="content-img/vendor-feature.jpg" alt="" />
-            </a>
-            <a href="#">
-              <img src="content-img/vendor-feature.jpg" alt="" />
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="vendor-intro">
-        <h2>American Commodore Dress Shoppe</h2>
-        <div class="vendor-details">
-          <div class="vendor-location">Multiple Locations</div>
-          <div class="vendor-contact">
-            <a class="vendor-web" href="#">Website</a>
-            <span class="vendor-phone" href="#">(216) 291-4200</span>
-          </div>
-        </div>
-        <p><a class="btn btn-light strong" href="#">Request A Quote</a></p>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
-        <p><a class="btn btn-light strong btn-favorite" href="#">Favorite</a></p>
-        <div class="socials pink">
-          <a class="social-fb" href="#"></a>
-          <a class="social-pn" href="#"></a>
-          <a class="social-yt" href="#"></a>
-          <a class="social-tw" href="#"></a>
-          <a class="social-ig" href="#"></a>
-        </div>
+  <div class="action-bar">
+    <div class="wrapper">
+      <h3>Save on tickets when you join Today's Bride!</h3>
+      <div class="action-items">
+        <a class="btn">Join</a>
+        <a class="btn btn-secondary">Login</a>
       </div>
     </div>
   </div>
-  <div class="action-bar vendor-content">
-    <div class="wrapper inner columns">
-      <div class="col thirds">
-        <h3>Designers</h3>
-        <ul class="dotted-list">
-          <li>Wedding Gowns</li>
-          <li>Bridesmaid Dresses</li>
-          <li>Flower Girl Dresses</li>
-          <li>Mother of the Bride Dresses</li>
-          <li>Dry Cleaning</li>
-          <li>Dress Preservation</li>
-          <li>Group Discounts</li>
-          <li>QuinceaÑera Dresses</li>
-          <li>Mother of the Bride Dresses</li>
-          <li>Dry Cleaning</li>
-          <li>Dress Preservation</li>
-          <li>Group Discounts</li>
-          <li>Bridesmaid Dresses</li>
-          <li>Flower Girl Dresses</li>
-          <li>Mother of the Bride Dresses</li>
-          <li>Wedding Gowns</li>
-          <li>Bridesmaid Dresses</li>
+  <div class="wrapper inner bridal-show">
+    <div class="page-nav">
+      <a href="#">Features</a>
+      <a href="#">Fashion Show</a>
+      <a href="#">Specials</a>
+      <a href="#">Contest &amp; Prizes</a>
+    </div>
+    <div class="main">
+      <h2>You said yes, we’ll help with the rest!</h2>
+      <p>Today’s Bride wants to make your wedding planning process easy, and with over 80 Northeast Ohio’s beest wedding professionals gathered in one place to answer all your questions and offer you special deals.</p>
+      <div class="show-location">
+        <div class="half">
+          <h5>When</h5>
+          <p>Friday, July 8, 2016</p>
+          <p>5pm-8pm</p>
+          <h5>Where</h5>
+          <p>Cleveland Marriott East</p>
+          <p>26300 Harvard Road</p>
+          <p>Warrensville Heights, OH 44122</p>
+        </div>
+        <div class="half">
+          <div class="map-placeholder">[Insert Map Here]</div>
+        </div>
+        <div class="btn-actions">
+          <a class="btn" href="#">Buy Tickets</a>
+          <a class="btn" href="#">Download Floorplan</a>
+        </div>
+      </div>
+      <h3>Tickets</h3>
+    </div>
+    <div class="secondary">
+      <h3>Exhibitor List</h3>
+      <div class="accordion exhibitor-list">
+        <h4><a href="#">Alterations</a></h4>
+        <ul>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Dolor Sit Amet</a></li>
+          <li><a href="#">Consectetur Adipiscing Elit</a></li>
+          <li><a href="#">Praesent Id</a></li>
+          <li><a href="#">Mauris Maximus</a></li>
+        </ul>
+        <h4 class="open"><a href="#">Beauty &amp; Health</a></h4>
+        <ul>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Dolor Sit Amet</a></li>
+          <li><a href="#">Consectetur Adipiscing Elit</a></li>
+          <li><a href="#">Praesent Id</a></li>
+          <li><a href="#">Mauris Maximus</a></li>
+        </ul>
+        <h4><a href="#">Bridal Attire &amp; Accessories</a></h4>
+        <ul>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Dolor Sit Amet</a></li>
+          <li><a href="#">Consectetur Adipiscing Elit</a></li>
+          <li><a href="#">Praesent Id</a></li>
+          <li><a href="#">Mauris Maximus</a></li>
+        </ul>
+        <h4><a href="#">Caterers</a></h4>
+        <ul>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Dolor Sit Amet</a></li>
+          <li><a href="#">Consectetur Adipiscing Elit</a></li>
+          <li><a href="#">Praesent Id</a></li>
+          <li><a href="#">Mauris Maximus</a></li>
+        </ul>
+        <h4><a href="#">Decor, Lighting &amp; Rentals</a></h4>
+        <ul>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Dolor Sit Amet</a></li>
+          <li><a href="#">Consectetur Adipiscing Elit</a></li>
+          <li><a href="#">Praesent Id</a></li>
+          <li><a href="#">Mauris Maximus</a></li>
         </ul>
       </div>
-      <div class="col thirds">
-        <h3>Highlights</h3>
-        <ul class="check-list">
-          <li>Wedding Gowns</li>
-          <li>Bridesmaid Dresses</li>
-          <li>Flower Girl Dresses</li>
-          <li>Mother of the Bride Dresses</li>
-          <li>Dry Cleaning</li>
-          <li>Dress Preservation</li>
-          <li>Group Discounts</li>
-          <li>QuinceaÑera Dresses</li>
-        </ul>
-      </div>
-      <div class="col thirds">
-        <h3>See Us</h3>
-        <ul class="check-list">
-          <li>Today’s Bride Magazine • Spring 2016</li>
-          <li>Today’s Bride Wedding Show • 07/08/16</li>
-          <li>Today’s Bride Wedding Show • 8/28/16</li>
-          <li>Today’s Bride Wedding Show • 10/16/16</li>
-          <li>Today’s Bride Wedding Show • 01/08/17</li>
-          <li>Today’s Bride Wedding Show • 01/14-15/17</li>
-        </ul>
-        <h3>Location</h3>
-        <p>Visit our <a href="#">website</a> for a location near you.</p>
+      <h3>Show Sponsors</h3>
+      <div class="sponsor-placeholder">[Insert Sponsor Here]</div>
+      <div class="sponsor-placeholder">[Insert Sponsor Here]</div>
+      <div class="ad-placeholder">[Insert Ad Here]</div>
+      <div class="ad-placeholder">[Insert Ad Here]</div>
+      <div class="ad-placeholder">[Insert Ad Here]</div>
+    </div>
+  </div>
+  <div class="action-bar">
+    <div class="wrapper">
+      <h1>Exhibit With Us!</h1>
+      <h3>Become part of the show!</h3>
+      <div class="action-items">
+        <a class="btn">Learn More</a>
       </div>
     </div>
   </div>

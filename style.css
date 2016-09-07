@@ -395,6 +395,8 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 .header > .wrapper
 {
   text-align: center;
+  padding-top: 8px;
+  padding-bottom: 12px;
 }
 
 .socials:after
@@ -499,12 +501,6 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   text-align: center;
 }
 
-.action-bar .wrapper
-{
-  padding-top: 36px;
-  padding-bottom: 36px;
-}
-
 .action-bar h1
 {
   margin: 0 0 16px 0;
@@ -576,6 +572,49 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   color: #fff;
   line-height: 425px;
   background: #111;
+  overflow: hidden;
+}
+
+.hero .wrapper
+{
+  position: relative;
+  padding: 0;
+  height: 100%;
+}
+
+.hero .wrapper > img
+{
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.hero-title
+{
+  color: #fff;
+  font-size: 60px;
+  background: rgba(0,0,0,0.7);
+  text-align: center;
+  padding: 20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 3;
+  text-transform: uppercase;
+  line-height: 1em;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-subtitle
+{
+  font-size: 24px;
+  display: block;
+  margin-top: 6px;
+  line-height: 1em;
 }
 
 .gallery:after
@@ -754,9 +793,40 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 .goodies .item
 {
   text-align: center;
+  text-decoration: none;
 }
 
-.vendor-spotlight
+.goodies .item > strong
+{
+  font-size: 16px;
+  color: #000;
+  line-height: 1.2em;
+  font-weight: normal;
+  display: block;
+  padding: 10px 0;
+}
+
+.goodies .item > span
+{
+  color: #555;
+}
+
+.goodies a.item:hover strong
+{
+  color: #ec008c;
+}
+
+.goodies a.item:hover img
+{
+  opacity: 0.9;
+}
+
+.goodies a.item:hover span
+{
+  color: #000;
+}
+
+.card
 {
   border: 1px solid #ddd;
   padding: 0;
@@ -766,7 +836,12 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   margin: 36px 0;
 }
 
-.vendor-spotlight img
+.card.full
+{
+  padding: 0;
+}
+
+.card img
 {
   width: 30%;
   position: absolute;
@@ -775,7 +850,7 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   transform: translate(0, -50%);
 }
 
-.vendor-content
+.card-content
 {
   padding: 24px;
 }
@@ -1530,13 +1605,19 @@ option
   text-shadow: none;
 }
 
-.ad-placeholder
+.ad-placeholder,
+.sponsor-placeholder
 {
   background: #f7f7f7;
   border: 1px solid #ededed;
   text-align: center;
   padding: 156px 16px;
   margin-bottom: 32px;
+}
+
+.sponsor-placeholder
+{
+  padding: 80px 16px;
 }
 
 /* =============================== BLOG ARTICLE PAGES =============================== */
@@ -1652,4 +1733,201 @@ option
 {
   content: 'Pin It';
   background: #ec008c;
+}
+
+/* ================================= BRIDAL SHOW PAGES ================================== */
+
+.bridal-show.wrapper
+{
+  padding-top: 0;
+}
+
+.page-nav
+{
+  display: block;
+  border-bottom: 1px solid #ddd;
+}
+
+.page-nav:after
+{
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.page-nav a
+{
+  float: left;
+  display: block;
+  padding: 18px 16px 16px 16px;
+  font-size: 16px;
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+}
+
+.page-nav a:hover
+{
+  text-decoration: none;
+  background: #fefefe;
+  border-bottom-color: #ec008c;
+}
+
+.bridal-show .main
+{
+  padding: 24px 0;
+}
+
+.bridal-show h2
+{
+  font-size: 32px;
+  font-weight: bold;
+  color: #ec008c;
+  text-transform: none;
+}
+
+.bridal-show h3
+{
+  font-size: 24px;
+  font-weight: bold;
+  color: #ec008c;
+  padding-top: 16px;
+  border-top: 1px solid #ec008c;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.show-location
+{
+  border-top: 1px solid #ec008c;
+  margin: 24px 0;
+  padding: 32px 0 16px 0;
+}
+
+.show-location:after
+{
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.show-location p
+{
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+.show-location h5
+{
+  text-transform: uppercase;
+  color: #ec008c;
+  font-size: 16px;
+  font-weight: normal;
+  margin: 12px 0 0 0;
+  line-height: 1.2em;
+}
+
+.btn-actions
+{
+  clear: both;
+  margin-top: 24px;
+  display: inline-block;
+}
+
+.btn-actions .btn
+{
+  margin-right: 8px;
+}
+
+.map-placeholder
+{
+  background: #f7f7f7;
+  border: 1px solid #ededed;
+  text-align: center;
+  padding: 80px 16px;
+}
+
+
+.half
+{
+  float: left;
+  width: 48%;
+  margin-right: 4%;
+}
+
+.half + .half
+{
+  float: right;
+  margin-right: 0;
+}
+
+.half + .half:after
+{
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.accordion
+{
+  font-size: 14px;
+}
+
+.accordion h4
+{
+  border-bottom: 1px solid #ec008c;
+  line-height: 1.1em;
+  color: #000;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 0;
+}
+
+.accordion h4 a
+{
+  color: #000;
+  text-decoration: none;
+  display: block;
+  padding: 10px 0;
+  background: transparent url('img/icons.png') no-repeat right -89px;
+}
+
+.accordion h4 a:hover
+{
+  background-color: #fefefe;
+  color: #ec008c;
+}
+
+.accordion h4.open
+{
+  border-bottom-color: #ddd;
+}
+
+.accordion h4.open + *
+{
+  border-bottom: 1px solid #ec008c;
+}
+
+.accordion h4.open a
+{
+  background-position: right -121px;
+}
+
+.accordion h4 + ul,
+.accordion h4 + ul li
+{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.accordion h4 + ul
+{
+  padding: 10px 0;
+  font-size: 14px;
+}
+
+.accordion li a
+{
+  padding: 4px 0;
+  display: block;
 }
