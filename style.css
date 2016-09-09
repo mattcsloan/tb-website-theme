@@ -42,7 +42,8 @@ h1
 
 h2,
 h3,
-h4
+h4,
+h5
 {
   font-size: 20px;
   color: #000;
@@ -65,12 +66,24 @@ h2.mono
   color: #000;
 }
 
-h4
+h4,
+h5
 {
   font-size: 18px;
   text-transform: none;
   line-height: 1.2em;
   padding: 10px 0;
+}
+
+h5
+{
+  text-transform: uppercase;
+  color: #ec008c;
+}
+
+h5 span
+{
+  color: #000;
 }
 
 h1 a
@@ -124,6 +137,11 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   background: #f287b7;
   color: #fff;
   text-decoration: none;
+}
+
+.clear
+{
+  clear: both;
 }
 
 .required
@@ -196,6 +214,12 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 {
   background-color: transparent;
   background-position: right 0;
+}
+
+.btn.btn-large
+{
+  font-size: 21px;
+  padding: 10px 20px 9px 20px;
 }
 
 .wrapper
@@ -1772,7 +1796,7 @@ option
   border-bottom-color: #ec008c;
 }
 
-.bridal-show .main
+.bridal-show > .main
 {
   padding: 24px 0;
 }
@@ -1845,7 +1869,6 @@ option
   text-align: center;
   padding: 80px 16px;
 }
-
 
 .half
 {
@@ -1930,4 +1953,65 @@ option
 {
   padding: 4px 0;
   display: block;
+}
+
+.feature-card
+{
+  margin-bottom: 24px;
+}
+
+.feature-card:after
+{
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.feature-card > img
+{
+  float: left;
+  width: 31%;
+}
+
+.feature-card .feature-content
+{
+  float: right;
+  width: 65%;
+}
+
+.callout
+{
+  background: #fafafa;
+  padding: 24px;
+  display: block;
+  margin-bottom: 24px;
+}
+
+.callout h3,
+.callout h4
+{
+  font-size: 24px;
+  color: #000;
+  margin: 0 0 16px 0;
+  font-weight: bold;
+  text-transform: none;
+  border: none;
+  padding: 0;
+}
+
+.callout h4
+{
+  font-weight: normal;
+  margin-bottom: 0;
+}
+
+.callout.pink
+{
+  background: #fad5e5;
+}
+
+.callout.pink h3,
+.callout.pink h4
+{
+  color: #ec008c;
 }
