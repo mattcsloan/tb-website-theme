@@ -1087,6 +1087,14 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   text-align: left;
 }
 
+.main + .secondary:after,
+.secondary + .main:after
+{
+  content: '';
+  display: block;
+  clear: both;
+}
+
 .vendor-feature .vendor-intro.no-media
 {
   float: none;
@@ -1820,6 +1828,11 @@ option
   margin-bottom: 16px;
 }
 
+.bridal-show img
+{
+  margin-bottom: 16px;
+}
+
 .show-location
 {
   border-top: 1px solid #ec008c;
@@ -1868,6 +1881,25 @@ option
   border: 1px solid #ededed;
   text-align: center;
   padding: 80px 16px;
+}
+
+h5.block-headline
+{
+  padding: 8px 16px;
+  background: #f8c2d9;
+  margin: 24px 0;
+  display: block;
+  clear: both;
+}
+
+.padded-content
+{
+  padding: 16px;
+}
+
+h5.block-headline + .padded-content
+{
+  padding-top: 0;
 }
 
 .half
