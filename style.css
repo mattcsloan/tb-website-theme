@@ -1797,7 +1797,8 @@ option
   border-bottom: 2px solid transparent;
 }
 
-.page-nav a:hover
+.page-nav a:hover,
+.page-nav a.active
 {
   text-decoration: none;
   background: #fefefe;

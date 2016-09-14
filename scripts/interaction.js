@@ -4,7 +4,7 @@ $(document).ready(function() {
       $(this).next().hide();
     }
   });
-  
+
   $('.accordion h4 a').click(function() {
     if($(this).parent().hasClass('open')) {
       $(this).parent().next().slideUp();
@@ -21,3 +21,35 @@ $(document).ready(function() {
     return false;
   });
 });
+
+// check any link starting with # and scroll page to that anchor
+$(document).on('click', 'a[href^="#"]', function() {
+  if($(this).attr('href') === "#") {
+    var target = '';
+    var elem = $('body');
+  } else {
+    var target = $(this).attr('href').split('#')[1];
+    var elem = $('a[name="' + target + '"]');
+  }
+  scrollToDiv(elem);
+
+  // if($(this).parent().hasClass('page-nav')) {
+  //   var thisParent = $(this).parent();
+  //   $('.active', thisParent).removeClass('active');
+  //   $(this).addClass('active');
+  // }
+
+  return false;
+});
+
+function scrollToDiv(element) {
+  var offset = element.offset();
+  if($('body').hasClass('scrolled')) {
+    var offsetTop = offset.top - 50;
+  } else {
+    var offsetTop = offset.top - 82;
+  }
+  $('body, html').animate({
+    scrollTop: offsetTop
+  }, 500);
+}
