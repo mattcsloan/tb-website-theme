@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div class="wrapper inner test">
+<div class="wrapper test">
     <?php the_title('<h1>', '</h1>'); ?>
     <?php the_post(); ?>
     <?php the_content(); ?>

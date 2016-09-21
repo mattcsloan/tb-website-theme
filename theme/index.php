@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div class="wrapper inner">
+<div class="wrapper">
     <?php 
         global $numposts;
         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;

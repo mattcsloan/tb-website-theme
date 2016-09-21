@@ -29,7 +29,7 @@
 ?>
 
 <?php if( !empty($vendor_tier)) { ?>
-    <div class="wrapper inner">
+    <div class="wrapper">
         <h1><?php echo the_taxonomies(array('template' => '% %l')); ?></h1>
         <div class="vendor-feature vendor-<?php echo $vendor_tier; ?>">
 
@@ -87,7 +87,7 @@
         if( (!empty($wysiwyg_meta_1) || !empty($wysiwyg_meta_2) || !empty($wysiwyg_meta_3)) && ($vendor_tier === 'signature' ||  $vendor_tier === 'essentials')) {
     ?>
             <div class="action-bar vendor-content">
-                <div class="wrapper inner columns">
+                <div class="wrapper columns">
                     <?php 
                         if(!empty($wysiwyg_meta_1)) {
                     ?>
@@ -122,7 +122,7 @@
     ?>
 
     <?php if ((!empty($vendor_logo) || !empty($vendor_testimonial)) && ($vendor_tier === 'signature' ||  $vendor_tier === 'essentials')) { ?>
-        <div class="wrapper inner">
+        <div class="wrapper">
             <div class="vendor-testimonial">
                 <?php if (!empty($vendor_logo)) { ?>
                     <div class="vendor-logo">
@@ -140,7 +140,7 @@
 
     <?php if ((!empty($vendor_thumbnail_1_link) || !empty($vendor_thumbnail_1_image) || !empty($vendor_thumbnail_2_link) || !empty($vendor_thumbnail_2_image) || !empty($vendor_thumbnail_3_link) || !empty($vendor_thumbnail_3_image)) && ($vendor_tier === 'signature' ||  $vendor_tier === 'essentials')) { ?>
         <div class="action-bar vendor-screenshots">
-            <div class="wrapper inner">
+            <div class="wrapper">
               <?php if (!empty($vendor_section_headline)) { ?>
                   <h1><?php echo $vendor_section_headline; ?></h1>
               <?php } ?>

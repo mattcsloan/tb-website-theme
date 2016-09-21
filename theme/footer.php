@@ -1,5 +1,5 @@
   <div class="footer">
-    <div class="wrapper inner">
+    <div class="wrapper">
       <div class="footer-navigation">
         <?php wp_nav_menu( array( 'theme_location' => 'footer-navigation' ) ); ?>
       </div>
@@ -15,7 +15,7 @@
  -->      
     </div>
     <div class="section muted">
-      <div class="wrapper inner">
+      <div class="wrapper">
         <p><strong>Today's Bride &amp; Today's Pride serves the following Northeast Ohio cities:</strong> Akron, Canton, Cleveland, North Canton, Youngstown, Ashtabula, Aurora, Chagrin Falls, Cuyahoga Falls, Dover, Eastlake, Elyria, Euclid, Hudson, Independence, Kent, Lorain, Massillon, Medina, Mentor, North Ridgeville, Parma, Ravenna, Sandusky, Solon, Stow, Strongsville, Wadsworth, Warren, Willoughby, Wooster and all of Northeast Ohio.</p>
         <p>Copyright &copy; 2017 Today's Bride. All Rights Reserved.</p>
       </div>
