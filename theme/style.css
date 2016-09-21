@@ -163,7 +163,7 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   background: transparent url('img/icon-favorite.png') no-repeat right -37px;
   padding-right: 52px;
   padding-left: 16px;
-  min-width: auto;
+  min-width: 0;
 }
 
 .btn.btn-light.strong.btn-favorite:hover
@@ -377,7 +377,7 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 
 .footer-navigation .btn
 {
-  min-width: auto;
+  min-width: 0;
   display: block;
 }
 

@@ -8,10 +8,79 @@
 
   .grid > .item .btn
   {
-    min-width: auto;
+    min-width: 0;
+  }
+
+  .hero .wrapper > img
+  {
+    position: static;
   }
 }
 
+
+@media all and (max-width: 820px) {
+  .blog .main,
+  .blog .secondary,
+  .bridal-show .main,
+  .bridal-show .secondary
+  {
+    float: none;
+    display: block;
+    width: auto;
+    margin-bottom: 32px;
+  }
+
+  .blog .advertisements:after,
+  .bridal-show .advertisements:after
+  {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  .blog .advertisement,
+  .bridal-show .advertisement
+  {
+    float: left;
+    display: block;
+    width: 44%;
+    margin: 0 3% 24px 3%;
+  }
+
+  .bridal-show img
+  {
+    margin: 16px auto;
+    display: block;
+  }
+
+  .vendor-feature .main,
+  .vendor-feature .vendor-intro,
+  .vendor-feature .vendor-intro.no-media,
+  .vendor-feature.vendor-basic .vendor-intro
+  {
+    width: 48%;
+  }
+
+  .feature-gallery .feature-thumbs a
+  {
+    float: left;
+    margin: 0 8px 8px 0;
+    width: 75px;
+  }
+
+  .vendor-content .columns .col
+  {
+    float: none;
+    margin-bottom: 24px;
+  }
+
+  .vendor-content .columns .col.thirds,
+  .vendor-content .columns .col.thirds.two-thirds
+  {
+    width: auto;
+    margin-right: 0;
+  }
+}
 
 @media all and (max-width: 768px) {
   body
@@ -38,6 +107,27 @@
     flex: 1 0 25%;
   }
 
+  .navigation li.with-children a
+  {
+    z-index: 10;
+  }
+
+  .navigation li.with-children ul
+  {
+    z-index: 11;
+  }
+
+  .navigation li.with-children.two-column ul
+  {
+    width: 230px;
+  }
+
+  .navigation li.with-children.two-column ul li
+  {
+    width: auto;
+    float: none;
+  }
+
   .grid > .item,
   .grid > .item:nth-child(4n)
   {
@@ -49,6 +139,48 @@
   .grid > .item:nth-child(even)
   {
     margin-right: 0;
+  }
+
+  .footer-navigation ul
+  {
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+
+  .footer-navigation li,
+  .footer-navigation li:last-child
+  {
+    -webkit-flex: 1 0 29.33%;
+    flex: 1 0 29.33%;
+    margin: 8px 2%;
+  }
+
+  .vendor-category .item
+  {
+    height: 304px;
+  }
+
+  .vendor-category .item.classic,
+  .vendor-category .item.basic
+  {
+    height: 140px;
+  }
+
+  .main,
+  .secondary,
+  .vendor-feature .main,
+  .vendor-feature .vendor-intro,
+  .vendor-feature .vendor-intro.no-media,
+  .vendor-feature.vendor-basic .vendor-intro
+  {
+    float: none;
+    width: auto;
+    display: block;
+  }
+
+  .feature-gallery .feature-thumbs
+  {
+    margin-bottom: 16px;
   }
 }
 
@@ -72,13 +204,6 @@
   {
     padding-top: 14px;
   }
-
-
-
-
-
-
-
 
   h1
   {
@@ -125,9 +250,16 @@
     display: block;
   }
 
-  .footer-navigation li
+  .footer-navigation li,
+  .footer-navigation li:last-child
   {
     margin: 0 0 6px 0;
+  }
+
+  .action-bar .btn
+  {
+    min-width: 80px;
+    margin: 4px;
   }
 
   .action-bar h3.secondary-action
@@ -137,7 +269,7 @@
 
   .hero
   {
-    height: 225px;
+    min-height: 225px;
     border-top-width: 6px;
     border-bottom-width: 6px;
     line-height: 225px;
@@ -147,6 +279,8 @@
   {
     font-size: 32px;
     padding: 16px;
+    margin: 0;
+    background: rgba(0,0,0,0.4);
   }
 
   .hero-subtitle
@@ -217,11 +351,13 @@
   {
     display: block;
     margin-right: 0;
+    margin-bottom: 32px;
   }
 
   .columns .col
   {
     float: none;
+    margin-bottom: 24px;
   }
 
   .columns .col.thirds,
@@ -307,34 +443,10 @@
 
   /* =============================== VENDOR INDIVIDUAL PAGE =============================== */
 
-  .main,
-  .secondary,
-  .vendor-feature .vendor-intro,
-  .vendor-feature .vendor-intro.no-media,
-  .vendor-feature.vendor-basic .vendor-intro
-  {
-    float: none;
-    width: auto;
-    display: block;
-  }
-
-  .feature-gallery .feature-thumbs
-  {
-    margin-bottom: 16px;
-  }
-
-  .feature-gallery .feature-thumbs a
-  {
-    float: left;
-    margin: 0 8px 8px 0;
-    width: 75px;
-  }
-
   .vendor-details
   {
     font-size: 18px;
   }
-
 
   .vendor-testimonial
   {
@@ -370,7 +482,7 @@
   {
     opacity: 1;
     border: 0;
-    margin: 0;
+    margin: 0 auto;
   }
 
   /* =============================== BLOG PAGE LISTINGS =============================== */
@@ -379,6 +491,11 @@
   {
     padding-bottom: 24px;
     margin-bottom: 24px;
+  }
+
+  .entry-preview .btn
+  {
+    margin: 0;
   }
 
   .two-up > *,
@@ -390,9 +507,14 @@
     margin: 0 0 16px 0;
   }
 
+  .pagination
+  {
+    margin-bottom: 24px;
+  }
+
   .pagination .btn
   {
-    min-width: auto;
+    min-width: 0;
   }
 
   .pagination .btn span
@@ -539,6 +661,7 @@
     font-size: 21px;
     line-height: 1.2em;
     margin: 0 0 12px 0;
+    padding-top: 0;
   }
 
   .callout h4

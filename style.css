@@ -208,10 +208,10 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 
 .btn.btn-light.strong.btn-favorite
 {
-  background: transparent url('img/icon-favorite.png') no-repeat right -37px;
+  background: transparent url('img/icon-favorite.png') no-repeat right -38px;
   padding-right: 52px;
   padding-left: 16px;
-  min-width: auto;
+  min-width: 0;
 }
 
 .btn.btn-light.strong.btn-favorite:hover
@@ -376,6 +376,11 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   clear: left;
 }
 
+.navigation li.with-children:hover > a
+{
+  background: #fff;
+}
+
 .navigation li.with-children:hover ul
 {
   display: block;
@@ -498,7 +503,7 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 
 .footer-navigation a
 {
-  min-width: auto;
+  min-width: 0;
   display: block;
 }
 
@@ -526,7 +531,7 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 
 .footer-navigation .btn
 {
-  min-width: auto;
+  min-width: 0;
   display: block;
 }
 
@@ -617,31 +622,36 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   height: 100%;
 }
 
-.hero .wrapper > img
+.hero img
 {
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  width: 100%;
+  display: block;
+}
+
+.hero#bridal-show
+{
+  height: auto;
+  min-height: 0;
+  line-height: 1em;
+  background: #fafafa;
 }
 
 .hero-title
 {
   color: #fff;
   font-size: 60px;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.15);
   text-align: center;
   padding: 20px;
+  margin: 20px 40px;
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
+  right: 0;
   box-sizing: border-box;
   z-index: 3;
   text-transform: uppercase;
   line-height: 1em;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.4);
 }
 
 .hero-subtitle
@@ -1272,6 +1282,7 @@ ul.dotted-list li:first-child:before
   padding: 24px;
   display: -webkit-flex;
   display: flex;
+  align-items: center;
 }
 
 .vendor-testimonial .vendor-logo
@@ -1554,7 +1565,7 @@ ul.dotted-list li:first-child:before
 
 select
 {
-  background: #fff url('img/icons.png') no-repeat right -90px;
+  background: #fff url('img/icons.png') no-repeat right -190px;
   border: 1px solid #ddd;
   display: block;
   width: 100%;
@@ -1565,6 +1576,7 @@ select
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  border-radius: 0;
 }
 
 select:focus
@@ -1617,6 +1629,7 @@ option
 .recent-article img
 {
   display: block;
+  width: 100%;
   opacity: 0.8;
 }
 
@@ -1820,7 +1833,8 @@ option
   border-bottom-color: #ec008c;
 }
 
-.bridal-show > .main
+.bridal-show > .main,
+.bridal-show > .secondary
 {
   padding: 24px 0;
 }
@@ -1960,7 +1974,7 @@ h5.block-headline + .padded-content
   text-decoration: none;
   display: block;
   padding: 10px 0;
-  background: transparent url('img/icons.png') no-repeat right -89px;
+  background: transparent url('img/icons.png') no-repeat right -189px;
 }
 
 .accordion h4 a:hover
@@ -1981,7 +1995,7 @@ h5.block-headline + .padded-content
 
 .accordion h4.open a
 {
-  background-position: right -121px;
+  background-position: right -221px;
 }
 
 .accordion h4 + ul,
