@@ -1889,6 +1889,7 @@ option
 .btn-actions .btn
 {
   margin-right: 8px;
+  margin-bottom: 8px;
 }
 
 .map-placeholder
@@ -2001,6 +2002,11 @@ h5.block-headline + .padded-content
 {
   padding: 4px 0;
   display: block;
+}
+
+.exhibitor-list
+{
+  margin-bottom: 32px;
 }
 
 .feature-card
