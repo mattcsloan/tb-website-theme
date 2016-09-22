@@ -5,6 +5,8 @@ $(document).ready(function() {
     }
   });
 
+  hideMenuForMobile();
+
   $('.accordion h4 a').click(function() {
     if($(this).parent().hasClass('open')) {
       $(this).parent().next().slideUp();
@@ -20,6 +22,21 @@ $(document).ready(function() {
     }
     return false;
   });
+});
+
+$(document).on('hover', '.navigation li', function(e) {
+  e.preventDefault();
+});
+
+$(document).on('click', '.menu-link', function() {
+  if($(this).hasClass('opened')) {
+    $(this).next().slideUp();
+    $(this).removeClass('opened');
+  } else {
+    $(this).next().slideDown();
+    $(this).addClass('opened');
+  }
+  return false;
 });
 
 // check any link starting with # and scroll page to that anchor
@@ -52,4 +69,12 @@ function scrollToDiv(element) {
   $('body, html').animate({
     scrollTop: offsetTop
   }, 500);
+}
+
+function hideMenuForMobile() {
+  $('.navigation li').off('mouseenter mouseleave');
+  
+  if($(window).width() < 600) {
+    $('.menu-main-navigation-container').hide();
+  }
 }

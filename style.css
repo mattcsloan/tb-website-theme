@@ -101,6 +101,13 @@ p
   margin-top: 0;
 }
 
+input[type="text"],
+textarea,
+select
+{
+  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+}
+
 input[type="text"], textarea
 {
   background: #fff;
@@ -261,7 +268,6 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 {
   background: rgba(249,249,249,0.95);
   text-transform: uppercase;
-  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
   position: fixed;
   top: 0;
   left: 0;
@@ -274,6 +280,11 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   /*  max-width: 1150px; */
   padding: 0;
   text-align: center;
+}
+
+.navigation a.menu-link
+{
+  display: none;
 }
 
 .navigation ul,
@@ -1572,6 +1583,7 @@ select
   box-sizing: border-box;
   padding: 4px;
   font-size: 14px;
+  line-height: 26px;
   color: #444;
   -webkit-appearance: none;
   -moz-appearance: none;

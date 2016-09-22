@@ -185,16 +185,52 @@
 }
 
 @media all and (max-width: 600px) {
+
+  .navigation a.menu-link
+  {
+    display: block;
+  }
+
+  .navigation a.menu-link:hover
+  {
+    display: block;
+    background-color: transparent;
+  }
+
+  .menu-main-navigation-container
+  {
+    border-top: 1px solid #ddd;
+  }
+
+  /*
+  .menu-main-navigation-container
+  {
+    display: none;
+  }
+
+  .navigation a.menu-link:hover + .menu-main-navigation-container,
+  .navigation a.menu-link:active + .menu-main-navigation-container,
+  .navigation a.menu-link:focus + .menu-main-navigation-container
+  {
+    display: block;
+  }
+  */
+
   .navigation li
   {
-    -webkit-flex: 1 0 50%;
-    flex: 1 0 50%;
+    display: inline-block;
+    -webkit-flex: 0 1 auto;
+    flex: 0 1 auto;
+    width: 100%;
+    float: none;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
   }
 
   .navigation a
   {
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding: 16px;
+    font-size: 16px;
   }
 
   .navigation a:hover,
@@ -202,7 +238,38 @@
   .navigation .current_page_item > a,
   .navigation .current_menu_item > a
   {
-    padding-top: 14px;
+    padding-top: 16px;
+    border-top: 0;
+  }
+
+  .navigation li.with-children
+  {
+    border-bottom: 0;
+  }
+
+  .navigation li.with-children > a
+  {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .navigation li.with-children ul,
+  .navigation li.with-children.two-column ul,
+  .navigation li.with-children:hover ul
+  {
+    width: 100%;
+    position: static;
+    box-shadow: none;
+  }
+
+  .navigation li.with-children ul li a
+  {
+    padding: 8px 16px 8px 24px;
+  }
+
+  .navigation li.with-children > a:after
+  {
+    float: right;
+    margin-top: 7px;
   }
 
   h1
@@ -532,10 +599,14 @@
     font-size: 14px;
   }
 
-  .advertisement
+  .advertisement,
+  .blog .advertisement,
+  .bridal-show .advertisement
   {
     margin: 0 auto 24px;
     display: block;
+    float: none;
+    width: auto;
   }
 
   .ad-placeholder,
