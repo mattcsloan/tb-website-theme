@@ -72,9 +72,31 @@ function scrollToDiv(element) {
 }
 
 function hideMenuForMobile() {
-  $('.navigation li').off('mouseenter mouseleave');
-  
   if($(window).width() < 600) {
     $('.menu-main-navigation-container').hide();
+  } else {
+    $('.menu-main-navigation-container').show();
+  }
+}
+
+var rtime = new Date(1, 1, 2000, 12,00,00);
+var timeout = false;
+var delta = 100;
+
+$(window).resize(function() {
+  rtime = new Date();
+  if (timeout === false) {
+    timeout = true;
+    setTimeout(resizeend, delta);
+  } 
+});
+
+function resizeend() {
+  if (new Date() - rtime < delta) {
+    setTimeout(resizeend, delta);
+  } 
+  else {
+    timeout = false;
+    hideMenuForMobile();
   }
 }
