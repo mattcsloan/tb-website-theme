@@ -3,6 +3,9 @@
       <div class="footer-navigation">
         <?php wp_nav_menu( array( 'theme_location' => 'footer-navigation' ) ); ?>
       </div>
+      <div class="socials">
+        <?php wp_nav_menu( array( 'theme_location' => 'social-navigation' ) ); ?>
+      </div>
 <!-- 
       <div class="socials">
         <a class="social-fb" href="#"></a>

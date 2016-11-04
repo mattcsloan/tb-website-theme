@@ -101,8 +101,7 @@ function register_my_menus() {
   register_nav_menus(
     array(
       'main-navigation' => __( 'Main Navigation' ),
-      'secondary-navigation' => __( 'Secondary Navigation' ),
-      'tertiary-navigation' => __( 'Tertiary Navigation' ),
+      'social-navigation' => __( 'Social Networking Links' ),
       'footer-navigation' => __( 'Footer Navigation' )
     )
   );
@@ -114,6 +113,16 @@ add_action( 'init', 'register_my_menus' );
 //add support for image thumbnails on posts
 add_theme_support('post-thumbnails'); 
 
+add_image_size( 'large-feature', 700, 288, true );
+add_image_size( 'small-feature', 500, 300 );
+add_filter( 'image_size_names_choose', 'custom_image_sizes' );
+
+function custom_image_sizes( $sizes ) {
+    return array_merge( $sizes, array(
+        'large-feature' => __( 'Large Feature' ),
+        'small-feature' => __( 'Small Feature' )
+    ) );
+}
 
 
 //Remove width and height attributes from thumbnail images
@@ -142,8 +151,117 @@ function add_nofollow_to_reply_link( $link ) {
 }
 add_filter( 'comment_reply_link', 'add_nofollow_to_reply_link' );
 
+//Add classes to previous and next post links (pagination)
+add_filter('next_posts_link_attributes', 'posts_link_attributes');
+add_filter('previous_posts_link_attributes', 'posts_link_attributes');
 
+function posts_link_attributes() {
+    return 'class="btn btn-light strong"';
+}
 
+//Add sidebar
+add_action( 'widgets_init', 'add_widget_area' );
+function add_widget_area() {
+    register_sidebar( array(
+        'name' => __( 'Blog Sidebar', 'TB2017' ),
+        'id' => 'blog-sidebar',
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="mod-title">',
+        'after_title'   => '</h3>',
+        'description' => __( 'Sidebar to show on blog page.', 'TB2017' )
+    ) );
+    register_sidebar( array(
+        'name' => __( 'More Articles', 'TB2017' ),
+        'id' => 'more-articles',
+        'before_widget' => '<div id="%1$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<label>',
+        'after_title'   => '</label>',
+        'description' => __( 'More Articles module to hold category and archive widgets', 'TB2017' )
+    ) );
+}
+
+//breadcrumb creation
+function breadcrumbs() {
+  global $post;
+  if(is_front_page() || is_attachment()) {
+    //don't include breadcrumbs on home page  
+  } else {
+    echo '<div class="breadcrumbs"><ul class="wrapper">';
+  }
+
+    if (!is_front_page() && !is_attachment()) {
+    //get the blog page url
+    $posts_page_id = get_option('page_for_posts');
+    $posts_page = get_page($posts_page_id);
+    $posts_page_title = $posts_page->post_title;
+    if(get_option('show_on_front') == 'page') {
+      $posts_page_url = get_permalink($posts_page_id);
+    }
+        echo '<li><a href="';
+        echo get_option('home');
+        echo '">';
+        echo 'Home';
+        echo '</a> &raquo; </li>';
+    if (is_home()) {
+      echo"<li>".$posts_page_title."</li>";
+    } elseif (is_category() || is_single()) {
+      $category = get_the_category();
+      $catLink = get_category_link($category[0]->cat_ID);
+      if (is_single()) {
+        if(in_category('Blog')) {
+          foreach (get_the_category() as $cat) {
+            $self = $cat->cat_ID;
+            $self_URL = get_category_link($self);
+            $parent = get_category($cat->category_parent);
+            $parent_name = $parent->cat_name;
+            $parent_URL = get_category_link($parent->cat_ID);
+            if($parent_name == "Blog") {
+              echo '<li><a href="'.$posts_page_url.'">'.$posts_page_title.'</a> &raquo; </li>';
+              echo '<li><a href="'.$self_URL.'">'.$cat->cat_name.'</a> &raquo; </li>';
+            }
+          }
+          echo '<li>'.the_title().'</li>';
+        }
+      } else { // its a category page
+        foreach (get_the_category() as $cat) {
+          $self = $cat->cat_ID;
+          $self_URL = get_category_link($self);
+          $parent = get_category($cat->category_parent);
+          $parent_name = $parent->cat_name;
+          $parent_URL = get_category_link($parent->cat_ID);
+          if($parent_name == "Blog") {
+            echo '<li><a href="'.$posts_page_url.'">'.$posts_page_title.'</a> &raquo; </li>';
+            echo '<li>'.$cat->cat_name.'</li>';
+          }
+        }
+      }
+        } elseif (is_page()) {
+            if($post->post_parent){
+                $anc = get_post_ancestors( $post->ID );
+        $anc = array_reverse($anc);
+                $title = get_the_title();
+                foreach ( $anc as $ancestor ) {
+          $output .= '<li><a href="'.get_permalink($ancestor).'" title="'.get_the_title($ancestor).'">'.get_the_title($ancestor).'</a> &raquo; </li>';
+                }
+                echo $output;
+                echo $title;
+            } else {
+                echo the_title();
+            }
+        }
+    elseif (is_tag()) {single_tag_title();}
+    elseif (is_day()) {echo"<li>Archive for "; the_time('F jS, Y'); echo'</li>';}
+    elseif (is_month()) {echo"<li>Archive for "; the_time('F, Y'); echo'</li>';}
+    elseif (is_year()) {echo"<li>Archive for "; the_time('Y'); echo'</li>';}
+    elseif (is_author()) {echo"<li>Posts by "; the_author(); echo'</li>';}
+    elseif (isset($_GET['paged']) && !empty($_GET['paged'])) {echo "<li>Blog Archives"; echo'</li>';}
+    elseif (is_search()) {echo"<li>Search Results"; echo'</li>';}
+    elseif (is_404()) {echo"<li>Page Not Found"; echo'</li>';}
+    }
+    echo '</ul></div>';
+}
 //Prevent <p> and <br> tags from being added to posts
 //remove_filter( 'the_content', 'wpautop' );
 //remove_filter( 'the_excerpt', 'wpautop' );

@@ -12,6 +12,7 @@
   <meta http-equiv="content-type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" type="text/css" href="<?php bloginfo('stylesheet_url'); ?>" />
+  <link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/styles/responsive.css" />
 
   <?php wp_head(); ?>
 
@@ -23,6 +24,8 @@
   <link rel="shortcut icon" href="<?php bloginfo('template_directory'); ?>/img/favicon.ico" type="image/x-icon" />
   -->
   <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="<?php bloginfo('template_directory'); ?>/scripts/interaction.js"></script>
 </head>
 
 
@@ -30,24 +33,16 @@
   <div class="header">
     <div class="navigation">
       <div class="wrapper">
+        <a class="menu-link" href="#">Menu</a>
         <?php wp_nav_menu( array( 'theme_location' => 'main-navigation' ) ); ?>
-        <?php wp_nav_menu( array( 'theme_location' => 'secondary-navigation' ) ); ?>
-        <?php wp_nav_menu( array( 'theme_location' => 'tertiary-navigation' ) ); ?>
       </div>
     </div>
     <div class="wrapper">
       <a href="<?php bloginfo( 'url' ) ?>/">
-        <img src="<?php bloginfo('template_directory'); ?>/img/logo.jpg" width="407" alt="<?php bloginfo('name') ?>" />
+        <img src="<?php bloginfo('template_directory'); ?>/img/logo.jpg" width="350" alt="<?php bloginfo('name') ?>" />
       </a>
-      <!--
       <div class="socials">
-        <a class="social-fb" href="#"></a>
-        <a class="social-pn" href="#"></a>
-        <a class="social-yt" href="#"></a>
-        <a class="social-tw" href="#"></a>
-        <a class="social-ig" href="#"></a>
-        <a class="social-vm" href="#"></a>
+        <?php wp_nav_menu( array( 'theme_location' => 'social-navigation' ) ); ?>
       </div>
-      -->
      </div>
   </div>
