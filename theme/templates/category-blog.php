@@ -24,7 +24,7 @@ Template Name: Blog Posts
                     <h1><a href="<?php the_permalink(); ?>"  title="<?php printf( __('Permalink to %s', 'TB2017'), the_title_attribute('echo=0') ); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
                     <p class="entry-meta">Posted on <?php the_time( get_option( 'date_format' ) ); ?> by <a href="<?php echo get_author_link( false, $authordata->ID, $authordata->user_nicename ); ?>" title="<?php printf( __( 'View all posts by %s', 'TB2017' ), $authordata->display_name ); ?>"><?php the_author(); ?></a></p>
                     <?php if ( has_post_thumbnail() ) { ?>
-                        <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large-feature'); ?></a>
+                        <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large-feature', array('class' => 'feature')); ?></a>
                     <?php } ?>
                     <div><?php the_excerpt(); ?></div>
                     <a class="btn btn-light strong" href="<?php the_permalink(); ?>">Read More</a>

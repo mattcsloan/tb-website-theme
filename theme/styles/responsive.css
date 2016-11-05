@@ -182,6 +182,37 @@
   {
     margin-bottom: 16px;
   }
+
+  .columns.four-wide .col,
+  .columns.five-wide .col,
+  .columns.six-wide .col
+  {
+    margin-bottom: 24px;
+  }
+
+
+  .columns.four-wide .col
+  {
+    width: 48%;
+    margin-right: 4%;
+  }
+
+  .columns.five-wide .col,
+  .columns.five-wide .col:nth-child(5n),
+  .columns.six-wide .col
+  {
+    width: 32%;
+    margin-right: 2%;
+  }
+
+  .columns.four-wide .col:nth-child(2n),
+  .columns.four-wide .col:nth-child(4n),
+  .columns.five-wide .col:nth-child(3n),
+  .columns.six-wide .col:nth-child(3n)
+  {
+    margin-right: 0;
+  }
+
 }
 
 @media all and (max-width: 600px) {
@@ -427,8 +458,14 @@
     margin-bottom: 24px;
   }
 
+  .columns.two-wide .col,
+  .columns.three-wide .col,
   .columns .col.thirds,
-  .columns .col.thirds.two-thirds
+  .columns .col.thirds.two-thirds,
+  .columns.four-wide .col,
+  .columns.five-wide .col,
+  .columns.five-wide .col:nth-child(5n),
+  .columns.six-wide .col
   {
     width: auto;
     margin-right: 0;

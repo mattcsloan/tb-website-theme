@@ -133,17 +133,41 @@ function remove_thumbnail_dimensions( $html ) {
     return $html;
 }
 
+//Custom Comments
+function customComments($comment, $args, $depth) {
+    $isByAuthor = false;
 
+    if($comment->comment_author_email == get_the_author_meta('email')) {
+        $isByAuthor = true;
+    }
+
+    $GLOBALS['comment'] = $comment; ?>
+    <div class="comment-level">
+      <div id="comment-<?php comment_ID(); ?>" class="comment<?php if($isByAuthor){ echo ' author';}?>">
+        <?php echo get_avatar( $comment->comment_author_email, 64 ); ?>
+        <div class="comment-info">
+          <span class="article_date"><?php echo get_comment_date('F j, Y g:i a'); ?></span>
+          <?php printf(__('<h3>%s</h3>'), get_comment_author()) ?>
+          <?php if ($comment->comment_approved == '0') : ?>
+              <?php _e('Your comment is awaiting moderation.<em>') ?></em>
+          <?php endif; ?>
+          <?php comment_text() ?>
+          <p><?php edit_comment_link(__('(Edit) | '),'  ','') ?><?php comment_reply_link(array_merge( $args, array('depth' => $depth, 'max_depth' => $args['max_depth']))) ?></p>
+        </div>
+      </div>
+     </div>
+<?php
+}
 
 //Remove website url field from comments form
-function remove_comment_url_fields($fields) {
-    if(isset($fields['url']))
-    {
-         unset($fields['url']);
-    }
-    return $fields;
-}
-add_filter('comment_form_default_fields','remove_comment_url_fields');
+// function remove_comment_url_fields($fields) {
+//     if(isset($fields['url']))
+//     {
+//          unset($fields['url']);
+//     }
+//     return $fields;
+// }
+// add_filter('comment_form_default_fields','remove_comment_url_fields');
 
 //Add a rel="nofollow" to the comment reply links
 function add_nofollow_to_reply_link( $link ) {
@@ -157,6 +181,14 @@ add_filter('previous_posts_link_attributes', 'posts_link_attributes');
 
 function posts_link_attributes() {
     return 'class="btn btn-light strong"';
+}
+
+add_filter('next_post_link', 'post_link_attributes');
+add_filter('previous_post_link', 'post_link_attributes');
+
+function post_link_attributes($output) {
+    $code = 'class="btn btn-light strong"';
+    return str_replace('<a href=', '<a '.$code.' href=', $output);
 }
 
 //Add sidebar
@@ -262,12 +294,13 @@ function breadcrumbs() {
     }
     echo '</ul></div>';
 }
+
 //Prevent <p> and <br> tags from being added to posts
-//remove_filter( 'the_content', 'wpautop' );
-//remove_filter( 'the_excerpt', 'wpautop' );
-//if (is_page('Home')) {
+remove_filter( 'the_content', 'wpautop' );
+remove_filter( 'the_excerpt', 'wpautop' );
+// if (is_page('Home')) {
 //  remove_filter('the_content', 'wpautop');
-//}
+// }
 
 
 
@@ -289,11 +322,6 @@ function breadcrumbs() {
 // } // end tag_ur_it
 
 
-
-//Custom Comments
-
-
-
 //Use a different single file for posts that have a "Vendors" category set
 // function get_custom_cat_template($single_template) {
 //      global $post;
@@ -306,5 +334,30 @@ function breadcrumbs() {
 // add_filter( "single_template", "get_custom_cat_template" ) ;
 
 
+//Begin Shortcodes
+function columns( $atts, $content = null ) {
+  $columns = substr_count( $content, '[col' );
+  if(!$columns || $columns <= 0 || $columns == 1) {
+    $col_class = "";
+  } else if($columns == 2) {
+    $col_class = " two-wide";
+  } else if($columns == 3) {
+    $col_class = " three-wide";
+  } else if($columns == 4 || $columns > 6) {
+    $col_class = " four-wide";
+  } else if($columns == 5) {
+    $col_class = " five-wide";
+  } else if($columns == 6) {
+    $col_class = " six-wide";
+  }
+  return '<div class="columns'.$col_class.'">'.do_shortcode($content).'</div>';
+}
+add_shortcode("columns", "columns");
+
+function col( $atts, $content = null ) {
+  return '<div class="col">'.$content.'</div>';
+}
+add_shortcode("col", "col");
+//End Shortcodes
 
 ?>
