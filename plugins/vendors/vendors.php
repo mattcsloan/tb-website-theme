@@ -58,6 +58,7 @@ function vendor_listings() {
     'capability_type' => 'post',
     'hierarchical' => true,
     'rewrite' => array( 'slug' => 'vendors' ),
+    'has_archive' => true
   ));
 }
 add_action( 'init', 'vendor_listings' );
