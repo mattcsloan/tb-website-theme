@@ -27,15 +27,46 @@ if ( $post_type )
 echo wp_get_post_terms();
     ?> -->
 
-    <?php the_post(); ?>         
-     <?php 
-        global $numposts;
-        echo '<h1>'.$numposts.'</h1>';
-        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-        global $query_string;
-        query_posts($query_string. '&posts_per_page=-1&meta_key=vendor-tier&order=ASC');
+    <?php the_post(); ?>    
 
+
+
+
+
+
+    <?php 
+        global $numposts;
+        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+        $terms = get_terms( 'vendor-list' );
+        $term_ids = wp_list_pluck( $terms, 'term_id' );
+
+        $term = get_query_var('term');
+        $term_id = get_queried_object()->term_id;
+        $term_name = get_queried_object()->name;
+
+        $wp_query = new WP_Query( 
+            array(
+                'posts_per_page'    => -1, // show all
+                'post_type' => 'vendor',
+                'tax_query' => array(
+                    array(
+                        'taxonomy'  => 'vendor-list',
+                        'terms'     => $term_id
+                    ),
+                ),
+                'paged'     => $paged,
+                'meta_key' => 'vendor-tier',
+                'orderby' => 'meta_value',
+                'order' => 'DESC'
+
+            )
+        ); 
     ?>
+
+
+    <?php echo '<h1>'.$term_name.'</h1>'; ?>
+
+
     <?php if ( $wp_query->have_posts() ) { ?>
         <div class="vendor-category">
         <?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>
@@ -53,20 +84,10 @@ echo wp_get_post_terms();
             <?php if ( has_post_thumbnail() && ($vendorTier == 'signature' || $vendorTier == 'essentials') ) { ?>
                 <?php the_post_thumbnail(); ?>
             <?php } ?>
-            <img src="content-img/vendor-featured-bridesmaids.jpg" alt="" />
             </a>
         <?php endwhile; ?>
         </div>
-        <?php /* Bottom post navigation */ 
-            $total_pages = $wp_query->max_num_pages;
-            if ( $total_pages > 1 ) {
-        ?>
-                <div class="pagination">
-                    <?php previous_posts_link('Prev') ?>
-                    <p><?php echo '<span>Page '.$paged.' of '. $wp_query->max_num_pages.'</span>'; ?></p>
-                    <?php next_posts_link('Next') ?>
-                </div>
-        <?php } ?> 
+    <?php wp_reset_query(); ?>
     <?php } ?>
 </div>
 <?php get_footer(); ?>
