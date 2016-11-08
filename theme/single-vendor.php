@@ -6,11 +6,14 @@
     // Retrieves the stored value from the database
     $postId = get_the_ID();
     $vendor_tier = get_post_meta( $postId, 'vendor-tier', true );
+    $vendor_display_name = get_post_meta( $postId, 'vendor-display-name', true );
     $vendor_logo = get_post_meta( $postId, 'vendor-logo', true );
     $vendor_locations = get_post_meta( $postId, 'vendor-locations', true );
     $vendor_website_link = get_post_meta( $postId, 'vendor-website-link', true );
     $vendor_phone_number = get_post_meta( $postId, 'vendor-phone-number', true );
-    $vendor_testimonial = get_post_meta( $postId, 'vendor-testimonial', true );
+    $vendor_discount_card = get_post_meta( $postId, 'vendor-discount-card', true );
+    $vendor_partner_logo = get_post_meta( $postId, 'vendor-partner-logo', true );
+    // $vendor_testimonial = get_post_meta( $postId, 'vendor-testimonial', true );
     $vendor_facebook = get_post_meta( $postId, 'vendor-facebook', true );
     $vendor_pinterest = get_post_meta( $postId, 'vendor-pinterest', true );
     $vendor_youtube = get_post_meta( $postId, 'vendor-youtube', true );
@@ -28,6 +31,26 @@
     $wysiwyg_meta_3 = get_post_meta( $postId, 'wysiwyg-meta-3', true );
 ?>
 
+<div class="action-bar">
+    <div class="wrapper">
+        <h3>Find a Local Vendor</h3>
+        <?php
+            $terms = get_terms( array( 'taxonomy' => 'vendor-list' ));
+
+            echo '<select class="inline-dropdown vendor-category-dropdown">';
+                echo '<option value="">Select Vendor Category</option>';
+                foreach($terms as $taxonomy) {
+                    $term_name = $taxonomy->name;
+                    $term_link = get_term_link( $taxonomy, 'vendor-list' );
+                    echo '<option value="'.$term_link.'">'.$term_name.'</option>';
+                } //end foreach loop
+
+            echo '</select>';
+        ?>
+        </div>
+    </div>
+</div>
+
 <?php if( !empty($vendor_tier)) { ?>
     <div class="wrapper">
         <h1><?php echo the_taxonomies(array('template' => '% %l')); ?></h1>
@@ -42,7 +65,17 @@
           <?php } ?> 
 
           <div class="vendor-intro <?php if (!has_post_thumbnail()) { echo "no-media"; } ?>">
-            <?php the_title('<h2>', '</h2>'); ?>
+            <?php 
+                if($vendor_display_name) { 
+            ?>
+                    <h2><?php echo $vendor_display_name; ?></h2>
+            <?php
+                } else {
+            ?>
+                <strong><?php the_title('<h2>', '</h2>'); ?></strong>
+            <?php
+                }
+            ?>
             <div class="vendor-details">
                 <?php if (!empty($vendor_locations)) { ?>
                     <div class="vendor-location"><?php echo $vendor_locations ?></div>
@@ -63,28 +96,40 @@
             <!-- <p><a class="btn btn-light strong btn-favorite" href="#">Favorite</a></p> -->
             <?php if ($vendor_tier !== 'basic') { ?>
                 <div class="socials pink">
-                    <?php if (!empty($vendor_facebook)) { ?>
-                        <a class="social-fb" href="<?php echo $vendor_facebook; ?>" target="_blank"></a>
-                    <?php } ?>  
-                    <?php if (!empty($vendor_pinterest)) { ?>
-                        <a class="social-pn" href="<?php echo $vendor_pinterest; ?>" target="_blank"></a>
-                    <?php } ?>  
-                    <?php if (!empty($vendor_youtube)) { ?>
-                        <a class="social-yt" href="<?php echo $vendor_youtube; ?>" target="_blank"></a>
-                    <?php } ?>  
-                    <?php if (!empty($vendor_twitter)) { ?>
-                        <a class="social-tw" href="<?php echo $vendor_twitter; ?>" target="_blank"></a>
-                    <?php } ?>  
-                    <?php if (!empty($vendor_instagram)) { ?>
-                        <a class="social-ig" href="<?php echo $vendor_instagram; ?>" target="_blank"></a>
-                    <?php } ?>  
+                    <ul>
+                        <?php if (!empty($vendor_facebook)) { ?>
+                            <li class="social-fb">
+                                <a href="<?php echo $vendor_facebook; ?>" target="_blank"></a>
+                            </li>
+                        <?php } ?>  
+                        <?php if (!empty($vendor_pinterest)) { ?>
+                            <li class="social-pn">
+                                <a href="<?php echo $vendor_pinterest; ?>" target="_blank"></a>
+                            </li>
+                        <?php } ?>  
+                        <?php if (!empty($vendor_youtube)) { ?>
+                            <li class="social-yt">
+                                <a href="<?php echo $vendor_youtube; ?>" target="_blank"></a>
+                            </li>
+                        <?php } ?>  
+                        <?php if (!empty($vendor_twitter)) { ?>
+                            <li class="social-tw">
+                                <a href="<?php echo $vendor_twitter; ?>" target="_blank"></a>
+                            </li>
+                        <?php } ?>  
+                        <?php if (!empty($vendor_instagram)) { ?>
+                            <li class="social-ig">
+                                <a href="<?php echo $vendor_instagram; ?>" target="_blank"></a>
+                            </li>
+                        <?php } ?> 
+                    </ul> 
                 </div>
             <?php } ?> 
           </div>
         </div>
     </div>
     <?php
-        if( (!empty($wysiwyg_meta_1) || !empty($wysiwyg_meta_2) || !empty($wysiwyg_meta_3)) && ($vendor_tier === 'signature' ||  $vendor_tier === 'essentials')) {
+        if( (!empty($wysiwyg_meta_1) || !empty($wysiwyg_meta_2) || !empty($wysiwyg_meta_3)) && ($vendor_tier === 'signature' ||  $vendor_tier === 'essentials' ||  $vendor_tier === 'classic')) {
     ?>
             <div class="action-bar vendor-content">
                 <div class="wrapper columns">
@@ -92,7 +137,7 @@
                         if(!empty($wysiwyg_meta_1)) {
                     ?>
                           <div class="col thirds">
-                            <?php echo $wysiwyg_meta_1; ?>
+                            <?php echo do_shortcode(wpautop($wysiwyg_meta_1)); ?>
                           </div>
                     <?php
                         }
@@ -101,7 +146,7 @@
                         if(!empty($wysiwyg_meta_2)) {
                     ?>
                           <div class="col thirds">
-                            <?php echo $wysiwyg_meta_2; ?>
+                            <?php echo do_shortcode(wpautop($wysiwyg_meta_2)); ?>
                           </div>
                     <?php
                         }
@@ -110,7 +155,7 @@
                         if(!empty($wysiwyg_meta_3)) {
                     ?>
                           <div class="col thirds">
-                            <?php echo $wysiwyg_meta_3; ?>
+                            <?php echo do_shortcode(wpautop($wysiwyg_meta_3)); ?>
                           </div>
                     <?php
                         }
@@ -121,19 +166,36 @@
         }
     ?>
 
-    <?php if ((!empty($vendor_logo) || !empty($vendor_testimonial)) && ($vendor_tier === 'signature' ||  $vendor_tier === 'essentials')) { ?>
+    <?php if ((!empty($vendor_logo) || !empty($vendor_discount_card) || !empty($vendor_partner_logo)) && ($vendor_tier === 'signature' ||  $vendor_tier === 'essentials')) { ?>
         <div class="wrapper">
-            <div class="vendor-testimonial">
+            <div class="vendor-brand columns three-wide">
                 <?php if (!empty($vendor_logo)) { ?>
-                    <div class="vendor-logo">
+                    <div class="vendor-logo col">
                         <img src="<?php echo $vendor_logo; ?>" alt="" />
                     </div>
                 <?php } ?>
+
+                <?php if (!empty($vendor_partner_logo) && $vendor_partner_logo == 'yes') { ?>
+                    <div class="col">
+                        <img class="vendor-featured-partner" src="<?php bloginfo('template_directory'); ?>/img/vendor-featured-partner.png" alt="Today's Bride Featured Partner" />
+                    </div>
+                <?php } ?>
+
+                <?php if (!empty($vendor_discount_card) && $vendor_discount_card == 'yes') { ?>
+                    <div class="col">
+                        <a href="<?php bloginfo('url'); ?>/wedding-deals/discount-card">
+                            <img class="vendor-discount-card" src="<?php bloginfo('template_directory'); ?>/img/vendor-discount-card.png" alt="Today's Bride Discount Card" />
+                        </a>
+                    </div>
+                <?php } ?>
+
+                <!--
                 <?php if (!empty($vendor_testimonial)) { ?>
-                    <div class="vendor-testimonial-content">
+                    <div class="vendor-brand-content">
                       <?php echo $vendor_testimonial; ?>
                     </div>
                 <?php } ?>
+                -->
             </div>
         </div>
     <?php } ?>
@@ -179,6 +241,105 @@
                     </div>
                 <?php } ?>
               </div>
+            </div>
+        </div>
+    <?php } ?>
+
+    <?php if($vendor_tier == 'basic') { ?>
+        <div class="action-bar">
+            <div class="wrapper">
+                <h3 class="link-camo">Other <?php echo the_taxonomies(array('template' => '% %l')); ?> Vendors</h3>
+                <div class="vendor-category">
+
+                    <?php
+
+                        $terms = get_the_terms( $post->ID, 'vendor-list' );
+                        $currentTaxonomy = $terms[0]->slug;
+
+                        $related = new WP_Query(
+                            array(
+                                'posts_per_page' => -1, 
+                                'post_type' => 'vendor',
+                                'tax_query' => array(
+                                    array(
+                                        'taxonomy'  => 'vendor-list',
+                                        'field'    => 'slug',
+                                        'terms'    => $currentTaxonomy
+                                    ),
+                                ),
+                                'meta_key' => 'vendor-tier',
+                                'orderby' => 'meta_value',
+                                'order' => 'DESC'
+                            )
+                        );
+                        if( $related->have_posts() ) { 
+                          $signatureVendorCount = 0;
+                          while( $related->have_posts() ) { $related->the_post(); 
+                            $post_id = get_the_ID();
+                            $vendorTier = get_post_meta( $post_id, 'vendor-tier', true );
+                            $vendorLocations = get_post_meta( $post_id, 'vendor-locations', true );
+                            $vendorPriceRange = get_post_meta( $post_id, 'vendor-price-range', true );
+                            $vendorDisplayName = get_post_meta( $post_id, 'vendor-display-name', true );
+                            $vendorExpirationDate = get_post_meta( $post_id, 'vendor-expiration', true );
+
+                            $dateToCheck = new DateTime($vendorExpirationDate);
+                            $now = new DateTime();
+                            if($dateToCheck < $now) {
+                                //vendor has expired
+                                $expiredVendor = true;
+                            } else {
+                                //vendor is valid
+                                $expiredVendor = false;
+                            }
+
+                            if($vendorTier == 'signature' && !$expiredVendor) {
+                                $signatureVendorCount++;
+                            ?>
+                                <a class="item signature" href="<?php the_permalink(); ?>" title="<?php printf( __('%s', 'TB2017'), the_title_attribute('echo=0') ); ?>">
+                                    <span class="item-content">
+                                        <?php 
+                                            if($vendorDisplayName) { 
+                                        ?>
+                                                <strong><?php echo $vendorDisplayName; ?></strong>
+                                        <?php
+                                            } else {
+                                        ?>
+                                            <strong><?php the_title(); ?></strong>
+                                        <?php
+                                            }
+                                        ?>
+
+                                        <?php 
+                                            if($vendorLocations) { 
+                                                echo '<span>'.$vendorLocations.'</span>';
+                                            }
+
+                                            if($vendorPriceRange) { 
+                                                echo '<span class="price-scale">'.$vendorPriceRange.'</span>';
+                                            } else {
+                                                echo '<span class="price-scale">---</span>';
+                                            }
+                                        ?>
+                                    </span>
+                                    <?php if ( has_post_thumbnail() && ($vendorTier == 'signature' || $vendorTier == 'essentials') ) { ?>
+                                        <?php the_post_thumbnail(); ?>
+                                    <?php } ?>
+                                </a>
+                            <?php
+                            }
+                          }
+                          if(!$signatureVendorCount) {
+
+                            $categoryLink = get_term_link( $currentTaxonomy, 'vendor-list' );
+                            echo '<a class="btn" href="'.$categoryLink.'">View All</a>';
+                          }
+                        }
+                        wp_reset_postdata();
+
+
+                    ?>
+
+                </div>
             </div>
         </div>
     <?php } ?>

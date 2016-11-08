@@ -552,6 +552,11 @@
     font-size: 18px;
   }
 
+  .vendor-brand
+  {
+    display: block;
+  }
+
   .vendor-testimonial
   {
     display: block;

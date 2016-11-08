@@ -515,25 +515,25 @@
     font-size: 18px;
   }
 
-  .vendor-testimonial
+  .vendor-brand
   {
     display: block;
   }
 
-  .vendor-testimonial .vendor-logo,
-  .vendor-testimonial .vendor-testimonial-content
+  .vendor-brand .vendor-logo,
+  .vendor-brand .vendor-brand-content
   {
     width: auto;
     display: block;
   }
 
-  .vendor-testimonial-content
+  .vendor-brand-content
   {
     line-height: 28px;
   }
 
-  .vendor-testimonial .vendor-testimonial-content:before,
-  .vendor-testimonial .vendor-testimonial-content:after
+  .vendor-brand .vendor-brand-content:before,
+  .vendor-brand .vendor-brand-content:after
   {
     font-size: 32px;
   }

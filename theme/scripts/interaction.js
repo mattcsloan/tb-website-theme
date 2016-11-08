@@ -39,6 +39,12 @@ $(document).on('click', '.menu-link', function() {
   return false;
 });
 
+$(document).on('change', '.vendor-category-dropdown', function() {
+  var selectedLink = $(this).val();
+  window.location.href = selectedLink;
+  return false;
+});
+
 // check any link starting with # and scroll page to that anchor
 $(document).on('click', 'a[href^="#"]', function() {
   if($(this).attr('href') === "#") {

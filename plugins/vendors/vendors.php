@@ -1,7 +1,7 @@
 <?php 
 /*Plugin Name: Vendor Listings
 Description: Add a list of vendors to your website and create individual vendor pages.
-Version: 1.0
+Version: 1.1.0
 License: GPLv2
 */
 
@@ -103,8 +103,12 @@ function tb_meta_callback( $post ) {
           <input type="radio" name="vendor-tier" id="vendor-tier-basic" value="basic" <?php if ( isset ( $tb_stored_meta['vendor-tier'] ) ) checked( $tb_stored_meta['vendor-tier'][0], 'basic' ); ?>>
           <?php _e( 'Basic', 'tb-textdomain' )?>
         </label>
+        <label for="vendor-tier-show-only">
+          <input type="radio" name="vendor-tier" id="vendor-tier-show-only" value="show-only" <?php if ( isset ( $tb_stored_meta['vendor-tier'] ) ) checked( $tb_stored_meta['vendor-tier'][0], 'show-only' ); ?>>
+          <?php _e( 'Show Only', 'tb-textdomain' )?>
+        </label>
       </div>
-    </p>
+    </p>    
 
     <!-- Vendor Logo -->
     <div class="vendor-media-preview">
@@ -119,10 +123,38 @@ function tb_meta_callback( $post ) {
       </p>
     </div>
 
+    <!-- Vendor Display Name -->
+    <p class="tb-row-content">
+      <label for="vendor-display-name" class="tb-row-title"><?php _e( 'Vendor Display Name', 'tb-textdomain' )?></label>
+      <input type="text" name="vendor-display-name" id="vendor-display-name" value="<?php if ( isset ( $tb_stored_meta['vendor-display-name'] ) ) echo $tb_stored_meta['vendor-display-name'][0]; ?>" />
+    </p>
+
     <!-- Vendor Locations -->
     <p class="tb-row-content">
       <label for="vendor-locations" class="tb-row-title"><?php _e( 'Vendor Location', 'tb-textdomain' )?></label>
       <input type="text" name="vendor-locations" id="vendor-locations" value="<?php if ( isset ( $tb_stored_meta['vendor-locations'] ) ) echo $tb_stored_meta['vendor-locations'][0]; ?>" />
+    </p>
+
+    <!-- Vendor Price Range -->
+    <p class="tb-row-content">
+    <label for="vendor-price-range"><?php _e( 'Vendor Price Range', 'tb-textdomain' )?></label>
+    <select name="vendor-price-range" id="vendor-price-range">
+        <option value="">Select Vendor's Price Range</option>';
+        <option value="$" <?php if ( isset ( $tb_stored_meta['vendor-price-range'] ) ) selected( $tb_stored_meta['vendor-price-range'][0], '$' ); ?>><?php _e( '$', 'tb-textdomain' )?></option>';
+        <option value="$$" <?php if ( isset ( $tb_stored_meta['vendor-price-range'] ) ) selected( $tb_stored_meta['vendor-price-range'][0], '$$' ); ?>><?php _e( '$$', 'tb-textdomain' )?></option>';
+        <option value="$$$" <?php if ( isset ( $tb_stored_meta['vendor-price-range'] ) ) selected( $tb_stored_meta['vendor-price-range'][0], '$$$' ); ?>><?php _e( '$$$', 'tb-textdomain' )?></option>';
+        <option value="$$$$" <?php if ( isset ( $tb_stored_meta['vendor-price-range'] ) ) selected( $tb_stored_meta['vendor-price-range'][0], '$$$$' ); ?>><?php _e( '$$$$', 'tb-textdomain' )?></option>';
+        <option value="$$$$$" <?php if ( isset ( $tb_stored_meta['vendor-price-range'] ) ) selected( $tb_stored_meta['vendor-price-range'][0], '$$$$$' ); ?>><?php _e( '$$$$$', 'tb-textdomain' )?></option>';
+    </select>
+    </p>
+
+    <!-- Vendor Expiration Date -->
+    <p class="tb-row-content">
+      <label for="vendor-expiration" class="tb-row-title">
+        <?php _e( 'Vendor Expiration Date', 'tb-textdomain' )?>
+        <em class="description"> (Accepted Format: MM/DD/YYYY)</em>
+      </label>
+      <input type="text" name="vendor-expiration" id="vendor-expiration" value="<?php if ( isset ( $tb_stored_meta['vendor-expiration'] ) ) echo $tb_stored_meta['vendor-expiration'][0]; ?>" />
     </p>
 
     <!-- Vendor Website Link -->
@@ -145,6 +177,29 @@ function tb_meta_callback( $post ) {
       <label for="vendor-testimonial" class="tb-row-title"><?php _e( 'Vendor Testimonial', 'tb-textdomain' )?></label>
       <textarea name="vendor-testimonial" id="vendor-testimonial"><?php if ( isset ( $tb_stored_meta['vendor-testimonial'] ) ) echo $tb_stored_meta['vendor-testimonial'][0]; ?></textarea>
     </p>
+
+    <!-- Add To Pickup Locations -->
+    <p class="tb-row-content">
+        <input type="checkbox" id="vendor-pickup-location" name="vendor-pickup-location" value="yes" <?php if ( isset ( $tb_stored_meta['vendor-pickup-location'] ) ) checked( $tb_stored_meta['vendor-pickup-location'][0], 'yes' ); ?> />
+        <label for="vendor-pickup-location" style="display: inline; width: auto;">Add this vendor to Pickup Locations list</label>
+    </p>
+
+    <!-- Add To Discount Card Page -->
+    <p class="tb-row-content">
+        <input type="checkbox" id="vendor-discount-card" name="vendor-discount-card" value="yes" <?php if ( isset ( $tb_stored_meta['vendor-discount-card'] ) ) checked( $tb_stored_meta['vendor-discount-card'][0], 'yes' ); ?> />
+        <label for="vendor-discount-card" style="display: inline; width: auto;">Add a Discount Card image and add vendor to Discount Card Page</label>
+    </p>
+
+    <!-- Add Vendor Partner badge -->
+    <p class="tb-row-content">
+        <input type="checkbox" id="vendor-partner-logo" name="vendor-partner-logo" value="yes" <?php if ( isset ( $tb_stored_meta['vendor-partner-logo'] ) ) checked( $tb_stored_meta['vendor-partner-logo'][0], 'yes' ); ?> />
+        <label for="vendor-partner-logo" style="display: inline; width: auto;">Show Featured Partner badge on page</label>
+    </p>
+
+
+
+
+
 
     <h3>Vendor Social Links</h3>
     <!-- Vendor Facebook -->
@@ -203,8 +258,23 @@ function tb_meta_save( $post_id ) {
   }
 
   // Checks for input and sanitizes/saves if needed
+  if( isset( $_POST[ 'vendor-display-name' ] ) ) {
+    update_post_meta( $post_id, 'vendor-display-name', sanitize_text_field( $_POST[ 'vendor-display-name' ] ) );
+  }
+
+  // Checks for input and sanitizes/saves if needed
   if( isset( $_POST[ 'vendor-locations' ] ) ) {
     update_post_meta( $post_id, 'vendor-locations', sanitize_text_field( $_POST[ 'vendor-locations' ] ) );
+  }
+
+  // Checks for input and saves if needed
+  if( isset( $_POST[ 'vendor-price-range' ] ) ) {
+      update_post_meta( $post_id, 'vendor-price-range', $_POST[ 'vendor-price-range' ] );
+  }
+
+  // Checks for input and sanitizes/saves if needed
+  if( isset( $_POST[ 'vendor-expiration' ] ) ) {
+    update_post_meta( $post_id, 'vendor-expiration', sanitize_text_field( $_POST[ 'vendor-expiration' ] ) );
   }
 
   // Checks for input and sanitizes/saves if needed
@@ -220,6 +290,27 @@ function tb_meta_save( $post_id ) {
   // Checks for input and sanitizes/saves if needed
   if( isset( $_POST[ 'vendor-testimonial' ] ) ) {
     update_post_meta( $post_id, 'vendor-testimonial', sanitize_text_field( $_POST[ 'vendor-testimonial' ] ) );
+  }
+
+  // Checks for presence of checkbox value
+  if( isset( $_POST[ 'vendor-pickup-location' ] ) ) {
+    update_post_meta( $post_id, 'vendor-pickup-location', 'yes' );
+  } else {
+    update_post_meta( $post_id, 'vendor-pickup-location', '' );
+  }
+
+  // Checks for presence of checkbox value
+  if( isset( $_POST[ 'vendor-discount-card' ] ) ) {
+    update_post_meta( $post_id, 'vendor-discount-card', 'yes' );
+  } else {
+    update_post_meta( $post_id, 'vendor-discount-card', '' );
+  }
+
+  // Checks for presence of checkbox value
+  if( isset( $_POST[ 'vendor-partner-logo' ] ) ) {
+    update_post_meta( $post_id, 'vendor-partner-logo', 'yes' );
+  } else {
+    update_post_meta( $post_id, 'vendor-partner-logo', '' );
   }
 
   // Checks for input and sanitizes/saves if needed

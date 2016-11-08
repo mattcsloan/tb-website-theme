@@ -296,8 +296,8 @@ function breadcrumbs() {
 }
 
 //Prevent <p> and <br> tags from being added to posts
-remove_filter( 'the_content', 'wpautop' );
-remove_filter( 'the_excerpt', 'wpautop' );
+// remove_filter( 'the_content', 'wpautop' );
+// remove_filter( 'the_excerpt', 'wpautop' );
 // if (is_page('Home')) {
 //  remove_filter('the_content', 'wpautop');
 // }
@@ -358,6 +358,19 @@ function col( $atts, $content = null ) {
   return '<div class="col">'.$content.'</div>';
 }
 add_shortcode("col", "col");
+
+
+function checkList( $atts, $content = null ) {
+    return '<div class="check-list">'.$content.'</div>';
+}
+add_shortcode("check-list", "checkList");
+
+
+function inlineList( $atts, $content = null ) {
+    return '<div class="dotted-list">'.$content.'</div>';
+}
+add_shortcode("inline-list", "inlineList");
+
 //End Shortcodes
 
 ?>
