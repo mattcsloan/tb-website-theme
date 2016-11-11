@@ -343,6 +343,5 @@
             </div>
         </div>
     <?php } ?>
-
 <?php } ?>
 <?php get_footer(); ?>

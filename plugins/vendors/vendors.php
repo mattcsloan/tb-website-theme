@@ -64,8 +64,6 @@ function vendor_listings() {
 add_action( 'init', 'vendor_listings' );
 
 
-
-
 // ======================================================== //
 // ======================================================== //
 // ================ Vendor Info Meta Box ================== //
@@ -196,37 +194,67 @@ function tb_meta_callback( $post ) {
         <label for="vendor-partner-logo" style="display: inline; width: auto;">Show Featured Partner badge on page</label>
     </p>
 
+    <div class="tb-row-content">
+      <h3>Vendor Social Links</h3>
+      <!-- Vendor Facebook -->
+      <p>
+        <label for="vendor-facebook" class="tb-row-title"><?php _e( 'Vendor Facebook URL', 'tb-textdomain' )?></label>
+        <input type="text" name="vendor-facebook" id="vendor-facebook" value="<?php if ( isset ( $tb_stored_meta['vendor-facebook'] ) ) echo $tb_stored_meta['vendor-facebook'][0]; ?>" />
+      </p>
+      <!-- Vendor Pinterest -->
+      <p>
+        <label for="vendor-pinterest" class="tb-row-title"><?php _e( 'Vendor Pinterest URL', 'tb-textdomain' )?></label>
+        <input type="text" name="vendor-pinterest" id="vendor-pinterest" value="<?php if ( isset ( $tb_stored_meta['vendor-pinterest'] ) ) echo $tb_stored_meta['vendor-pinterest'][0]; ?>" />
+      </p>
+      <!-- Vendor YouTube -->
+      <p>
+        <label for="vendor-youtube" class="tb-row-title"><?php _e( 'Vendor YouTube URL', 'tb-textdomain' )?></label>
+        <input type="text" name="vendor-youtube" id="vendor-youtube" value="<?php if ( isset ( $tb_stored_meta['vendor-youtube'] ) ) echo $tb_stored_meta['vendor-youtube'][0]; ?>" />
+      </p>
+      <!-- Vendor Twitter -->
+      <p>
+        <label for="vendor-twitter" class="tb-row-title"><?php _e( 'Vendor Twitter URL', 'tb-textdomain' )?></label>
+        <input type="text" name="vendor-twitter" id="vendor-twitter" value="<?php if ( isset ( $tb_stored_meta['vendor-twitter'] ) ) echo $tb_stored_meta['vendor-twitter'][0]; ?>" />
+      </p>
+      <!-- Vendor Facebook -->
+      <p>
+        <label for="vendor-instagram" class="tb-row-title"><?php _e( 'Vendor Instagram URL', 'tb-textdomain' )?></label>
+        <input type="text" name="vendor-instagram" id="vendor-instagram" value="<?php if ( isset ( $tb_stored_meta['vendor-instagram'] ) ) echo $tb_stored_meta['vendor-instagram'][0]; ?>" />
+      </p>
+    </div>
 
+    <div class="tb-row-content">
+      <h3>Bridal Show Participation</h3>
+      <?php
+          if(is_plugin_active( 'bridal-shows/bridal-shows.php')) { 
+              $query = new WP_Query(
+                  array(
+                    'posts_per_page' => -1,
+                    'post_type' => 'bridal-shows',
+                    'post_status' => 'publish',
+                    'orderby' => 'title',
+                    'order' => 'ASC'
+                  )
+              );
+              if( $query->have_posts() ) { 
+                while( $query->have_posts() ) { 
+                  $query->the_post();
+                  $postTitle = get_the_title();
+                  $post_id = get_the_ID();
+                  $showId = 'bridal-show-'.$post_id;
+                  ?>
+                  <p>
+                      <input type="checkbox" id="<?php echo $showId; ?>" name="<?php echo $showId; ?>" value="yes" <?php if ( isset ( $tb_stored_meta[$showId] ) ) checked( $tb_stored_meta[$showId][0], 'yes' ); ?> />
+                      <label for="<?php echo $showId; ?>" style="display: inline; width: auto;"><?php echo $postTitle; ?></label>
+                  </p>
+                  <?php
+                }
+              }
+              wp_reset_postdata();
+          }
+      ?>
 
-
-
-
-    <h3>Vendor Social Links</h3>
-    <!-- Vendor Facebook -->
-    <p>
-      <label for="vendor-facebook" class="tb-row-title"><?php _e( 'Vendor Facebook URL', 'tb-textdomain' )?></label>
-      <input type="text" name="vendor-facebook" id="vendor-facebook" value="<?php if ( isset ( $tb_stored_meta['vendor-facebook'] ) ) echo $tb_stored_meta['vendor-facebook'][0]; ?>" />
-    </p>
-    <!-- Vendor Pinterest -->
-    <p>
-      <label for="vendor-pinterest" class="tb-row-title"><?php _e( 'Vendor Pinterest URL', 'tb-textdomain' )?></label>
-      <input type="text" name="vendor-pinterest" id="vendor-pinterest" value="<?php if ( isset ( $tb_stored_meta['vendor-pinterest'] ) ) echo $tb_stored_meta['vendor-pinterest'][0]; ?>" />
-    </p>
-    <!-- Vendor YouTube -->
-    <p>
-      <label for="vendor-youtube" class="tb-row-title"><?php _e( 'Vendor YouTube URL', 'tb-textdomain' )?></label>
-      <input type="text" name="vendor-youtube" id="vendor-youtube" value="<?php if ( isset ( $tb_stored_meta['vendor-youtube'] ) ) echo $tb_stored_meta['vendor-youtube'][0]; ?>" />
-    </p>
-    <!-- Vendor Twitter -->
-    <p>
-      <label for="vendor-twitter" class="tb-row-title"><?php _e( 'Vendor Twitter URL', 'tb-textdomain' )?></label>
-      <input type="text" name="vendor-twitter" id="vendor-twitter" value="<?php if ( isset ( $tb_stored_meta['vendor-twitter'] ) ) echo $tb_stored_meta['vendor-twitter'][0]; ?>" />
-    </p>
-    <!-- Vendor Facebook -->
-    <p>
-      <label for="vendor-instagram" class="tb-row-title"><?php _e( 'Vendor Instagram URL', 'tb-textdomain' )?></label>
-      <input type="text" name="vendor-instagram" id="vendor-instagram" value="<?php if ( isset ( $tb_stored_meta['vendor-instagram'] ) ) echo $tb_stored_meta['vendor-instagram'][0]; ?>" />
-    </p>
+    </div>
   </div>
 
 
@@ -336,6 +364,33 @@ function tb_meta_save( $post_id ) {
   // Checks for input and sanitizes/saves if needed
   if( isset( $_POST[ 'vendor-instagram' ] ) ) {
     update_post_meta( $post_id, 'vendor-instagram', sanitize_text_field( $_POST[ 'vendor-instagram' ] ) );
+  }
+
+
+  if(is_plugin_active( 'bridal-shows/bridal-shows.php')) { 
+    $query = new WP_Query(
+        array(
+          'posts_per_page' => -1,
+          'post_type' => 'bridal-shows',
+          'post_status' => 'publish',
+          'orderby' => 'title',
+          'order' => 'ASC'
+        )
+    );
+    if( $query->have_posts() ) { 
+      while( $query->have_posts() ) { 
+        $query->the_post();
+        $loop_post_id = get_the_ID();
+        $showId = 'bridal-show-'.$loop_post_id;
+        // Checks for presence of checkbox value
+        if( isset( $_POST[ $showId ] ) ) {
+          update_post_meta( $post_id, $showId, 'yes' );
+        } else {
+          update_post_meta( $post_id, $showId, '' );
+        }
+      }
+    }
+    wp_reset_postdata();
   }
 }
 add_action( 'save_post', 'tb_meta_save' );

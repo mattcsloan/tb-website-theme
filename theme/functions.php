@@ -9,6 +9,17 @@
 // }
 // add_action('init', 'load_my_scripts');
 
+// Make Wordpress Admin content area use theme stylesheet
+add_editor_style('style.css');
+
+/**
+ * Registers an editor stylesheet for the current theme.
+ */
+function add_editor_styles() {
+    $font_url = str_replace( ',', '%2C', '//fonts.googleapis.com/css?family=Montserrat:400,700' );
+    add_editor_style( $font_url );
+}
+add_action( 'after_setup_theme', 'add_editor_styles' );
 
 
 // Get the page number
@@ -302,7 +313,20 @@ function breadcrumbs() {
 //  remove_filter('the_content', 'wpautop');
 // }
 
+// prevent wordpress from adding <p> and <br> tags from editor
+remove_filter( 'the_content', 'wpautop' ); 
+$br = false;
+// add <p> tags from editor back in
+add_filter( 'the_content', function( $content ) use ( $br ) {  
+    return wpautop( $content, $br ); 
+}, 10 );
 
+// REMOVE WP EMOJI
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('wp_print_styles', 'print_emoji_styles');
+
+remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+remove_action( 'admin_print_styles', 'print_emoji_styles' );
 
 // For tag lists on tag archives: Returns other tags except the current one (redundant)
 // function tag_ur_it($glue) {
@@ -370,6 +394,109 @@ function inlineList( $atts, $content = null ) {
     return '<div class="dotted-list">'.$content.'</div>';
 }
 add_shortcode("inline-list", "inlineList");
+
+function button($atts, $content = null) {
+    extract(shortcode_atts(array(
+        "link" => '#',
+        "color" => 'pink',
+        "border" => '',
+        "size" => 'normal'
+    ), $atts));
+
+    $addClass = '';
+    if($color == 'gray') {
+      $addClass .= ' btn-secondary';
+    } else if($color == 'white') {
+      $addClass .= ' btn-light';
+    }
+
+    if($border == 'yes') {
+      $addClass .= ' strong';
+    }
+
+    if($size == 'large') {
+      $addClass .= ' btn-large';
+    }
+
+    $buttonString =  '<a class="btn';
+    if($addClass) {
+      $buttonString .= $addClass;
+    }
+    $buttonString .= '" href="'.$link.'">'.$content.'</a>';
+    return $buttonString;
+}
+add_shortcode("button", "button");
+
+//For Discount Card Page
+function discountCardVendors(){
+  $args = array(
+      'posts_per_page' => -1,
+      'post_type' => 'vendor',
+      'post_status' => 'publish',
+      'orderby' => 'title',
+      'order' => 'ASC'
+  );
+
+  $string = '';
+  $query = new WP_Query( $args );
+  if( $query->have_posts() ){
+      $string .= '<div class="discount-card-list">';
+      $string .= '<table>';
+      $string .= '<tr>';
+      $string .= '<th>Company</th>';
+      $string .= '<th>Website</th>';
+      $string .= '<th>Phone Number</th>';
+      $string .= '</tr>';
+      while( $query->have_posts() ){
+          $query->the_post();
+          $post_id = get_the_ID();
+          $vendorDiscountCard = get_post_meta( $post_id, 'vendor-discount-card', true );
+          $vendorDisplayName = get_post_meta( $post_id, 'vendor-display-name', true );
+          $vendorWebsiteLink = get_post_meta( $post_id, 'vendor-website-link', true );
+          $vendorPhoneNumber = get_post_meta( $post_id, 'vendor-phone-number', true );
+
+
+          if(!$vendorDisplayName) {
+            $vendorDisplayName = get_the_title();
+          }
+          $vendorExpirationDate = get_post_meta( $post_id, 'vendor-expiration', true );
+          $dateToCheck = new DateTime($vendorExpirationDate);
+          $now = new DateTime();
+          if($dateToCheck < $now) {
+              //vendor has expired
+              $expiredVendor = true;
+          } else {
+              //vendor is valid
+              $expiredVendor = false;
+          }
+          if($vendorDiscountCard == 'yes' && !$expiredVendor) {
+            $string .= '<tr>';
+              $string .= '<td><a href="' . get_the_permalink() . '">' . $vendorDisplayName . '</a></td>';
+              if($vendorWebsiteLink) {
+              $string .= '<td><a href="' . $vendorWebsiteLink . '">Website</a></td>';
+              } else {
+                $string .= '<td></td>';
+              }
+              if($vendorPhoneNumber) {
+                $string .= '<td>' . $vendorPhoneNumber . '</td>';
+              } else {
+                $string .= '<td></td>';
+              }
+            $string .= '</tr>';
+          }
+      }
+
+      $string .= '</table>';
+      $string .= '</div>';
+  }
+  wp_reset_postdata();
+  return $string;
+}
+add_shortcode( 'discount-card-vendors', 'discountCardVendors' );
+
+
+
+
 
 //End Shortcodes
 

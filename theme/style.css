@@ -122,6 +122,14 @@ h1 a
   color: #000;
 }
 
+hr
+{
+  margin: 24px 0;
+  padding: 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
 img
 {
   max-width: 100% !important;
@@ -139,13 +147,18 @@ p:empty
 }
 
 input[type="text"],
+input[type="email"],
+input[type="tel"],
 textarea,
 select
 {
   font-family: 'Montserrat', Helvetica, Arial, sans-serif;
 }
 
-input[type="text"], textarea
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea
 {
   background: #fff;
   border: 1px solid #ddd;
@@ -161,7 +174,10 @@ textarea
   max-width: 100%;
 }
 
-input[type="text"]:focus, textarea:focus
+input[type="text"]:focus, 
+input[type="email"]:focus,
+input[type="tel"]:focus,
+textarea:focus
 {
   border-color: #999;
 }
@@ -201,6 +217,24 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 {
   font-size: 12px;
   font-style: oblique;
+}
+
+.aligncenter 
+{
+  display: block;
+  margin: 16px auto;
+}
+
+.alignleft
+{
+  float: left;
+  margin: 0.5em 1em 0.5em 0;
+}
+
+.alignright 
+{
+  float: right;
+  margin: 0.5em 0 0.5em 1em;
 }
 
 .btn, .footer-navigation a
@@ -1853,7 +1887,10 @@ option
   display: block;
 }
 
-.comments input[type="text"], .comments textarea
+.comments input[type="text"], 
+.comments input[type="tel"], 
+.comments input[type="email"], 
+.comments textarea
 {
   width: 100%;
   box-sizing: border-box;
@@ -2290,4 +2327,85 @@ h5.block-headline + .padded-content
 .callout.pink h4
 {
   color: #ec008c;
+}
+
+/* ================================= DISCOUNT CARD TABLE ================================== */
+
+table
+{
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 24px;
+}
+
+tr
+{
+  background: #fff;
+}
+
+tr:nth-child(odd)
+{
+  background: #fafafa;
+}
+
+tr:first-child
+{
+  border-radius: 4px 4px 0 0;
+}
+
+tr:last-child
+{
+  border-radius: 0 0 4px 4px;
+}
+
+th
+{
+  padding: 8px 12px;
+  color: #fff;
+  text-align: left;
+  font-weight: normal;
+  background: #f7c8dc;
+}
+
+td
+{
+  padding: 8px 12px;
+  border-top: 1px solid #eee;
+}
+
+th:first-child,
+td:first-child
+{
+  width: 70%;
+}
+
+th:last-child,
+td:last-child
+{
+  text-align: right;
+}
+
+.discount-card-list
+{
+  overflow-x: auto;
+}
+
+.discount-card-list,
+.discount-card-list a
+{
+  color: #111;
+}
+
+/* Styles for the Wordpress Admin editor */
+body.mceContentBody
+{
+  padding: 16px !important;
+}
+
+/* Prevents navigation from displaying under wpadminbar when logged in */
+body.customize-support .navigation
+{
+  top: 32px;
 }
