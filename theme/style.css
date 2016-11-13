@@ -219,6 +219,11 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   font-style: oblique;
 }
 
+.center-text
+{
+  text-align: center;
+}
+
 .aligncenter 
 {
   display: block;
@@ -512,6 +517,12 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   padding-top: 18px;
 }
 
+.navigation li.menu-item-has-children ul li.current_page_item > a:hover,
+.navigation li.menu-item-has-children ul li.current_menu_item > a:hover
+{
+  border-top: 2px solid #ec008c;
+}
+
 .header > .wrapper
 {
   text-align: center;
@@ -710,12 +721,9 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 
 .hero
 {
-  height: 425px;
   border-top: 10px solid #ec008c;
   border-bottom: 10px solid #ec008c;
-  text-align: center;
   color: #fff;
-  line-height: 425px;
   background: #111;
   overflow: hidden;
 }
@@ -730,6 +738,7 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 .hero img
 {
   display: block;
+  transition: all 0.2s ease-in;
 }
 
 .hero#bridal-show
@@ -740,7 +749,7 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   background: #fafafa;
 }
 
-.hero-title
+.hero#bridal-show .hero-title
 {
   color: #fff;
   font-size: 60px;
@@ -759,12 +768,68 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   text-shadow: 0 2px 10px rgba(0,0,0,0.4);
 }
 
-.hero-subtitle
+.hero#bridal-show .hero-subtitle
 {
   font-size: 24px;
   display: block;
   margin-top: 6px;
   line-height: 1em;
+}
+
+.hero .panel
+{
+  display: flex;
+}
+
+.panel .slide
+{
+  position: relative;
+  overflow: hidden;
+}
+
+.slide .slide-content
+{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.slide-content .slide-title,
+.slide-content .slide-subtitle
+{
+  display: block;
+  color: #fff;
+  font-size: 24px;
+  margin: 0 0 4px 0;
+  padding: 0;
+}
+
+.slide-content .slide-subtitle
+{
+  color: #eee;
+  font-size: 16px;
+  margin: 0;
+}
+
+a.slide:hover > img
+{
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+
+a.slide:hover .slide-content
+{
+  background: rgba(0,0,0,0.9);
+}
+
+.gallery p:empty
+{
+  display: none;
 }
 
 .gallery:after
@@ -824,8 +889,8 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 {
   float: none;
   display: inline-block;
-  width: 96.75%;
-  margin: 3% 0 3% 3.25%;
+  width: 97%;
+  margin: 3% 0 2% 3.25%;
 }
 
 .sponsors .item:before
@@ -1849,9 +1914,18 @@ option
   text-shadow: none;
 }
 
-.advertisement
+.advertisement,
+.sponsor
 {
-  margin-bottom: 32px;
+  margin: 16px auto 16px auto;
+  display: block;
+}
+
+.advertisement img,
+.sponsor img
+{
+  display: block;
+  margin: 0 auto;
 }
 
 .ad-placeholder,
@@ -2387,16 +2461,26 @@ td:last-child
   text-align: right;
 }
 
-.discount-card-list
+.discount-card-list,
+.pickup-location-list
 {
   overflow-x: auto;
 }
 
 .discount-card-list,
-.discount-card-list a
+.discount-card-list a,
+.pickup-location-list,
+.pickup-location-list a
 {
   color: #111;
 }
+
+.pickup-location-list th:first-child,
+.pickup-location-list td:first-child
+{
+  width: 60%;
+}
+
 
 /* Styles for the Wordpress Admin editor */
 body.mceContentBody

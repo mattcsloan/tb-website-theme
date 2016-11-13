@@ -1,11 +1,4 @@
 <?php get_header(); ?>
-<?php if(is_home()) { ?>
-    <div class="action-bar">
-        <div class="wrapper">
-          <h3><?php wp_title(''); ?></h3>
-        </div>
-    </div>
-<?php } ?>
 <div class="wrapper blog">
     <div class="main">
         <?php 

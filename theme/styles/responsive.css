@@ -367,23 +367,48 @@
 
   .hero
   {
-    min-height: 225px;
-    border-top-width: 6px;
-    border-bottom-width: 6px;
-    line-height: 225px;
+    border-top: 4px solid #ec008c;
+    border-bottom: 4px solid #ec008c;
   }
 
-  .hero-title
+  .hero img
+  {
+    width: 100%;
+  }
+
+  .hero#bridal-show .hero-title
   {
     font-size: 32px;
+    background: rgba(0,0,0,0.4);
     padding: 16px;
     margin: 0;
-    background: rgba(0,0,0,0.4);
   }
 
-  .hero-subtitle
+  .hero#bridal-show .hero-subtitle
   {
     font-size: 18px;
+  }
+
+  .hero .panel
+  {
+    display: block;
+  }
+
+  .panel .slide
+  {
+    display: block;
+    width: 100%;
+  }
+
+  .slide-content .slide-title,
+  .slide-content .slide-subtitle
+  {
+    font-size: 18px;
+  }
+
+  .slide-content .slide-subtitle
+  {
+    font-size: 14px;
   }
 
   .gallery .primary,

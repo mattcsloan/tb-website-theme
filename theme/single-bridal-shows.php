@@ -9,6 +9,7 @@
     $showTime = get_post_meta( $postId, 'show-time', true );
     $showFullDate = get_post_meta( $postId, 'show-full-date', true );
     $showFullLocation = get_post_meta( $postId, 'show-full-location', true );
+    $showSponsors = get_post_meta( $postId, 'show-sponsor-meta', true );
 ?>
 
 <div class="action-bar">
@@ -64,10 +65,10 @@
         <?php the_content(); ?>
     </div>
     <div class="secondary">
-      <h5>Exhibitor List</h5>
-      <div class="accordion exhibitor-list">
-        <h4 class="open"><a href="#">All Vendors</a></h4>
-          <?php
+        <h5>Exhibitor List</h5>
+        <div class="accordion exhibitor-list">
+            <h4 class="open"><a href="#">All Vendors</a></h4>
+            <?php
               $query = new WP_Query(
                   array(
                     'posts_per_page' => -1,
@@ -92,19 +93,10 @@
                 echo '</ul>';
               }
               wp_reset_postdata();
-          ?>
-      </div>
+            ?>
+        </div>
 
-      <!--
-      <h5>Show Sponsors</h5>
-      <div class="sponsor-placeholder">[Insert Sponsor Here]</div>
-      <div class="sponsor-placeholder">[Insert Sponsor Here]</div>
-      <div class="advertisements">
-        <img class="advertisement" src="content-img/ad-placeholder.jpg" alt="Ad" />
-        <img class="advertisement" src="content-img/ad-placeholder.jpg" alt="Ad" />
-        <img class="advertisement" src="content-img/ad-placeholder.jpg" alt="Ad" />
-      </div>
-      -->
+        <?php if (!empty($showSponsors)) { echo do_shortcode($showSponsors); } ?>
     </div>
   </div>
   <!--

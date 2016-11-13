@@ -42,8 +42,8 @@ add_filter('excerpt_length', 'custom_excerpt_length', 999);
 // add more link to excerpt
 function custom_excerpt_more($more) {
 global $post;
-return ' <a href="'. get_permalink($post->ID) . '">Read&nbsp;More</a>';
-// return ' ...';
+// return ' <a href="'. get_permalink($post->ID) . '">Read&nbsp;More</a>';
+return ' ...';
 }
 add_filter('excerpt_more', 'custom_excerpt_more');
 
@@ -379,21 +379,82 @@ function columns( $atts, $content = null ) {
 add_shortcode("columns", "columns");
 
 function col( $atts, $content = null ) {
-  return '<div class="col">'.$content.'</div>';
+  return '<div class="col">'.do_shortcode($content).'</div>';
 }
 add_shortcode("col", "col");
 
 
 function checkList( $atts, $content = null ) {
-    return '<div class="check-list">'.$content.'</div>';
+    return '<div class="check-list">'.do_shortcode($content).'</div>';
 }
 add_shortcode("check-list", "checkList");
 
 
 function inlineList( $atts, $content = null ) {
-    return '<div class="dotted-list">'.$content.'</div>';
+    return '<div class="dotted-list">'.do_shortcode($content).'</div>';
 }
 add_shortcode("inline-list", "inlineList");
+
+function actionItems( $atts, $content = null ) {
+    return '<div class="action-items">'.do_shortcode($content).'</div>';
+}
+add_shortcode("action-items", "actionItems");
+
+function tbGrid( $atts, $content = null ) {
+    extract(shortcode_atts(array(
+        "type" => ''
+    ), $atts));
+
+    $gridString = '<div class="grid';
+
+    if($type == 'goodies') {
+      $gridString .= ' goodies';
+    }
+
+    $gridString .= '">' . do_shortcode($content) . '</div>';
+
+    return $gridString;
+}
+add_shortcode("tb-grid", "tbGrid");
+
+function tbGridItem( $atts, $content = null ) {
+    extract(shortcode_atts(array(
+        "image" => '',
+        "title" => ''
+    ), $atts));
+
+    $gridItemString = '<div class="item">';
+
+    if($image !== '') {
+      $gridItemString .= '<img src="' . $image . '" alt="' . $title . '" />';
+    }
+
+    if($title !== '') {
+      $gridItemString .= '<h4>' . $title . '</h4>';
+    }
+
+    $gridItemString .= do_shortcode($content);
+
+    $gridItemString .= '</div>';
+
+    return $gridItemString;
+}
+add_shortcode("tb-grid-item", "tbGridItem");
+
+// function search_bar() {
+//   return get_search_form();
+// }
+// add_shortcode( 'search-bar', 'search_bar' );
+
+function searchBar( $atts, $content = null ) {
+    $url = get_site_url();
+    $searchBar = '<form class="searchform search-bar" role="search" method="get" id="searchform" class="searchform" action="' . $url . '">';
+    $searchBar .= '<input type="text" value="" name="s" placehodler="Search" id="s" />';
+    $searchBar .= '<input type="submit" id="searchsubmit" value="Go" />';
+    $searchBar .= '</form>';
+    return $searchBar;
+}
+add_shortcode("search-bar", "searchBar");
 
 function button($atts, $content = null) {
     extract(shortcode_atts(array(
@@ -418,14 +479,164 @@ function button($atts, $content = null) {
       $addClass .= ' btn-large';
     }
 
+    if($size == 'full') {
+      $addClass .= ' btn-full';
+    }
+
     $buttonString =  '<a class="btn';
     if($addClass) {
       $buttonString .= $addClass;
     }
-    $buttonString .= '" href="'.$link.'">'.$content.'</a>';
+    $buttonString .= '" href="'.$link.'">'.do_shortcode($content).'</a>';
     return $buttonString;
 }
 add_shortcode("button", "button");
+
+function advertisement($atts, $content = null) {
+    extract(shortcode_atts(array(
+        "link" => '',
+        "external" => false
+    ), $atts));
+
+    $adString = '';
+
+    if($link) {
+      $adString .= '<a class="advertisement" href="'.$link.'"';
+      if($external) {
+        $adString .= ' target="_blank"';
+      }
+      $adString .= '>';
+    } else {
+      $adString .= '<span class="advertisement">';
+    }
+
+    $adString .= do_shortcode($content);
+
+    if($link) {
+      $adString .= '</a>';
+    } else {
+      $adString .= '</span>';
+    }
+
+    return $adString;
+}
+add_shortcode("advertisement", "advertisement");
+
+function section($atts, $content = null) {
+    extract(shortcode_atts(array(
+        "size" => 'normal',   // options: normal, full
+        "color" => 'white',   // options: white, gray
+        "type" => 'standard' // options: standard, action-bar
+    ), $atts));
+
+    $sectionString = '';
+
+    if($type == 'action-bar') {
+      $sectionString .= '<div class="action-bar">';
+        $sectionString .= '<div class="wrapper">';
+    } else {
+      $sectionString .= '<div class="section';
+      if($color == 'gray') {
+        $sectionString .= ' muted';
+      }
+      $sectionString .= '">';
+      if($size !== 'full') {
+        $sectionString .= '<div class="wrapper">';
+      }
+    }
+
+    $sectionString .= do_shortcode($content);
+
+    if($type == 'action-bar' || $size == 'normal') {
+      $sectionString .= '</div>'; // end wrapper
+      $sectionString .= '</div>'; // end action-bar/section
+    } else {
+      $sectionString .= '</div>'; // end section
+    }
+
+    return $sectionString;
+}
+add_shortcode("section", "section");
+
+function vendorSpotlight($atts, $content = null) {
+    extract(shortcode_atts(array(
+        "heading" => 'Vendor Spotlight',
+        "vendor" => '',
+        "image" => '',
+        "link" => ''
+    ), $atts));
+
+    $spotlight = '<div class="wrapper">';
+
+    if($image !== '') {
+      $spotlight .= '<div class="card"><img src="'.$image.'" alt="'.$heading.'" />';
+    } else {
+      $spotlight .= '<div class="card full">';
+    }
+
+    $spotlight .= '<div class="card-content">';
+    $spotlight .= '<h2>'.$heading.'</h2>';
+
+    if($vendor !== '') {
+      $spotlight .= '<h4>'.$vendor.'</h4>';
+    } 
+
+    $spotlight .= '<p>'.do_shortcode($content).'</p>';
+
+    if($link !== '') {
+      $spotlight .= '<a href="'.$link.'">Learn More &raquo;</a>';
+    } 
+
+    $spotlight .= '</div>';
+    $spotlight .= '</div>';
+    $spotlight .= '</div>';
+
+    return $spotlight;
+}
+add_shortcode("vendor-spotlight", "vendorSpotlight");
+
+function tbGallery( $atts, $content = null ) {
+    return '<div class="gallery">'.do_shortcode($content).'</div>';
+}
+add_shortcode("tb-gallery", "tbGallery");
+
+function galleryPrimary( $atts, $content = null ) {
+    return '<div class="primary">'.do_shortcode($content).'</div>';
+}
+add_shortcode("gallery-primary", "galleryPrimary");
+
+function gallerySecondary( $atts, $content = null ) {
+    return '<div class="secondary sponsors">'.do_shortcode($content).'</div>';
+}
+add_shortcode("gallery-secondary", "gallerySecondary");
+
+function galleryItem($atts, $content = null) {
+    extract(shortcode_atts(array(
+        "link" => '',
+        "title" => ''
+    ), $atts));
+
+    if($link !== '') {
+      $galleryItem = '<a class="item" href="' . $link . '">';
+    } else {
+      $galleryItem = '<div class="item">';
+    }
+
+    if($title !== '') {
+      $galleryItem .= '<span>' . $title . '</span>';
+    }
+
+    $galleryItem .= do_shortcode($content);
+
+    if($link !== '') {
+      $galleryItem .= '</a>';
+    } else {
+      $galleryItem .= '</div>';
+    }
+
+    return $galleryItem;
+}
+add_shortcode("tb-gallery-item", "galleryItem");
 
 //For Discount Card Page
 function discountCardVendors(){
@@ -494,9 +705,76 @@ function discountCardVendors(){
 }
 add_shortcode( 'discount-card-vendors', 'discountCardVendors' );
 
+//For Pickup Location Page
+function pickupLocationList(){
+  $args = array(
+      'posts_per_page' => -1,
+      'post_type' => 'vendor',
+      'post_status' => 'publish',
+      'orderby' => 'title',
+      'order' => 'ASC'
+  );
+
+  $string = '';
+  $query = new WP_Query( $args );
+  if( $query->have_posts() ){
+      $string .= '<div class="pickup-location-list">';
+      $string .= '<table>';
+      $string .= '<tr>';
+      $string .= '<th>Company</th>';
+      $string .= '<th>Phone Number</th>';
+      $string .= '</tr>';
+      while( $query->have_posts() ){
+          $query->the_post();
+          $post_id = get_the_ID();
+          $vendorPickupLocation = get_post_meta( $post_id, 'vendor-pickup-location', true );
+          $vendorDisplayName = get_post_meta( $post_id, 'vendor-display-name', true );
+          $vendorPhoneNumber = get_post_meta( $post_id, 'vendor-phone-number', true );
 
 
+          if(!$vendorDisplayName) {
+            $vendorDisplayName = get_the_title();
+          }
+          $vendorExpirationDate = get_post_meta( $post_id, 'vendor-expiration', true );
+          $dateToCheck = new DateTime($vendorExpirationDate);
+          $now = new DateTime();
+          if($dateToCheck < $now) {
+              //vendor has expired
+              $expiredVendor = true;
+          } else {
+              //vendor is valid
+              $expiredVendor = false;
+          }
+          if($vendorPickupLocation == 'yes' && !$expiredVendor) {
+            $string .= '<tr>';
+              $string .= '<td><a href="' . get_the_permalink() . '">' . $vendorDisplayName . '</a></td>';
+              if($vendorPhoneNumber) {
+                $string .= '<td>' . $vendorPhoneNumber . '</td>';
+              } else {
+                $string .= '<td></td>';
+              }
+            $string .= '</tr>';
+          }
+      }
 
+      $string .= '</table>';
+      $string .= '</div>';
+  }
+  wp_reset_postdata();
+  return $string;
+}
+add_shortcode( 'pickup-locations', 'pickupLocationList' );
+
+// Remove empty paragraph tags from all shortcode contents
+function remove_p_tag_shortcodes( $content ) {
+  $array = array(
+    '<p>['    => '[',
+    ']</p>'   => ']',
+    ']<br />' => ']'
+  );
+  return strtr( $content, $array );
+}
+add_filter( 'the_content', 'remove_p_tag_shortcodes' );
 
 //End Shortcodes
 

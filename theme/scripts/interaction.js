@@ -79,9 +79,9 @@ function scrollToDiv(element) {
 
 function hideMenuForMobile() {
   if($(window).width() < 600) {
-    $('.menu-main-navigation-container').hide();
+    $('.menu-primary-navigation-container').hide();
   } else {
-    $('.menu-main-navigation-container').show();
+    $('.menu-primary-navigation-container').show();
   }
 }
 
