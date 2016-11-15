@@ -145,7 +145,7 @@ echo wp_get_post_terms();
                         ?>
                     </span>
                     <?php if ( has_post_thumbnail() && ($vendorTier == 'signature' || $vendorTier == 'essentials') ) { ?>
-                        <?php the_post_thumbnail(); ?>
+                        <?php the_post_thumbnail('vendor-feature'); ?>
                     <?php } ?>
                 </a>
             <?php } ?>

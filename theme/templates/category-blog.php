@@ -4,20 +4,28 @@ Template Name: Blog Posts
 */
 ?>
 <?php get_header(); ?>
+
+<?php 
+    global $numposts;
+    $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+    $wp_query = new WP_Query( 
+        array(
+            'category_name'     => 'blog',
+            'category__not_in'  => array(1962), // 'real-weddings' category ID
+            'posts_per_page'    => $numposts, //posts_per_page is determined by Settings > Readings
+            'paged'             => $paged
+        )
+    ); 
+?>
+
+<div class="action-bar breadcrumbs">
+    <div class="wrapper">
+        <h3>Blog</h3>
+        <?php echo do_shortcode('[search-bar]'); ?>
+    </div>
+</div>
 <div class="wrapper blog">
     <div class="main">
-        <?php 
-            global $numposts;
-            $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-            $wp_query = new WP_Query( 
-                array(
-                    'category_name'     => 'blog',
-                    'category__not_in'  => array(1962), // 'real-weddings' category ID
-                    'posts_per_page'    => $numposts, //posts_per_page is determined by Settings > Readings
-                    'paged'             => $paged
-                )
-            ); 
-        ?>
         <?php if ( $wp_query->have_posts() ) { ?>
             <?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>
                 <div class="entry entry-preview">

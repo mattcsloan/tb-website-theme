@@ -450,6 +450,7 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
 .navigation li.menu-item-has-children.two-column ul
 {
   width: 460px;
+  columns: 2;
 }
 
 .navigation li.menu-item-has-children.two-column ul li
@@ -652,6 +653,13 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   text-align: center;
 }
 
+.action-bar:after
+{
+  content: '';
+  display: block;
+  clear: both;
+}
+
 .action-bar h1
 {
   margin: 0 0 16px 0;
@@ -682,14 +690,28 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   padding-bottom: 12px;
 }
 
+.action-bar.breadcrumbs .searchform,
+.action-bar.breadcrumbs .login-out
+{
+  float: right;
+}
+
+.action-bar.breadcrumbs .login-out
+{
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.action-bar.breadcrumbs h3,
 .breadcrumbs a
 {
   float: left;
   position: relative;
-  padding: 3px 14px 3px 0;
+  padding: 0 14px 0 0;
   margin-right: 6px;
   font-size: 16px;
   color: #333;
+  text-transform: none;
 }
 
 .breadcrumbs a:hover
@@ -704,6 +726,30 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   top: 2px;
   right: 0;
   color: #aaa;
+}
+
+.login-out a
+{
+  float: none;
+  color: #ec008c;
+  margin: 0;
+  padding: 6px 14px;
+  font-size: 14px;
+}
+
+.breadcrumbs a:after,
+.login-out a:after
+{
+  content: '\00BB'; /*&raquo;*/
+  position: absolute;
+  top: 2px;
+  right: 0;
+  color: #aaa;
+}
+
+.login-out a:after
+{
+  top: 4px;
 }
 
 .search-bar,
@@ -1262,7 +1308,7 @@ a.slide:hover .slide-content
   padding: 12px;
   width: 100%;
   box-sizing: border-box;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .item-content span,
@@ -1290,8 +1336,10 @@ a.slide:hover .slide-content
 {
   position: absolute;
   top: 0;
-  left: 0; 
-  width: 150%;
+  left: 50%; 
+  margin-left: -288px;
+  max-width: none !important;
+  width: 566px;
 }
 
 .vendor-category .item.classic .item-content,

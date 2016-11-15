@@ -48,6 +48,16 @@ return ' ...';
 add_filter('excerpt_more', 'custom_excerpt_more');
 
 
+// only show parent category in URL (blog or realweddings)
+function remove_child_categories_from_permalinks( $category ) {
+    while ( $category->parent ) {
+        $category = get_term( $category->parent, 'category' );
+    }
+
+    return $category;
+}
+add_filter( 'post_link_category', 'remove_child_categories_from_permalinks' );
+
 
 //prevent Wordpress from wrapping loose images in a p tag
 function filter_ptags_on_images($content){
@@ -126,12 +136,14 @@ add_theme_support('post-thumbnails');
 
 add_image_size( 'large-feature', 700, 288, true );
 add_image_size( 'small-feature', 500, 300 );
+add_image_size( 'vendor-feature', 566, 342, array( 'center', 'top' ) );
 add_filter( 'image_size_names_choose', 'custom_image_sizes' );
 
 function custom_image_sizes( $sizes ) {
     return array_merge( $sizes, array(
         'large-feature' => __( 'Large Feature' ),
-        'small-feature' => __( 'Small Feature' )
+        'small-feature' => __( 'Small Feature' ),
+        'vendor-feature' => __( 'Vendor Feature' )
     ) );
 }
 
@@ -357,6 +369,150 @@ remove_action( 'admin_print_styles', 'print_emoji_styles' );
 // }
 // add_filter( "single_template", "get_custom_cat_template" ) ;
 
+//change login page logo and link
+function my_login_logo() { 
+  $logoUrl = get_stylesheet_directory_uri() . '/img/logo.jpg';
+  ?>
+    <style type="text/css">
+
+        body.login
+        {
+          background: #fff;
+        }
+
+        #login h1 a {
+          background-image: url(<?php echo $logoUrl ?>);
+          width: 280px;
+          height: 80px;
+          background-size: 100%;
+        }
+    
+        body.login div#login form#loginform p.submit input#wp-submit {
+          background: #ec008c;
+          border-color: #bd0070;
+          text-shadow: none;
+          box-shadow: 0 1px 0 #bd0070;
+        }
+        
+        body.login div#login form#loginform input#user_login:focus, body.login div#login form#loginform input#user_pass:focus {
+          box-shadow: 0 0 2px rgba(0,0,0,0.4);
+          padding: 4px;
+          border-color: #999;
+          color: #555;
+        }
+        
+        body.login div#login a:hover {
+          color: #ec008c;
+        }
+    </style>
+<?php }
+add_action( 'login_enqueue_scripts', 'my_login_logo' );
+
+function my_login_logo_url() {
+    return home_url();
+}
+add_filter( 'login_headerurl', 'my_login_logo_url' );
+
+
+
+
+//Adding additional form fields to a User's profile
+function additional_profile_fields($profile_fields) {
+  // Add new fields
+  $profile_fields['vendorweeklyleads'] = 'Weekly Leads';
+  $profile_fields['vendormonthlyleads'] = 'Monthly Leads';
+  return $profile_fields;
+}
+add_filter('user_contactmethods', 'additional_profile_fields');
+
+
+//Add New Meta Box for Vendor
+add_action( 'add_meta_boxes', 'vendor_leads_add' );
+function vendor_leads_add()
+{
+  foreach (array('page') as $type)
+  {
+      add_meta_box( 'vendor-leads', 'Vendor Leads', 'vendor_leads_render', $type, 'side' );
+  }
+}
+
+//Render Meta Box for Vendor Leads in Wordpress interface
+function vendor_leads_render()
+{
+    // $post is already set, and contains an object: the WordPress post
+    global $post;
+    $values = get_post_custom( $post->ID );
+     
+    // We'll use this nonce field later on when saving.
+    wp_nonce_field( 'vendor_leads_nonce', 'vendor_leads_nonce' );
+?>
+    <style type="text/css">    
+    #vendor-leads em
+    {
+      font-size: 11px;
+      display: block;
+      margin-top: 6px;
+      color: #666;  
+    }
+  </style>
+    <p>
+        <input type="checkbox" id="vendor_weekly_leads" name="vendor_weekly_leads" value="yes" <?php if ( isset ( $values['vendor_weekly_leads'] ) ) checked( $values['vendor_weekly_leads'][0], 'yes' ); ?> />
+        <label for="vendor_weekly_leads" style="display: inline; width: auto;">Weekly Leads Page</label>
+    </p>
+    <p>
+        <input type="checkbox" id="vendor_monthly_leads" name="vendor_monthly_leads" value="yes" <?php if ( isset ( $values['vendor_monthly_leads'] ) ) checked( $values['vendor_monthly_leads'][0], 'yes' ); ?> />
+        <label for="vendor_monthly_leads" style="display: inline; width: auto;">Monthly Leads Page</label>
+    </p>
+    <p><em><strong>Note:</strong> Only users that have this option selected in their User profile will be able to view this page</em></p>
+<?php   
+}
+
+//Save Meta Box for Vendor Leads Module to Database
+add_action( 'save_post', 'vendor_leads_save' );
+function vendor_leads_save( $post_id )
+{
+    // Bail if we're doing an auto save
+    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+     
+    // if our nonce isn't there, or we can't verify it, bail
+    if(!wp_verify_nonce( $_POST['vendor_leads_nonce'], 'vendor_leads_nonce' ) ) return;
+     
+    // if our current user can't edit this post, bail
+    if( !current_user_can( 'edit_post', $post_id ) ) return;
+     
+    // now we can actually save the data
+    $allowed = array(
+        'a' => array( // on allow a tags
+            'href' => array() // and those anchors can only have href attribute
+        )
+    );
+     
+    // Checks for presence of checkbox value
+    if( isset( $_POST[ 'vendor_weekly_leads' ] ) ) {
+      update_post_meta( $post_id, 'vendor_weekly_leads', 'yes' );
+    } else {
+      update_post_meta( $post_id, 'vendor_weekly_leads', '' );
+    }
+
+    // Checks for presence of checkbox value
+    if( isset( $_POST[ 'vendor_monthly_leads' ] ) ) {
+      update_post_meta( $post_id, 'vendor_monthly_leads', 'yes' );
+    } else {
+      update_post_meta( $post_id, 'vendor_monthly_leads', '' );
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 //Begin Shortcodes
 function columns( $atts, $content = null ) {
@@ -447,9 +603,14 @@ add_shortcode("tb-grid-item", "tbGridItem");
 // add_shortcode( 'search-bar', 'search_bar' );
 
 function searchBar( $atts, $content = null ) {
+    extract(shortcode_atts(array(
+        "placeholder" => 'Search'
+    ), $atts));
+
+
     $url = get_site_url();
     $searchBar = '<form class="searchform search-bar" role="search" method="get" id="searchform" class="searchform" action="' . $url . '">';
-    $searchBar .= '<input type="text" value="" name="s" placehodler="Search" id="s" />';
+    $searchBar .= '<input type="text" value="" name="s" placeholder="' . $placeholder . '" id="s" />';
     $searchBar .= '<input type="submit" id="searchsubmit" value="Go" />';
     $searchBar .= '</form>';
     return $searchBar;
