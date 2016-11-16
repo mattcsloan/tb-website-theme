@@ -1285,7 +1285,7 @@ a.slide:hover .slide-content
 {
   height: 160px;
   box-shadow: none;
-  background: url('img/vendor-heart-classic.png') no-repeat center 24px;
+  background: url('img/vendor-heart-classic.png') no-repeat center 18px;
 }
 
 .vendor-category .item.basic
@@ -1305,7 +1305,7 @@ a.slide:hover .slide-content
   z-index: 10;
   bottom: 0;
   left: 0;
-  padding: 12px;
+  padding: 8px 12px;
   width: 100%;
   box-sizing: border-box;
   background: rgba(255, 255, 255, 0.95);
@@ -1317,14 +1317,14 @@ a.slide:hover .slide-content
   font-weight: bold;
   display: block;
   color: #000;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .item-content span
 {
   font-weight: normal;
   color: #444;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .item-content span.price-scale
@@ -1422,10 +1422,18 @@ a.slide:hover .slide-content
 
 .feature-gallery .feature-thumbs a
 {
-  float: right;
-  margin-left: 16px;
+  float: left;
+  margin-right: 16px;
   margin-bottom: 8px;
-  width: 100px;
+  width: 80px;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.feature-gallery .feature-thumbs a.active
+{
+  border-color: #ec008c;
+  opacity: 0.9;
 }
 
 .feature-gallery .feature-thumbs a:hover img

@@ -76,12 +76,10 @@ echo wp_get_post_terms();
                 ),
                 'paged'     => $paged,
                 'meta_key' => 'vendor-tier',
-                'orderby' => 'meta_value',
-                'order' => 'DESC'
+                'orderby' => array( 'meta_value' => 'DESC', 'title' => 'ASC' )
             )
         ); 
     ?>
-
 
     <?php echo '<h1>'.$term_name.'</h1>'; ?>
 
@@ -97,9 +95,14 @@ echo wp_get_post_terms();
                 $post_id = get_the_ID();
                 $vendorTier = get_post_meta( $post_id, 'vendor-tier', true );
                 $vendorLocations = get_post_meta( $post_id, 'vendor-locations', true );
+                $vendorShortenedLocations = get_post_meta( $post_id, 'vendor-locations-short', true );
                 $vendorPriceRange = get_post_meta( $post_id, 'vendor-price-range', true );
                 $vendorDisplayName = get_post_meta( $post_id, 'vendor-display-name', true );
                 $vendorExpirationDate = get_post_meta( $post_id, 'vendor-expiration', true );
+
+                if($vendorShortenedLocations) {
+                    $vendorLocations = $vendorShortenedLocations;
+                }
 
                 $dateToCheck = new DateTime($vendorExpirationDate);
                 $now = new DateTime();

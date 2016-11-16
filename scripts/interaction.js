@@ -22,6 +22,10 @@ $(document).ready(function() {
     }
     return false;
   });
+
+  if($('.feature-gallery').length) {
+    buildGallery();
+  }
 });
 
 $(document).on('hover', '.navigation li', function(e) {
@@ -58,6 +62,12 @@ $(document).on('click', 'a[href^="#"]', function() {
 
   return false;
 });
+
+
+// Build Image gallery for Vendor pages
+function buildGallery() {
+  console.log('build gallery');
+}
 
 function scrollToDiv(element) {
   var offset = element.offset();

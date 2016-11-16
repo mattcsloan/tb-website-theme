@@ -22,6 +22,10 @@ $(document).ready(function() {
     }
     return false;
   });
+
+  if($('.feature-gallery').length && $('.feature-gallery > img').length > 1) {
+    buildGallery();
+  }
 });
 
 $(document).on('hover', '.navigation li', function(e) {
@@ -64,6 +68,49 @@ $(document).on('click', 'a[href^="#"]', function() {
 
   return false;
 });
+
+$(document).on('click', '.feature-thumbs a', function() {
+  var itemNum = $(this).index() + 1;
+  $('.feature-images img.active').removeClass('active').fadeOut(400, function() {
+    $('.feature-images img:nth-child(' + itemNum + ')').addClass('active').fadeIn(400);
+    $('.feature-thumbs a.active').removeClass('active');
+    $('.feature-thumbs a:nth-child(' + itemNum + ')').addClass('active');
+  });
+  return false;
+});
+
+// Build Image gallery for Vendor pages
+function buildGallery() {
+  var galleryImgs = [];
+
+  $('.feature-gallery > img').each(function() {
+    var imgSrc = $(this).attr('src');
+    var imgAlt = $(this).attr('alt');
+    var imgBase = imgSrc.replace(/\.[^/.]+$/, "");
+    var imgExt = imgSrc.split('.').pop();
+    var thumbSrc = imgBase + '-150x150.' + imgExt;
+    var item = {
+      "imgSrc": imgSrc,
+      "imgAlt": imgAlt,
+      "thumbSrc": thumbSrc
+    }
+    galleryImgs.push(item);
+  });
+
+  $('.feature-gallery').empty();
+  $('.feature-gallery').append('<div class="feature-images"></div>');
+  $('.feature-gallery').append('<div class="feature-thumbs"></div>');
+  for(i=0; i<galleryImgs.length;i++) {
+    $('.feature-images').append('<img src="' + galleryImgs[i].imgSrc + '" alt="' + galleryImgs[i].imgAlt + '" />');
+    $('.feature-thumbs').append('<a><img src="' + galleryImgs[i].thumbSrc + '" alt="' + galleryImgs[i].imgAlt + '" /></a>');
+  }
+
+  $('.feature-images img').each(function() {
+    $(this).hide();
+  });
+  $('.feature-images img:first-child').addClass('active').show();
+  $('.feature-thumbs a:first-child').addClass('active');
+}
 
 function scrollToDiv(element) {
   var offset = element.offset();

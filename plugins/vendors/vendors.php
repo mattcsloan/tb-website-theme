@@ -1,7 +1,7 @@
 <?php 
 /*Plugin Name: Vendor Listings
 Description: Add a list of vendors to your website and create individual vendor pages.
-Version: 1.1.0
+Version: 1.1.1
 License: GPLv2
 */
 
@@ -131,6 +131,12 @@ function tb_meta_callback( $post ) {
     <p class="tb-row-content">
       <label for="vendor-locations" class="tb-row-title"><?php _e( 'Vendor Location', 'tb-textdomain' )?></label>
       <input type="text" name="vendor-locations" id="vendor-locations" value="<?php if ( isset ( $tb_stored_meta['vendor-locations'] ) ) echo $tb_stored_meta['vendor-locations'][0]; ?>" />
+    </p>
+
+    <!-- Shortened Vendor Locations -->
+    <p class="tb-row-content">
+      <label for="vendor-locations-short" class="tb-row-title"><?php _e( 'Shortened Vendor Location', 'tb-textdomain' )?></label>
+      <input type="text" name="vendor-locations-short" id="vendor-locations-short" value="<?php if ( isset ( $tb_stored_meta['vendor-locations-short'] ) ) echo $tb_stored_meta['vendor-locations-short'][0]; ?>" />
     </p>
 
     <!-- Vendor Price Range -->
@@ -293,6 +299,11 @@ function tb_meta_save( $post_id ) {
   // Checks for input and sanitizes/saves if needed
   if( isset( $_POST[ 'vendor-locations' ] ) ) {
     update_post_meta( $post_id, 'vendor-locations', sanitize_text_field( $_POST[ 'vendor-locations' ] ) );
+  }
+
+  // Checks for input and sanitizes/saves if needed
+  if( isset( $_POST[ 'vendor-locations-short' ] ) ) {
+    update_post_meta( $post_id, 'vendor-locations-short', sanitize_text_field( $_POST[ 'vendor-locations-short' ] ) );
   }
 
   // Checks for input and saves if needed
@@ -835,5 +846,56 @@ function wysiwyg_meta_3_save( $post_id ) {
   }
 }
 add_action( 'save_post', 'wysiwyg_meta_3_save' );
+
+
+
+
+
+// ======================================================== //
+// ======================================================== //
+// =========== Vendor Image Gallery Meta Box =========== //
+// ======================================================== //
+// ======================================================== //
+
+function gallery_meta() {
+  add_meta_box( 'gallery_meta', __( 'Gallery Images', 'tb-textdomain' ), 'gallery_meta_callback', 'vendor' );
+}
+add_action( 'add_meta_boxes', 'gallery_meta' );
+
+function gallery_meta_callback($post) {
+  wp_nonce_field( basename( __FILE__ ), 'tb_nonce' );
+  $tb_stored_meta = get_post_meta( $post->ID );
+
+  if ( isset ( $tb_stored_meta['gallery-meta'] ) ) {
+    $content = $tb_stored_meta['gallery-meta'][0];
+  } else {
+    $content = '';
+  }
+  $editor_id = 'gallery-meta';
+  wp_editor( $content, $editor_id );
+}
+
+function gallery_meta_save( $post_id ) {
+  // Checks save status
+  $is_autosave = wp_is_post_autosave( $post_id );
+  $is_revision = wp_is_post_revision( $post_id );
+  $is_valid_nonce = ( isset( $_POST[ 'tb_nonce' ] ) && wp_verify_nonce( $_POST[ 'tb_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+ 
+  // Exits script depending on save status
+  if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
+    return;
+  }
+ 
+  // Checks for input and saves if needed
+  if( isset( $_POST[ 'gallery-meta' ] ) ) {
+    update_post_meta( $post_id, 'gallery-meta', $_POST[ 'gallery-meta' ] );
+  }
+}
+add_action( 'save_post', 'gallery_meta_save' );
+
+
+
+
+
 
 ?>

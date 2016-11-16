@@ -29,6 +29,7 @@
     $wysiwyg_meta_1 = get_post_meta( $postId, 'wysiwyg-meta-1', true );
     $wysiwyg_meta_2 = get_post_meta( $postId, 'wysiwyg-meta-2', true );
     $wysiwyg_meta_3 = get_post_meta( $postId, 'wysiwyg-meta-3', true );
+    $gallery_meta = get_post_meta( $postId, 'gallery-meta', true );
 ?>
 
 <div class="action-bar">
@@ -56,15 +57,23 @@
         <h1><?php echo the_taxonomies(array('template' => '% %l')); ?></h1>
         <div class="vendor-feature vendor-<?php echo $vendor_tier; ?>">
 
-          <?php if (has_post_thumbnail() && $vendor_tier !== 'basic') { ?>
+          <?php if ((!empty($gallery_meta) || has_post_thumbnail()) && $vendor_tier !== 'basic') { ?>
               <div class="main">
                 <div class="feature-gallery">
-                  <?php the_post_thumbnail(); ?>
+                    <?php 
+                        if(has_post_thumbnail()) {
+                            the_post_thumbnail();
+                        }
+
+                        if(!empty($gallery_meta)) {
+                            echo $gallery_meta;
+                        }
+                    ?>
                 </div>
               </div>
           <?php } ?> 
 
-          <div class="vendor-intro <?php if (!has_post_thumbnail()) { echo "no-media"; } ?>">
+          <div class="vendor-intro <?php if (!has_post_thumbnail() && empty($gallery_meta)) { echo "no-media"; } ?>">
             <?php 
                 if($vendor_display_name) { 
             ?>
@@ -321,9 +330,11 @@
                                             }
                                         ?>
                                     </span>
-                                    <?php if ( has_post_thumbnail() && ($vendorTier == 'signature' || $vendorTier == 'essentials') ) { ?>
-                                        <?php the_post_thumbnail(); ?>
-                                    <?php } ?>
+                                    <?php 
+                                        if ( (!empty($gallery_meta) || has_post_thumbnail()) && ($vendorTier == 'signature' || $vendorTier == 'essentials') ) {
+                                            the_post_thumbnail();
+                                        }
+                                    ?>
                                 </a>
                             <?php
                             }

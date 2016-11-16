@@ -34,6 +34,7 @@
                     <?php next_posts_link('Next') ?>
                 </div>
             <?php } ?> 
+            <?php wp_reset_postdata(); ?>
         <?php } ?>
     </div>
     <div class="secondary">
