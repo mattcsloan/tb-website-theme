@@ -233,21 +233,29 @@ function tb_meta_callback( $post ) {
       <h3>Bridal Show Participation</h3>
       <?php
           if(is_plugin_active( 'bridal-shows/bridal-shows.php')) { 
-              $query = new WP_Query(
-                  array(
-                    'posts_per_page' => -1,
-                    'post_type' => 'bridal-shows',
-                    'post_status' => 'publish',
-                    'orderby' => 'title',
-                    'order' => 'ASC'
-                  )
-              );
-              if( $query->have_posts() ) { 
-                while( $query->have_posts() ) { 
-                  $query->the_post();
-                  $postTitle = get_the_title();
-                  $post_id = get_the_ID();
-                  $showId = 'bridal-show-'.$post_id;
+            $this_post = array();
+            $id_pot = array();
+            $i = 0;
+
+            $query = new WP_Query(
+                array(
+                  'posts_per_page' => -1,
+                  'post_type' => 'bridal-shows',
+                  'post_status' => 'publish',
+                  'orderby' => 'title',
+                  'order' => 'ASC'
+                )
+            );
+            if( $query->have_posts() ) { 
+              while( $i < $query->post_count ) { 
+                $post = $query->posts;
+                if(!in_array($post[$i]->ID, $id_pot)){
+                    $this_post['id'] = $post[$i]->ID;
+                    $this_post['post_title'] = $post[$i]->post_title;
+                    $id_pot[] = $post[$i]->ID;
+                    $postTitle = $this_post['post_title'];
+                    $post_id = $this_post['id'];
+                    $showId = 'bridal-show-'.$post_id;
                   ?>
                   <p>
                       <input type="checkbox" id="<?php echo $showId; ?>" name="<?php echo $showId; ?>" value="yes" <?php if ( isset ( $tb_stored_meta[$showId] ) ) checked( $tb_stored_meta[$showId][0], 'yes' ); ?> />
@@ -255,16 +263,16 @@ function tb_meta_callback( $post ) {
                   </p>
                   <?php
                 }
+                $post = '';
+                $i++;
               }
-              wp_reset_postdata();
+            }
+            wp_reset_postdata();
           }
       ?>
-
     </div>
   </div>
-
-
-  <?php
+<?php
 }
 /**
  * Saves the custom meta input
