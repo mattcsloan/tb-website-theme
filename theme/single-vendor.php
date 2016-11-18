@@ -30,6 +30,8 @@
     $wysiwyg_meta_2 = get_post_meta( $postId, 'wysiwyg-meta-2', true );
     $wysiwyg_meta_3 = get_post_meta( $postId, 'wysiwyg-meta-3', true );
     $gallery_meta = get_post_meta( $postId, 'gallery-meta', true );
+    $vendor_video_type = get_post_meta( $postId, 'vendor-video-type', true );
+    $vendor_video_id = get_post_meta( $postId, 'vendor-video-id', true );
 ?>
 
 <div class="action-bar">
@@ -57,9 +59,28 @@
         <h1><?php echo the_taxonomies(array('template' => '% %l')); ?></h1>
         <div class="vendor-feature vendor-<?php echo $vendor_tier; ?>">
 
-          <?php if ((!empty($gallery_meta) || has_post_thumbnail()) && $vendor_tier !== 'basic') { ?>
-              <div class="main">
+          <?php if ((!empty($gallery_meta) || has_post_thumbnail() || (!empty($vendor_video_type) && !empty($vendor_video_id))) && $vendor_tier !== 'basic') { ?>
+              <div class="main">                
                 <div class="feature-gallery">
+                    <?php
+                        if(!empty($vendor_video_type) && !empty($vendor_video_id)) {
+                        ?>
+                            <div class="feature-video">
+                                <?php 
+                                if($vendor_video_type == 'youtube') {
+                                ?>
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/<?php echo $vendor_video_id; ?>?rel=0" frameborder="0" allowfullscreen></iframe>
+                                <?php
+                                } else if($vendor_video_type == 'vimeo') {
+                                ?>
+                                    <iframe src="https://player.vimeo.com/video/<?php echo $vendor_video_id; ?>?title=0&byline=0&portrait=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                <?php
+                                }
+                                ?>
+                            </div>
+                        <?php
+                        }
+                    ?>
                     <?php 
                         if(has_post_thumbnail()) {
                             the_post_thumbnail();
@@ -100,9 +121,9 @@
                     </div>
                 <?php } ?>
             </div>
-            <!-- <p><a class="btn btn-light strong" href="#">Request A Quote</a></p> -->
+            <p><a class="btn btn-light strong" href="#">Request A Quote</a></p>
             <?php the_content(); ?>
-            <!-- <p><a class="btn btn-light strong btn-favorite" href="#">Favorite</a></p> -->
+            <p><a class="btn btn-light strong btn-favorite" href="#">Favorite</a></p>
             <?php if ($vendor_tier !== 'basic') { ?>
                 <div class="socials pink">
                     <ul>
@@ -355,4 +376,7 @@
         </div>
     <?php } ?>
 <?php } ?>
+<div class="wrapper">
+<?php echo do_shortcode('[ninja_form id=5]'); ?>
+</div>
 <?php get_footer(); ?>

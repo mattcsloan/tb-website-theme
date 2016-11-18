@@ -1,7 +1,7 @@
 <?php 
 /*Plugin Name: Vendor Listings
 Description: Add a list of vendors to your website and create individual vendor pages.
-Version: 1.1.1
+Version: 1.1.2
 License: GPLv2
 */
 
@@ -271,6 +271,26 @@ function tb_meta_callback( $post ) {
           }
       ?>
     </div>
+
+    <div class="tb-row-content">
+      <h3>Vendor Featured Video</h3>
+      <p>Add a video from YouTube or Vimeo.</p>
+      <!-- Vendor Video Platform -->
+      <label for="vendor-video-type"><?php _e( 'Choose Video Platform', 'tb-textdomain' )?></label>
+      <select name="vendor-video-type" id="vendor-video-type">
+          <option value="">Select Video Platform</option>';
+          <option value="youtube" <?php if ( isset ( $tb_stored_meta['vendor-video-type'] ) ) selected( $tb_stored_meta['vendor-video-type'][0], 'youtube' ); ?>><?php _e( 'YouTube', 'tb-textdomain' )?></option>';
+          <option value="vimeo" <?php if ( isset ( $tb_stored_meta['vendor-video-type'] ) ) selected( $tb_stored_meta['vendor-video-type'][0], 'vimeo' ); ?>><?php _e( 'Vimeo', 'tb-textdomain' )?></option>';
+      </select>
+      <!-- Vendor Video ID -->
+      <p>
+        <label for="vendor-video-id" class="tb-row-title"><?php _e( 'YouTube/Vimeo Video ID', 'tb-textdomain' )?></label>
+        <input type="text" name="vendor-video-id" id="vendor-video-id" value="<?php if ( isset ( $tb_stored_meta['vendor-video-id'] ) ) echo $tb_stored_meta['vendor-video-id'][0]; ?>" />
+      </p>
+    </div>
+
+
+
   </div>
 <?php
 }
@@ -383,6 +403,16 @@ function tb_meta_save( $post_id ) {
   // Checks for input and sanitizes/saves if needed
   if( isset( $_POST[ 'vendor-instagram' ] ) ) {
     update_post_meta( $post_id, 'vendor-instagram', sanitize_text_field( $_POST[ 'vendor-instagram' ] ) );
+  }
+
+  // Checks for input and sanitizes/saves if needed
+  if( isset( $_POST[ 'vendor-video-type' ] ) ) {
+    update_post_meta( $post_id, 'vendor-video-type', sanitize_text_field( $_POST[ 'vendor-video-type' ] ) );
+  }
+
+  // Checks for input and sanitizes/saves if needed
+  if( isset( $_POST[ 'vendor-video-id' ] ) ) {
+    update_post_meta( $post_id, 'vendor-video-id', sanitize_text_field( $_POST[ 'vendor-video-id' ] ) );
   }
 
 

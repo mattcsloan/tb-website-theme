@@ -290,6 +290,9 @@
     width: 100%;
     position: static;
     box-shadow: none;
+    -webkit-columns: 1;
+    -moz-columns: 1;
+    columns: 1;
   }
 
   .navigation li.menu-item-has-children ul li a

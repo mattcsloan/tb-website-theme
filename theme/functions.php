@@ -136,6 +136,7 @@ add_theme_support('post-thumbnails');
 
 add_image_size( 'large-feature', 700, 288, true );
 add_image_size( 'small-feature', 500, 300 );
+add_image_size( 'large-square', 400, 400, true );
 add_image_size( 'vendor-feature', 566, 342, array( 'center', 'top' ) );
 add_filter( 'image_size_names_choose', 'custom_image_sizes' );
 
@@ -143,10 +144,10 @@ function custom_image_sizes( $sizes ) {
     return array_merge( $sizes, array(
         'large-feature' => __( 'Large Feature' ),
         'small-feature' => __( 'Small Feature' ),
+        'large-square' => __( 'Large Square' ),
         'vendor-feature' => __( 'Vendor Feature' )
     ) );
 }
-
 
 //Remove width and height attributes from thumbnail images
 add_filter( 'post_thumbnail_html', 'remove_thumbnail_dimensions', 10 );
@@ -503,13 +504,28 @@ function vendor_leads_save( $post_id )
 
 }
 
+// add vendor email to Ninja Form - Vendor Quote Request
+add_action( 'ninja_forms_field', 'ninja_forms_change_to_address' );
+function ninja_forms_change_to_address(){
+  global $ninja_forms_loading;
+  if($ninja_forms_loading->get_form_ID() == 5) {
+    $user_email = $ninja_forms_processing->get_field_value( 120 ); //hidden field that passes the vendor email
+    $ninja_forms_loading->update_field_value( 120, 'sloan.782@gmail.com' );
+  }
+}
 
 
+// function ninja_forms_change_to_address($form_id) {
+//   global $ninja_forms_loading;
+//   global $ninja_forms_processing;
+//   if($ninja_forms_processing->get_form_ID() == 5) {
+//     $form_field_id = 124; //hidden field that passes the vendor email
+//     //Change the value that a field is pre-populated with.
+//     $ninja_forms_loading->update_field_value($form_field_id, 'sloan.782@gmail.com');
+//   }
+// }
 
-
-
-
-
+// add_action('ninja_forms_display_init', 'ninja_forms_change_to_address');
 
 
 

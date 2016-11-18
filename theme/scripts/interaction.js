@@ -26,6 +26,24 @@ $(document).ready(function() {
   if($('.feature-gallery').length && $('.feature-gallery > img').length > 1) {
     buildGallery();
   }
+
+  // Responsive YouTube/Vimeo Videos
+  var $allVideos = $('iframe[src^="https://www.youtube.com/embed"], iframe[src^="https://player.vimeo.com/video"]');
+  // Figure out and save aspect ratio for each video
+  $allVideos.each(function() {
+    $(this).data('aspectRatio', this.height / this.width).removeAttr('height').removeAttr('width');
+  });
+  
+  if($allVideos.length) { // only run this resize script if there are videos to resize
+    $(window).resize(function() {
+      var newWidth = $allVideos.parent().width();
+      // Resize all videos according to their own aspect ratio
+      $allVideos.each(function() {
+        $(this).width(newWidth).height(newWidth * $(this).data('aspectRatio'));
+      });
+    // Kick off one resize to fix all videos on page load
+    }).resize();
+  }
 });
 
 $(document).on('hover', '.navigation li', function(e) {
@@ -71,8 +89,8 @@ $(document).on('click', 'a[href^="#"]', function() {
 
 $(document).on('click', '.feature-thumbs a', function() {
   var itemNum = $(this).index() + 1;
-  $('.feature-images img.active').removeClass('active').fadeOut(400, function() {
-    $('.feature-images img:nth-child(' + itemNum + ')').addClass('active').fadeIn(400);
+  $('.feature-images .active').removeClass('active').fadeOut(400, function() {
+    $('.feature-images *:nth-child(' + itemNum + ')').addClass('active').fadeIn(400);
     $('.feature-thumbs a.active').removeClass('active');
     $('.feature-thumbs a:nth-child(' + itemNum + ')').addClass('active');
   });
@@ -82,6 +100,10 @@ $(document).on('click', '.feature-thumbs a', function() {
 // Build Image gallery for Vendor pages
 function buildGallery() {
   var galleryImgs = [];
+  var featureVideo = ''
+  if($('.feature-video').length) {
+    var featureVideo = $('.feature-video')[0].outerHTML;
+  }
 
   $('.feature-gallery > img').each(function() {
     var imgSrc = $(this).attr('src');
@@ -99,7 +121,12 @@ function buildGallery() {
 
   $('.feature-gallery').empty();
   $('.feature-gallery').append('<div class="feature-images"></div>');
+  if(featureVideo !== '') {
+    $('.feature-images').append(featureVideo);
+  }
   $('.feature-gallery').append('<div class="feature-thumbs"></div>');
+
+
   for(i=0; i<galleryImgs.length;i++) {
     $('.feature-images').append('<img src="' + galleryImgs[i].imgSrc + '" alt="' + galleryImgs[i].imgAlt + '" />');
     $('.feature-thumbs').append('<a><img src="' + galleryImgs[i].thumbSrc + '" alt="' + galleryImgs[i].imgAlt + '" /></a>');
@@ -108,7 +135,12 @@ function buildGallery() {
   $('.feature-images img').each(function() {
     $(this).hide();
   });
-  $('.feature-images img:first-child').addClass('active').show();
+  if(featureVideo !== '') {
+    $('.feature-video').addClass('active');
+    $('.feature-thumbs').prepend('<a class="feature-video-thumb active"></a>');
+  } else {
+    $('.feature-images img:first-child').addClass('active').show();
+  }
   $('.feature-thumbs a:first-child').addClass('active');
 }
 
