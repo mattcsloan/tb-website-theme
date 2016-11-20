@@ -567,6 +567,11 @@ function inlineList( $atts, $content = null ) {
 }
 add_shortcode("inline-list", "inlineList");
 
+function breakTag( $atts, $content = null ) {
+    return '<br>';
+}
+add_shortcode("br", "breakTag");
+
 function actionItems( $atts, $content = null ) {
     return '<div class="action-items">'.do_shortcode($content).'</div>';
 }

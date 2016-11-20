@@ -12,6 +12,7 @@ Template Name: Blog Posts
         array(
             'category_name'     => 'blog',
             'category__not_in'  => array(1962), // 'real-weddings' category ID
+            'post_status'       => 'publish',
             'posts_per_page'    => $numposts, //posts_per_page is determined by Settings > Readings
             'paged'             => $paged
         )

@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes(); ?>>
 <head>
-  <title><?php
-    if ( is_single() ) { single_post_title(); }
-    elseif ( is_page() ) { single_post_title(''); }
-    elseif ( is_search() ) { bloginfo('name'); print ' | Search results for ' . wp_specialchars($s); get_page_number(); }
-    elseif ( is_404() ) { bloginfo('name'); print ' | Not Found'; }
-    else { bloginfo('name'); wp_title('|'); get_page_number(); }
-  ?> | Today's Bride</title>
+  <title>
+    <?php
+      if ( is_single() ) { single_post_title(); print ' | ';}
+      elseif ( is_page() ) { single_post_title(''); print ' | ';}
+      elseif ( is_search() ) { print 'Search results for ' . wp_specialchars($s); get_page_number(); print ' | ';}
+      elseif ( is_404() ) { print ' | Not Found'; print ' | ';}
+      else { wp_title('|', true, 'right'); get_page_number(); }
+      bloginfo('name'); 
+      print ' | ';
+      bloginfo('description'); 
+    ?>
+  </title>
   <meta charset="utf-8">
   <meta http-equiv="content-type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">

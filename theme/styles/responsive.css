@@ -368,6 +368,12 @@
     margin: 16px 0 0 0;
   }
 
+  .search-bar input[type="text"]
+  {
+    width: 140px;
+  }
+
+
   .hero
   {
     border-top: 4px solid #ec008c;

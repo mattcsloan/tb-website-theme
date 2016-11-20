@@ -11,6 +11,7 @@ Template Name: Real Weddings Posts
     $wp_query = new WP_Query( 
         array(
             'category_name' => 'real-weddings',
+            'post_status'       => 'publish',
             'posts_per_page' => $numposts, //posts_per_page is determined by Settings > Readings
             'paged' => $paged
         )

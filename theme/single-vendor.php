@@ -82,12 +82,12 @@
                         }
                     ?>
                     <?php 
-                        if(has_post_thumbnail()) {
-                            the_post_thumbnail();
-                        }
+                        
 
                         if(!empty($gallery_meta)) {
                             echo $gallery_meta;
+                        } else if(has_post_thumbnail()) {
+                            the_post_thumbnail();
                         }
                     ?>
                 </div>
