@@ -1,8 +1,22 @@
 <!-- being used for vendor plugin -->
 
 <?php get_header(); ?>
-<!-- <?php breadcrumbs(); ?> -->
+<div class="action-bar breadcrumbs">
+    <div class="wrapper">
 
+      <?php 
+        $parentscategory ="";
+        foreach((get_the_category()) as $category) {
+          if ($category->category_parent == 0) {
+            $parentscategory .= '<h3><a href="' . get_category_link($category->cat_ID) . '" title="' . $category->name . '">' . $category->name . '</a></h3>';
+          }
+        }
+        echo $parentscategory; 
+      ?>
+
+      <?php echo do_shortcode('[search-bar]'); ?>
+    </div>
+</div>
 <div class="wrapper blog">
   <div class="main">
     <?php while ( have_posts() ) : the_post(); ?>
@@ -17,6 +31,7 @@
           <div class="entry-tags">
             <?php the_tags('<h2 class="mono">Tagged with:</h2><p>', ', ', '</p>'); ?>
           </div>
+          <p><?php echo the_favorites_button(); ?></p>
       </div>
       <div class="pagination">
         <?php previous_post_link('%link', 'Prev Post', TRUE); ?>

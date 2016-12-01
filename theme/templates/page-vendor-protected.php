@@ -45,14 +45,16 @@ Template Name: Vendor Protected Page
       </div>
 
       <?php
-        $userGetsWeeklyLeads = $current_user->vendorweeklyleads;
-        $userGetsMonthlyLeads = $current_user->vendormonthlyleads;
+        $userGetsWeeklyLeads  = $current_user->vendorweeklyleads;
+        $userGetsShowLeadsAKR = $current_user->vendorshowleadsAKR;
+        $userGetsShowLeadsCLE = $current_user->vendorshowleadsCLE;
 
         $postId = get_the_ID();
         $postIsWeeklyLeads = get_post_meta( $postId, 'vendor_weekly_leads', true );
-        $postIsMonthlyLeads = get_post_meta( $postId, 'vendor_monthly_leads', true );
+        $postIsShowLeadsAKR = get_post_meta( $postId, 'vendor_show_leads_akron', true );
+        $postIsShowLeadsCLE = get_post_meta( $postId, 'vendor_show_leads_cleveland', true );
 
-        if(($postIsWeeklyLeads === 'yes' && $userGetsWeeklyLeads) || ($postIsMonthlyLeads === 'yes' && $userGetsMonthlyLeads) || ($postIsWeeklyLeads !== 'yes' && $postIsMonthlyLeads !== 'yes')) {
+        if(($postIsWeeklyLeads === 'yes' && $userGetsWeeklyLeads) || ($postIsShowLeadsAKR === 'yes' && $userGetsShowLeadsAKR) || ($postIsShowLeadsCLE === 'yes' && $userGetsShowLeadsCLE) || ($postIsWeeklyLeads !== 'yes' && $postIsShowLeadsAKR !== 'yes' && $postIsShowLeadsCLE !== 'yes')) {
       ?>
             <div class="wrapper">
                 <?php the_title('<h1>', '</h1>'); ?>

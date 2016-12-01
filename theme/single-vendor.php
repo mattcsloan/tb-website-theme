@@ -32,6 +32,19 @@
     $gallery_meta = get_post_meta( $postId, 'gallery-meta', true );
     $vendor_video_type = get_post_meta( $postId, 'vendor-video-type', true );
     $vendor_video_id = get_post_meta( $postId, 'vendor-video-id', true );
+    $vendor_expiration_date = get_post_meta( $postId, 'vendor-expiration', true );
+
+    $date_to_check = new DateTime($vendor_expiration_date);
+    $now = new DateTime();
+    if($date_to_check < $now) {
+        //vendor has expired
+        $expired_vendor = true;
+    } else {
+        //vendor is valid
+        $expired_vendor = false;
+    }
+
+
 ?>
 
 <div class="action-bar">
@@ -54,7 +67,7 @@
     </div>
 </div>
 
-<?php if( !empty($vendor_tier)) { ?>
+<?php if( !empty($vendor_tier) && !$expired_vendor) { ?>
     <div class="wrapper">
         <h1><?php echo the_taxonomies(array('template' => '% %l')); ?></h1>
         <div class="vendor-feature vendor-<?php echo $vendor_tier; ?>">
@@ -94,7 +107,7 @@
               </div>
           <?php } ?> 
 
-          <div class="vendor-intro <?php if (!has_post_thumbnail() && empty($gallery_meta)) { echo "no-media"; } ?>">
+          <div class="vendor-intro <?php if (!has_post_thumbnail() && empty($gallery_meta) && (empty($vendor_video_type) || empty($vendor_video_id))) { echo "no-media"; } ?>">
             <?php 
                 if($vendor_display_name) { 
             ?>
@@ -121,9 +134,11 @@
                     </div>
                 <?php } ?>
             </div>
-            <p><a class="btn btn-light strong" href="#">Request A Quote</a></p>
+            <p><a class="btn btn-light strong request-quote-btn" href="#request-quote-form">Request A Quote</a></p>
             <?php the_content(); ?>
-            <p><a class="btn btn-light strong btn-favorite" href="#">Favorite</a></p>
+            <p>
+                <?php echo the_favorites_button(); ?>
+            </p>
             <?php if ($vendor_tier !== 'basic') { ?>
                 <div class="socials pink">
                     <ul>
@@ -376,7 +391,27 @@
         </div>
     <?php } ?>
 <?php } ?>
-<div class="wrapper">
-<?php echo do_shortcode('[ninja_form id=5]'); ?>
+<?php if( !empty($vendor_tier) && $expired_vendor) { ?>
+    <div class="wrapper">
+        <?php 
+            if($vendor_display_name) { 
+        ?>
+                <h1><?php echo $vendor_display_name; ?></h1>
+        <?php
+            } else {
+        ?>
+            <strong><?php the_title('<h1>', '</h1>'); ?></strong>
+        <?php
+            }
+        ?>
+        <h3>This Vendor Page Has Expired</h3>
+        <p>Check out other <?php echo the_taxonomies(array('template' => '% %l')); ?> vendors in the area.</p>
+    </div>
+<?php } ?>
+
+<div class="wrapper request-quote">
+    <a name="request-quote-form"></a>
+    <h1>Request A Quote</h1>
+    <?php echo do_shortcode('[ninja_form id=5]'); ?>
 </div>
 <?php get_footer(); ?>

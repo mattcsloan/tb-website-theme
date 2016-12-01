@@ -5,7 +5,8 @@ $(document).ready(function() {
     }
   });
 
-  hideMenuForMobile();
+  var windowWidth = $(window).width();
+  hideMenuForMobile(windowWidth, true);
 
   $('.accordion h4 a').click(function() {
     if($(this).parent().hasClass('open')) {
@@ -23,7 +24,11 @@ $(document).ready(function() {
     return false;
   });
 
-  if($('.feature-gallery').length && $('.feature-gallery > img').length > 1) {
+  var galleryItems = $('.feature-gallery > img').length;
+  if($('.feature-video').length) {
+    galleryItems++;
+  }
+  if($('.feature-gallery').length && galleryItems > 1) {
     buildGallery();
   }
 
@@ -44,6 +49,9 @@ $(document).ready(function() {
     // Kick off one resize to fix all videos on page load
     }).resize();
   }
+
+  // Request A Quote Form
+  $('.request-quote').hide();
 });
 
 $(document).on('hover', '.navigation li', function(e) {
@@ -59,6 +67,11 @@ $(document).on('click', '.menu-link', function() {
     $(this).addClass('opened');
   }
   return false;
+});
+
+$(document).on('click', '.request-quote-btn', function() {
+  $('.request-quote').show();
+  scrollToDiv($('a[name="request-quote-form"]'));
 });
 
 $(document).on('change', '.vendor-category-dropdown', function() {
@@ -156,12 +169,22 @@ function scrollToDiv(element) {
   }, 500);
 }
 
-function hideMenuForMobile() {
-  if($(window).width() < 600) {
-    $('.menu-primary-navigation-container').hide();
-  } else {
-    $('.menu-primary-navigation-container').show();
+function hideMenuForMobile(windowWidth, load) {
+  if(!$(document).data('resize-width')) {
+    $(document).data('resize-width', windowWidth);
   }
+  var existingWidth = $(document).data('resize-width');
+  var newWidth = $(document).width();
+  if(existingWidth !== newWidth || load) {
+    if($(window).width() < 600) {
+      $('.menu-primary-navigation-container').hide();
+      $('.menu-link').removeClass('opened');
+    } else {
+      $('.menu-primary-navigation-container').show();
+      $('.menu-link').addClass('opened');
+    }
+  }
+  $(document).data('resize-width', newWidth);
 }
 
 var rtime = new Date(1, 1, 2000, 12,00,00);
@@ -182,6 +205,7 @@ function resizeend() {
   } 
   else {
     timeout = false;
-    hideMenuForMobile();
+    var windowWidth = $(window).width();
+    hideMenuForMobile(windowWidth);
   }
 }

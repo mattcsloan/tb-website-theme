@@ -24,7 +24,8 @@ function vendor_category_taxonomy() {
     'hierarchical' => true,
     'labels' => $labels,
     'query_var' => true,
-    'show_admin_column' => true
+    'show_admin_column' => true,
+    'rewrite' => array( 'slug' => 'ohio-vendors' )
   ));
 }
 add_action( 'init', 'vendor_category_taxonomy' );
@@ -57,7 +58,6 @@ function vendor_listings() {
     'exclude_from_search' => false,
     'capability_type' => 'post',
     'hierarchical' => true,
-    'rewrite' => array( 'slug' => 'vendors' ),
     'has_archive' => true
   ));
 }

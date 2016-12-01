@@ -213,7 +213,8 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   display: block;
 }
 
-.btn.btn-light.strong.btn-favorite
+.btn.btn-light.strong.btn-favorite,
+.simplefavorite-button
 {
   background: transparent url('img/icon-favorite.png') no-repeat right -38px;
   padding-right: 52px;
@@ -221,7 +222,8 @@ input[type=submit]:hover, .btn:hover, .footer-navigation a:hover
   min-width: 0;
 }
 
-.btn.btn-light.strong.btn-favorite:hover
+.btn.btn-light.strong.btn-favorite:hover,
+.simplefavorite-button:hover
 {
   background-color: transparent;
   background-position: right 0;

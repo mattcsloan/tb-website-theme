@@ -134,10 +134,9 @@ add_action( 'init', 'register_my_menus' );
 //add support for image thumbnails on posts
 add_theme_support('post-thumbnails'); 
 
-add_image_size( 'large-feature', 700, 288, true );
+add_image_size( 'large-feature', 700, 509, true );
 add_image_size( 'small-feature', 500, 300 );
-add_image_size( 'large-square', 400, 400, true );
-add_image_size( 'vendor-feature', 566, 342, array( 'center', 'top' ) );
+add_image_size( 'large-square', 500, 500, true );
 add_filter( 'image_size_names_choose', 'custom_image_sizes' );
 
 function custom_image_sizes( $sizes ) {
@@ -414,18 +413,49 @@ function my_login_logo_url() {
 }
 add_filter( 'login_headerurl', 'my_login_logo_url' );
 
-
-
-
 //Adding additional form fields to a User's profile
 function additional_profile_fields($profile_fields) {
   // Add new fields
   $profile_fields['vendorweeklyleads'] = 'Weekly Leads';
-  $profile_fields['vendormonthlyleads'] = 'Monthly Leads';
+  $profile_fields['vendorshowleadsAKR'] = 'Show Leads - Akron';
+  $profile_fields['vendorshowleadsCLE'] = 'Show Leads - Cleveland';
+  $profile_fields['bride-type'] = 'He/She is the';
+  $profile_fields['reception-city'] = 'Reception City';
+  $profile_fields['bride-address'] = 'Address';
+  $profile_fields['bride-city'] = 'City';
+  $profile_fields['bride-state'] = 'State';
+  $profile_fields['bride-zip'] = 'Zip Code';
+  $profile_fields['bride-phone'] = 'Phone Number';
+
   return $profile_fields;
 }
 add_filter('user_contactmethods', 'additional_profile_fields');
 
+// Additional Columns to show on Users listing page (admin)
+function new_modify_user_table( $column ) {
+    $column['vendorweeklyleads'] = 'Weekly Leads';
+    $column['vendorshowleadsAKR'] = 'Show Leads - Akron';
+    $column['vendorshowleadsCLE'] = 'Show Leads - Cleveland';
+    return $column;
+}
+add_filter( 'manage_users_columns', 'new_modify_user_table' );
+
+function new_modify_user_table_row( $val, $column_name, $user_id ) {
+    switch ($column_name) {
+        case 'vendorweeklyleads' :
+            return get_the_author_meta( 'vendorweeklyleads', $user_id );
+            break;
+        case 'vendorshowleadsAKR' :
+            return get_the_author_meta( 'vendorshowleadsAKR', $user_id );
+            break;
+        case 'vendorshowleadsCLE' :
+            return get_the_author_meta( 'vendorshowleadsCLE', $user_id );
+            break;
+        default:
+    }
+    return $val;
+}
+add_filter( 'manage_users_custom_column', 'new_modify_user_table_row', 10, 3 );
 
 //Add New Meta Box for Vendor
 add_action( 'add_meta_boxes', 'vendor_leads_add' );
@@ -461,8 +491,12 @@ function vendor_leads_render()
         <label for="vendor_weekly_leads" style="display: inline; width: auto;">Weekly Leads Page</label>
     </p>
     <p>
-        <input type="checkbox" id="vendor_monthly_leads" name="vendor_monthly_leads" value="yes" <?php if ( isset ( $values['vendor_monthly_leads'] ) ) checked( $values['vendor_monthly_leads'][0], 'yes' ); ?> />
-        <label for="vendor_monthly_leads" style="display: inline; width: auto;">Monthly Leads Page</label>
+        <input type="checkbox" id="vendor_show_leads_akron" name="vendor_show_leads_akron" value="yes" <?php if ( isset ( $values['vendor_show_leads_akron'] ) ) checked( $values['vendor_show_leads_akron'][0], 'yes' ); ?> />
+        <label for="vendor_show_leads_akron" style="display: inline; width: auto;">Show Leads Page (Akron)</label>
+    </p>
+    <p>
+        <input type="checkbox" id="vendor_show_leads_cleveland" name="vendor_show_leads_cleveland" value="yes" <?php if ( isset ( $values['vendor_show_leads_cleveland'] ) ) checked( $values['vendor_show_leads_cleveland'][0], 'yes' ); ?> />
+        <label for="vendor_show_leads_cleveland" style="display: inline; width: auto;">Show Leads Page (Cleveland)</label>
     </p>
     <p><em><strong>Note:</strong> Only users that have this option selected in their User profile will be able to view this page</em></p>
 <?php   
@@ -496,25 +530,105 @@ function vendor_leads_save( $post_id )
     }
 
     // Checks for presence of checkbox value
-    if( isset( $_POST[ 'vendor_monthly_leads' ] ) ) {
-      update_post_meta( $post_id, 'vendor_monthly_leads', 'yes' );
+    if( isset( $_POST[ 'vendor_show_leads_akron' ] ) ) {
+      update_post_meta( $post_id, 'vendor_show_leads_akron', 'yes' );
     } else {
-      update_post_meta( $post_id, 'vendor_monthly_leads', '' );
+      update_post_meta( $post_id, 'vendor_show_leads_akron', '' );
+    }
+
+    // Checks for presence of checkbox value
+    if( isset( $_POST[ 'vendor_show_leads_cleveland' ] ) ) {
+      update_post_meta( $post_id, 'vendor_show_leads_cleveland', 'yes' );
+    } else {
+      update_post_meta( $post_id, 'vendor_show_leads_cleveland', '' );
     }
 
 }
 
-// add vendor email to Ninja Form - Vendor Quote Request
-add_action( 'ninja_forms_field', 'ninja_forms_change_to_address' );
-function ninja_forms_change_to_address(){
-  global $ninja_forms_loading;
-  if($ninja_forms_loading->get_form_ID() == 5) {
-    $user_email = $ninja_forms_processing->get_field_value( 120 ); //hidden field that passes the vendor email
-    $ninja_forms_loading->update_field_value( 120, 'sloan.782@gmail.com' );
+
+// exclude any content from search results that use specific page templates
+function exclude_page_templates_from_search($query) {
+  global $wp_the_query;
+  if ( ($wp_the_query === $query) && (is_search()) && ( ! is_admin()) ) {
+
+    $meta_query = array(
+      'relation' => 'OR',
+      // remove pages with foo.php template from results
+      array(
+        array(
+          'key' => '_wp_page_template',
+          'value' => 'templates/page-bride.php',
+          'compare' => '!='
+        ),
+        array(
+          'key' => '_wp_page_template',
+          'value' => 'templates/page-vendor-protected.php',
+          'compare' => '!='
+        )
+      ),
+      // show all entries that do not have a key '_wp_page_template'
+      array(
+        'key' => '_wp_page_template',
+        'compare' => 'NOT EXISTS'
+      )
+    );
+    $query->set('meta_query', $meta_query);
   }
 }
+add_filter('pre_get_posts','exclude_page_templates_from_search');
 
+// add_action( 'ninja_forms_display_after_fields', 'custom_extra_value' );
+// function custom_extra_value(){
+//   global $ninja_forms_loading;
+//   if($ninja_forms_loading->get_form_ID() == 5) {
+//   }
+// }
 
+// add vendor email to Ninja Form - Vendor Quote Request
+// add_action( 'ninja_forms_field', 'ninja_forms_change_to_address' );
+// function ninja_forms_change_to_address(){
+//   global $ninja_forms_loading;
+//   if($ninja_forms_loading->get_form_ID() == 5) {
+//     <input type="text" name="tester" value="TEST">
+//     // $user_email = $ninja_forms_processing->get_field_value( 120 ); //hidden field that passes the vendor email
+//     // $ninja_forms_loading->update_field_value( 120, 'sloan.782@gmail.com' );
+//   }
+// }
+
+// add_filter( 'ninja_forms_render_default_value', 'my_change_nf_default_value' );
+// function my_change_nf_default_value( $default_value, $field_type, $field_settings ) {
+//   if( 'textbox' == $field_type ){
+//     $default_value = 'foo';
+//   }
+//   return $default_value;
+// }
+// add_filter( 'ninja_forms_submit_data', 'my_ninja_forms_submit_data' );
+// function my_ninja_forms_submit_data( $form_data ) {
+//   foreach( $form_data[ 'fields' ] as $field ) { // Field settigns, including the field key and value.
+//    if( 125 !== $field[ 'key' ] ) continue; // Check the field key to see if this is the field that I need to update.
+//     $field[ 'value' ] = 'foo'; // Update the submitted field value.
+//   }
+//   $form_settings = $form_data[ 'settings' ]; // Form settings.
+//   $extra_data = $form_data[ 'extra' ]; // Extra data included with the submission.
+//   return $form_data;
+// }
+// add_filter( 'ninja_forms_render_default_value', 'my_change_nf_default_value' );
+// function my_change_nf_default_value( $default_value, $field_type, $field_settings ) {
+
+  // if( 'textbox' == $field_type ){
+  //   $default_value = 'foo';
+  // }
+//   return $default_value;
+// }
+
+// add_filter( 'ninja_forms_field', 'wpm_handle_http_query_string' );
+// function wpm_handle_http_query_string( $data ) {
+  
+//     if($data['label']=='Vendor Email') {
+//       $data['default_value'] = 'test';
+//     }
+//     return $data;
+// }
 // function ninja_forms_change_to_address($form_id) {
 //   global $ninja_forms_loading;
 //   global $ninja_forms_processing;
@@ -527,8 +641,72 @@ function ninja_forms_change_to_address(){
 
 // add_action('ninja_forms_display_init', 'ninja_forms_change_to_address');
 
+add_action( 'ninja_forms_after_submission', 'nf_create_new_user' );
+function nf_create_new_user( $form_data ){
 
 
+    $form_id = $form_data[ 'form_id' ];
+
+    // If form ID is the one we want
+    if( $form_id == 2 ){
+
+      // Load up the fields we have for this form
+      $form_fields = $form_data[ 'fields' ];
+    
+      // Set up variables based on form values - change the numbers below based on field IDs
+      $bride_type = $form_fields[ "7" ]["value"];
+      $reception_city = $form_fields[ "8" ]["value"];
+      $first_name = $form_fields[ "9" ]["value"];
+      $last_name = $form_fields[ "10" ]["value"];
+      $u_email = $form_fields[ "11" ]["value"];
+      $username = $form_fields[ "437" ]["value"];
+      $password = $form_fields[ "435" ]["value"];
+      $bride_address = $form_fields[ "14" ]["value"];
+      $bride_city = $form_fields[ "15" ]["value"];
+      $bride_state = $form_fields[ "16" ]["value"];
+      $bride_zip = $form_fields[ "17" ]["value"];
+      $bride_phone = $form_fields[ "19" ]["value"];
+      
+      // Create an array of the user data - check out the available user fields for left hand side here: https://codex.wordpress.org/Function_Reference/wp_insert_user
+      $userdata = array(
+        'bride-type'      =>  $bride_type,
+        'reception-city'  =>  $reception_city,
+        'first_name'      =>  $first_name,
+        'last_name'       =>  $last_name,
+        'user_email'      =>  $u_email,
+        'user_login'      =>  $username,
+        'user_pass'       =>  $password,
+        'bride-address'   =>  $bride_address,
+        'bride-city'      =>  $bride_city,
+        'bride-state'     =>  $bride_state,
+        'bride-zip'       =>  $bride_zip,
+        'bride-phone'     =>  $bride_phone,
+        'role'            =>  'bride'
+      );
+  
+      // Create the user and remember the user id
+      $user_id = wp_insert_user( $userdata ) ;
+      
+      //On success
+      // if ( ! is_wp_error( $user_id ) ) {
+      //   echo "User created : ". $user_id;
+      // } else {
+      //   echo 'No user created.';
+      // }
+
+      // Use the user id to log in straight away
+      wp_set_auth_cookie( $user_id, true );
+  
+    }
+}
+
+add_action( 'init', 'blockusers_init' );
+function blockusers_init() {
+  if ( is_admin() && ! current_user_can( 'administrator' ) && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+    wp_redirect( home_url() );
+    exit;
+  }
+}
 
 //Begin Shortcodes
 function columns( $atts, $content = null ) {
@@ -840,6 +1018,7 @@ function discountCardVendors(){
       $string .= '<th>Website</th>';
       $string .= '<th>Phone Number</th>';
       $string .= '</tr>';
+      $displayNames = [];
       while( $query->have_posts() ){
           $query->the_post();
           $post_id = get_the_ID();
@@ -847,11 +1026,10 @@ function discountCardVendors(){
           $vendorDisplayName = get_post_meta( $post_id, 'vendor-display-name', true );
           $vendorWebsiteLink = get_post_meta( $post_id, 'vendor-website-link', true );
           $vendorPhoneNumber = get_post_meta( $post_id, 'vendor-phone-number', true );
-
-
           if(!$vendorDisplayName) {
             $vendorDisplayName = get_the_title();
           }
+
           $vendorExpirationDate = get_post_meta( $post_id, 'vendor-expiration', true );
           $dateToCheck = new DateTime($vendorExpirationDate);
           $now = new DateTime();
@@ -863,20 +1041,23 @@ function discountCardVendors(){
               $expiredVendor = false;
           }
           if($vendorDiscountCard == 'yes' && !$expiredVendor) {
-            $string .= '<tr>';
-              $string .= '<td><a href="' . get_the_permalink() . '">' . $vendorDisplayName . '</a></td>';
-              if($vendorWebsiteLink) {
-              $string .= '<td><a href="' . $vendorWebsiteLink . '">Website</a></td>';
-              } else {
-                $string .= '<td></td>';
-              }
-              if($vendorPhoneNumber) {
-                $string .= '<td>' . $vendorPhoneNumber . '</td>';
-              } else {
-                $string .= '<td></td>';
-              }
-            $string .= '</tr>';
+            if (!in_array($vendorDisplayName, $displayNames)) {
+              $string .= '<tr>';
+                $string .= '<td><a href="' . get_the_permalink() . '">' . $vendorDisplayName . '</a></td>';
+                if($vendorWebsiteLink) {
+                $string .= '<td><a href="' . $vendorWebsiteLink . '">Website</a></td>';
+                } else {
+                  $string .= '<td></td>';
+                }
+                if($vendorPhoneNumber) {
+                  $string .= '<td>' . $vendorPhoneNumber . '</td>';
+                } else {
+                  $string .= '<td></td>';
+                }
+              $string .= '</tr>';
+            }
           }
+          $displayNames[] = $vendorDisplayName;
       }
 
       $string .= '</table>';
