@@ -1,18 +1,5 @@
-<?php
-$time = microtime();
-$time = explode(' ', $time);
-$time = $time[1] + $time[0];
-$timestampStart = $time;
-?>
-
 <?php get_header(); ?>
 <!-- being used for bridal shows plugin -->
-<?php
-$time = microtime();
-$time = explode(' ', $time);
-$time = $time[1] + $time[0];
-$timestampEndHeader = $time;
-?>
 <?php 
     the_post();
     // Retrieves the stored value from the database
@@ -75,30 +62,12 @@ $timestampEndHeader = $time;
     </div>
     -->
     <div class="main">
-<?php
-$time = microtime();
-$time = explode(' ', $time);
-$time = $time[1] + $time[0];
-$timestampBeginContent = $time;
-?>
         <?php the_content(); ?>
-<?php
-$time = microtime();
-$time = explode(' ', $time);
-$time = $time[1] + $time[0];
-$timestampEndContent = $time;
-?>
         <p><?php echo the_favorites_button(); ?></p>
     </div>
     <div class="secondary">
         <h5>Exhibitor List</h5>
         <div class="accordion exhibitor-list">
-<?php
-$time = microtime();
-$time = explode(' ', $time);
-$time = $time[1] + $time[0];
-$timestampBeginWPQuery = $time;
-?>
             <?php
               $query = new WP_Query(
                   array(
@@ -150,12 +119,6 @@ $timestampBeginWPQuery = $time;
               }
               wp_reset_postdata();
             ?>
-<?php
-$time = microtime();
-$time = explode(' ', $time);
-$time = $time[1] + $time[0];
-$timestampEndWPQuery = $time;
-?>
         </div>
 
         <?php if (!empty($showSponsors)) { echo do_shortcode($showSponsors); } ?>
@@ -172,56 +135,4 @@ $timestampEndWPQuery = $time;
     </div>
   </div>
   -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<?php
-$time = microtime();
-$time = explode(' ', $time);
-$time = $time[1] + $time[0];
-$timestampBeginFooter = $time;
-?>
 <?php get_footer(); ?>
-
-<?php
-$time = microtime();
-$time = explode(' ', $time);
-$time = $time[1] + $time[0];
-$finish = $time;
-$total_time = round(($finish - $timestampStart), 4);
-$total_header_time = round(($timestampEndHeader - $timestampStart), 4);
-$total_begin_content_time = round(($timestampBeginContent - $timestampEndHeader), 4);
-$total_end_content_time = round(($timestampEndContent - $timestampBeginContent), 4);
-$total_begin_query_time = round(($timestampBeginWPQuery - $timestampEndContent), 4);
-$total_end_query_time = round(($timestampEndWPQuery - $timestampBeginWPQuery), 4);
-$total_begin_footer_time = round(($timestampBeginFooter - $timestampEndWPQuery), 4);
-$total_end_footer_time = round(($finish - $timestampBeginFooter), 4);
-// echo '<p>Begin Load: ' . $timestampStart . '</p>';
-// echo '<p>End Header: ' . $timestampEndHeader . '</p>';
-// echo '<p>End Load: ' . $finish . '</p>';
-
-echo '<div class="wrapper">';
-echo '<p>Seconds to load header: '.$total_header_time.'</p>';
-echo '<p>Seconds before loading the_content: '.$total_begin_content_time.'</p>';
-echo '<p>Seconds to load the_content: '.$total_end_content_time.'</p>';
-echo '<p>Seconds to begin WP_Query: '.$total_begin_query_time.'</p>';
-echo '<p>Seconds to complete WP_Query: '.$total_end_query_time.'</p>';
-echo '<p>Seconds before loading footer: '.$total_begin_footer_time.'</p>';
-echo '<p>Seconds to load footer: '.$total_end_footer_time.'</p>';
-echo '<hr />';
-echo '<p>Page generated in '.$total_time.' seconds.</p>';
-echo '</div>';
-?>

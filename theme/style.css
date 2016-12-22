@@ -179,6 +179,11 @@ textarea
   max-width: 100%;
 }
 
+input[disabled]
+{
+  cursor: not-allowed;
+}
+
 input[type="text"]:focus, 
 input[type="email"]:focus,
 input[type="password"]:focus,
@@ -190,6 +195,7 @@ textarea:focus
 
 input[type=submit], 
 input[type=button], 
+button,
 .btn, 
 .footer-navigation a,
 .simplefavorite-button
@@ -207,6 +213,7 @@ input[type=button],
 
 input[type=submit]:hover, 
 input[type=button]:hover, 
+button:hover,
 .btn:hover, 
 .footer-navigation a:hover,
 .simplefavorite-button:hover
@@ -215,6 +222,12 @@ input[type=button]:hover,
   background: #f287b7;
   color: #fff;
   text-decoration: none;
+}
+
+.nf-form-fields-required /* ninja forms */
+{
+  color: #888;
+  margin-bottom: 24px;
 }
 
 .clear
@@ -1266,7 +1279,7 @@ a.slide:hover .slide-content
 {
   position: relative;
   overflow: hidden;
-  background: #ec008c;
+  background: transparent;
   min-height: 166px;
 }
 

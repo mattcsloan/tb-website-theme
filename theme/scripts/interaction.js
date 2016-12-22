@@ -50,8 +50,9 @@ $(document).ready(function() {
     }).resize();
   }
 
-  // Request A Quote Form
+  // Hide Request A Quote Form
   $('.request-quote').hide();
+
 });
 
 $(document).on('hover', '.navigation li', function(e) {
@@ -70,6 +71,12 @@ $(document).on('click', '.menu-link', function() {
 });
 
 $(document).on('click', '.request-quote-btn', function() {
+  // Fill in Vendor Name textbox on Request A Quote form
+  // if($('.quote-request-vendor-name')) {
+  //   var vendorName = $('.vendor-name').html();
+  //   console.log(vendorName);
+  //   $('.quote-request-vendor-name').val(vendorName);
+  // }
   $('.request-quote').show();
   scrollToDiv($('a[name="request-quote-form"]'));
 });

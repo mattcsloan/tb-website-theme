@@ -111,11 +111,11 @@
             <?php 
                 if($vendor_display_name) { 
             ?>
-                    <h2><?php echo $vendor_display_name; ?></h2>
+                    <h2 class="vendor-name"><?php echo $vendor_display_name; ?></h2>
             <?php
                 } else {
             ?>
-                <strong><?php the_title('<h2>', '</h2>'); ?></strong>
+                <?php the_title('<h2 class="vendor-name">', '</h2>'); ?>
             <?php
                 }
             ?>

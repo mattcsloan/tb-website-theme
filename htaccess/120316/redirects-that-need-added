@@ -1,0 +1,74 @@
+Redirect 301 http://beta.todaysbride.com/AkronCantonClevelandOhioPhotographers.aspx http://northeastohiobrides.com/dev/ohio-vendors/photography/
+Redirect 301 http://beta.todaysbride.com/Ohio_Alterations_253.aspx http://northeastohiobrides.com/dev/ohio-vendors/alterations/
+Redirect 301 http://beta.todaysbride.com/Ohio_Bridal_Attire_Accessories_232.aspx http://northeastohiobrides.com/dev/ohio-vendors/bridal-attire-accessories/
+Redirect 301 http://beta.todaysbride.com/Ohio_Decor_Lighting_Rentals_238.aspx http://northeastohiobrides.com/dev/ohio-vendors/decor-lighting-rentals/
+Redirect 301 http://beta.todaysbride.com/Ohio_Travel_Honeymoon_248.aspx http://northeastohiobrides.com/dev/ohio-vendors/travel-and-honeymoon/
+Redirect 301 http://beta.todaysbride.com/pick-up-locations.aspx http://northeastohiobrides.com/dev/our-magazines/pick-up-locations/
+Redirect 301 http://blog.todaysbride.com/join-todays-bride/ http://northeastohiobrides.com/dev/join-todays-bride/
+Redirect 301 http://blog.todaysbride.com/local-loves-thanks/ http://northeastohiobrides.com/dev/local-loves-thanks/
+Redirect 301 http://blog.todaysbride.com/thank-you-for-registering/ http://northeastohiobrides.com/dev/thank-you-for-registering/
+Redirect 301 http://blog.todaysbride.com/thank-you-for-submitting-your-favorites/ http://northeastohiobrides.com/dev/thank-you-for-submitting-your-favorites/
+Redirect 301 http://blog.todaysbride.com/todays-bride-printables/ http://northeastohiobrides.com/dev/todays-bride-printables/
+Redirect 301 http://blog.todaysbride.com/wp-content/uploads/ http://northeastohiobrides.com/dev/wp-content/uploads
+Redirect 301 http://blog.todaysbride.com/you-are-all-set/ http://northeastohiobrides.com/dev/thank-you-for-your-application/
+Redirect 301 http://realweddings.todaysbride.com/submit-your-real-wedding/ http://northeastohiobrides.com/dev/submit-your-real-wedding/
+
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/2008$ [NC]
+RewriteRule ^(.*) http://northeastohiobrides.com/dev/blog/2008/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/2009$ [NC]
+RewriteRule ^(.*) http://northeastohiobrides.com/dev/blog/2009/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/2010$ [NC]
+RewriteRule ^(.*) http://northeastohiobrides.com/dev/blog/2010/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/2011$ [NC]
+RewriteRule ^(.*) http://northeastohiobrides.com/dev/blog/2011/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/2012$ [NC]
+RewriteRule ^(.*) http://northeastohiobrides.com/dev/blog/2012/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/2013$ [NC]
+RewriteRule ^(.*) http://northeastohiobrides.com/dev/blog/2013/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/2014$ [NC]
+RewriteRule ^(.*) http://northeastohiobrides.com/dev/blog/2014/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/2015$ [NC]
+RewriteRule ^(.*) http://northeastohiobrides.com/dev/blog/2015/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/2016$ [NC]
+RewriteRule ^(.*) http://northeastohiobrides.com/dev/blog/2016/$1 [L,R]
+
+RewriteCond %{HTTP_HOST} ^realweddings\.todaysbride\.com/2012$ [NC]
+RewriteRule ^(.*) http://northeastohiobrides.com/dev/real-weddings/2012/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^realweddings\.todaysbride\.com/2013$ [NC]
+RewriteRule ^(.*) http://northeastohiobrides.com/dev/real-weddings/2013/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^realweddings\.todaysbride\.com/2014$ [NC]
+RewriteRule ^(.*) http://northeastohiobrides.com/dev/real-weddings/2014/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^realweddings\.todaysbride\.com/2015$ [NC]
+RewriteRule ^(.*) http://northeastohiobrides.com/dev/real-weddings/2015/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^realweddings\.todaysbride\.com/2016$ [NC]
+RewriteRule ^(.*) http://northeastohiobrides.com/dev/real-weddings/2016/$1 [L,R]
+
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/wp-content$ [NC]
+RewriteRule ^(.*) http://northeastohiobrides.com/dev/wp-content/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^realweddings\.todaysbride\.com/wp-content$ [NC]
+RewriteRule ^(.*) http://northeastohiobrides.com/dev/wp-content/$1 [L,R]
+
+
+
+
+
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^blog.todaysbride.com/2008$ [NC]
+RewriteRule ^(.*) http://www.todaysbride.com/blog/2008/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/2009$ [NC]
+RewriteRule ^(.*) http://www.todaysbride.com/blog/2009/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/2010$ [NC]
+RewriteRule ^(.*) http://www.todaysbride.com/blog/2010/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^blog.todaysbride.com/2011$ [NC]
+RewriteRule ^(.*) http://www.todaysbride.com/blog/2011/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/2012$ [NC]
+RewriteRule ^(.*) http://www.todaysbride.com/blog/2012/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/2013$ [NC]
+RewriteRule ^(.*) http://www.todaysbride.com/blog/2013/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/2014$ [NC]
+RewriteRule ^(.*) http://www.todaysbride.com/blog/2014/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/2015$ [NC]
+RewriteRule ^(.*) http://www.todaysbride.com/blog/2015/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^blog\.todaysbride\.com/2016$ [NC]
+RewriteRule ^(.*) http://www.todaysbride.com/blog/2016/$1 [L,R]
