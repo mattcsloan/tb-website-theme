@@ -1,0 +1,73 @@
+.hero
+{
+  position: relative;
+}
+
+.hero .panel
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.hero .panel.active
+{
+  position: static;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.panel .slide
+{
+  width: 100%;
+}
+
+.hero img
+{
+  margin: 0 auto;
+}
+
+.slide-nav
+{
+  display: none;
+}
+
+.slide-nav li a
+{
+  display: block;
+}
+
+.slide-nav li.selected a
+{
+  background: #cc0000;
+  color: #fff;
+}
+
+.prev-slide-nav,
+.next-slide-nav
+{
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  background: rgba(255,255,255,0.7) url('../img/icons.png') no-repeat right -260px;
+  width: 32px;
+  height: 32px;
+  margin-top: -16px;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px rgba(0,0,0,0.2);
+}
+
+.next-slide-nav
+{
+  left: auto;
+  right: 16px;
+  background-position: right -292px
+}
+
+.prev-slide-nav:hover,
+.next-slide-nav:hover
+{
+  background-color: rgba(255,255,255,1);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
