@@ -15,7 +15,6 @@ $(document).ready(function() {
 
   $('.hero').each(function() {
     $('.panel', this).each(function(index) {
-
       // remove any 'active' classes from panels that may have been manually added accidentally
       if($(this).hasClass('active')) {
         $(this).removeClass('active');
@@ -86,23 +85,23 @@ function transition(elem, navJump, display) {
   // the first panel and shows the next
   $('.' + elem).css('min-height', $('.' + elem).height());
 
-  $('.' + elem + ' .active').hide(0, function() {
+  $('.' + elem + ' .active').animate({ opacity: 0 }, 200, function() {
     if(!display) {
       display = 'flex';  
     }
     if(navJump) {   //if the navJump parameter has been provided - i.e. the hero nav has been called to jump to specified slide
       $(this).removeClass('active');
       // $('.slide-nav li:nth-child(' + navJump + ')').addClass('selected');
-      $('.' + elem + ' .transition:nth-child(' + navJump + ')').show(0, function() {
+      $('.' + elem + ' .transition:nth-child(' + navJump + ')').animate({ opacity: 1 }, 200, function() {
         $(this).addClass('active');
         // remove the min-height now that the new content has loaded in
-        $('.' + elem).css('min-height', 'auto');
+        $('.' + elem).css('min-height', 0);
         $('.slide-nav li:nth-child(' + navJump + ')').addClass('selected');
-      }).css('display', display);
+      });
     } else {    // if no navJump parameter has been provided
       $(this).removeClass('active');
       if($(this).next().hasClass('transition')) {
-        $(this).next().show(0, function() {
+        $(this).next().animate({ opacity: 1 }, 200, function() {
           $(this).addClass('active');
           if(elem == 'hero') { //if this is the hero element, we need to update the slide-nav number
             $('.slide-nav li.selected').removeClass('selected');
@@ -114,18 +113,18 @@ function transition(elem, navJump, display) {
             });
           }
           // remove the min-height now that the new content has loaded in
-          $('.' + elem).css('min-height', 'auto');
-        }).css('display', display);
+          $('.' + elem).css('min-height', 0);
+        });
       } else {
-        $('.' + elem + ' .first').show(0, function() {
+        $('.' + elem + ' .first').animate({ opacity: 1 }, 200, function() {
           $(this).addClass('active');
           if(elem == 'hero') { //if this is the hero element, we need to update the slide-nav number
             $('.slide-nav li.selected').removeClass('selected');
             $('.slide-nav li:nth-child(1)').addClass('selected');
           }
           // remove the min-height now that the new content has loaded in
-          $('.' + elem).css('min-height', 'auto');
-        }).css('display', display);
+          $('.' + elem).css('min-height', 0);
+        });
       }
     }
 

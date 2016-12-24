@@ -8,7 +8,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  display: none;
+  opacity: 0;
+  width: 100%;
 }
 
 .hero .panel.active
@@ -16,6 +17,7 @@
   position: static;
   display: -webkit-flex;
   display: flex;
+  opacity: 1;
 }
 
 .panel .slide
@@ -26,6 +28,7 @@
 .hero img
 {
   margin: 0 auto;
+  width: 100%;
 }
 
 .slide-nav
@@ -70,4 +73,15 @@
 {
   background-color: rgba(255,255,255,1);
   box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+  cursor: pointer;
+}
+
+@media all and (max-width: 600px) {
+  .hero .panel.active
+  {
+    position: static;
+    display: block;
+  }
+
+
 }
