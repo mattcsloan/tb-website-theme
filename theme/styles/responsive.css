@@ -458,8 +458,9 @@
     font-size: 18px;
   }
 
-  .hero .panel
+  .hero .panel.active
   {
+    position: static;
     display: block;
   }
 

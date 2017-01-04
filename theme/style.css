@@ -845,6 +845,7 @@ button:hover,
   color: #fff;
   background: #111;
   overflow: hidden;
+  position: relative;
 }
 
 .hero .wrapper
@@ -861,6 +862,8 @@ button:hover,
   -moz-transition: all 0.2s ease-in;
   -o-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .hero#bridal-show
@@ -902,15 +905,26 @@ button:hover,
 
 .hero .panel
 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+}
+
+.hero .panel.active
+{
+  position: static;
   display: -webkit-flex;
   display: flex;
-
+  opacity: 1;
 }
 
 .panel .slide
 {
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
 .slide .slide-content
@@ -957,6 +971,51 @@ a.slide:hover > img
 a.slide:hover .slide-content
 {
   background: rgba(0,0,0,0.9);
+}
+
+.slide-nav
+{
+  display: none;
+}
+
+.slide-nav li a
+{
+  display: block;
+}
+
+.slide-nav li.selected a
+{
+  background: #cc0000;
+  color: #fff;
+}
+
+.prev-slide-nav,
+.next-slide-nav
+{
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  background: rgba(255,255,255,0.7) url('img/icons.png') no-repeat right -260px;
+  width: 32px;
+  height: 32px;
+  margin-top: -16px;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px rgba(0,0,0,0.2);
+}
+
+.next-slide-nav
+{
+  left: auto;
+  right: 16px;
+  background-position: right -292px
+}
+
+.prev-slide-nav:hover,
+.next-slide-nav:hover
+{
+  background-color: rgba(255,255,255,1);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+  cursor: pointer;
 }
 
 .gallery p:empty
